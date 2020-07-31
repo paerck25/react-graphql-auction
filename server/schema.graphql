@@ -1,0 +1,117 @@
+type Query {
+    getAllUsers: [User]
+    getUser(email: String!) : User
+    getProfile(user: ID) : Profile
+    getAllRequests: [Request]
+    getMyRequests(author: ID) : [Request]
+    getMyBids(author: ID!) : [Bid]
+    getBidsInRequest(request: ID) : [Bid]
+    getMyRoomList(request: ID) : [Room]
+    getMyRoomListForSeller(seller: ID) : [Room]
+}
+
+type Mutation {
+    login(email: String!, pwd: String!) : LoginData!
+    signUp(input: UserInput!) : Boolean!
+    saveProfile(input: ProfileInput) : Boolean!
+    sendRequest(input: RequestInput) : Boolean!
+    sendBid(input: BidInput) : String!
+    sendNewMessage(input: MessageInput) : Message
+    choiceOneBid(bid: ID, request: ID) : Boolean
+}
+
+type Subscription {
+    newMessage(room : ID) : Message
+}
+
+type LoginData {
+    _id: ID
+    name: String
+    email: String
+    is_seller: Boolean
+    result: String!
+}
+
+type User {
+    _id: ID!
+    name: String!
+    email: String!
+    pwd: String!
+    is_seller: Boolean!
+}
+
+input UserInput {
+    name: String!
+    email: String!
+    pwd: String!
+    is_seller: Boolean!
+}
+
+type Profile {
+    _id: ID
+    user: User
+    image: String
+    text: String
+}
+
+input ProfileInput {
+    user: ID
+    image: String
+    text: String
+}
+
+type Request {
+    _id: ID
+    author: User
+    detail: String
+    category: String
+    requestedAt: String
+    deadLine: Float
+    hopeDate: String
+    state: String
+    tags: [String]
+}
+
+input RequestInput {
+    author: ID
+    detail: String
+    category: String
+    deadLine: Float
+    hopeDate: String
+    tags: [String]
+}
+
+type Bid {
+    _id: ID
+    request: Request
+    author: User
+    price: String
+    state: Boolean
+}
+
+input BidInput {
+    request: ID
+    author: ID
+    name: String
+    price: String
+}
+
+type Room {
+    _id: ID
+    request: Request
+    seller: User
+    messages: [Message]
+}
+
+type Message {
+    room: Room
+    name: String
+    message: String
+    createdAt: String
+}
+
+input MessageInput {
+    room: ID
+    name: String
+    message: String
+}

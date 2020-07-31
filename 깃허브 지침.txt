@@ -1,0 +1,39 @@
+
+1. 대표 한명이 환경설정을 마친 프로젝트 파일을 Github에 올린다.
+# git init
+# git add .
+# git commit -m "first commit"
+# git remote add origin 깃허브주소
+# git push origin master
+
+
+2. 나머지 인원은 clone한다
+# git clone 깃허브주소
+
+
+3. 각자 브랜치를 생성하여 작업한다.
+# git branch 브랜치이름 (생성)
+# git checkout 브랜치이름 (브랜치 이동)
+
+
+4. 작업을 마치면 자신의 브랜치에 push한다(자신의 브랜치로 이동한 상태여야함).
+# git add .
+# git commit -m "작업완료commit"
+# git push origin 브랜치이름
+
+
+5. 각각이 작업 완료한 코드들을 master 브랜치에 통합한다.
+# git checkout master
+# git merge brchB
+# git push origin master
+
+
+
+if( 다른 동료가 master브랜치에 올린 코드를 받아오고 싶다 ){
+    # git checkout master
+    # git pull origin master
+    # git checkout 자신의브랜치이름
+    # git merge master
+}
+
+// merge는 브랜치와 브랜치를 통합하는것. 
