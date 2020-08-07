@@ -13,6 +13,7 @@ import LabelIcon from '@material-ui/icons/Label';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import Checkbox from '@material-ui/core/Checkbox';
+import RequestCard from '../../components/RequestCard';
 
 const useStyles = makeStyles((theme) => ({
     rootList: {
@@ -247,7 +248,7 @@ function EnrollList({ stepIndex, handleEnrollData }) {
                                         shrink: true,
                                     }}
                                     onChange={(e) => {
-                                        if(new Date(e.target.value) < new Date()){
+                                        if (new Date(e.target.value) < new Date()) {
                                             alert('이미 지난 날짜입니다. 다시 선택해 주세요')
                                         } else {
                                             onChangeHopeDate(1, e.target.value)
@@ -342,6 +343,18 @@ function EnrollList({ stepIndex, handleEnrollData }) {
                             )
                         })}
                     </List>
+                    {/* <RequestCard obj={
+                        {
+                            author : {
+                                name : null
+                            },
+                            category: category,
+                            deadLine: deadLine,
+                            detail: detail,
+                            tags: tagList,
+                            hopeDate: hopeDate,
+                        }
+                    } /> */}
                 </div>
 
             )

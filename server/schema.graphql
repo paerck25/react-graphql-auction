@@ -6,7 +6,7 @@ type Query {
     getMyRequests(author: ID) : [Request]
     getMyBids(author: ID!) : [Bid]
     getBidsInRequest(request: ID) : [Bid]
-    getMyRoomList(request: ID) : [Room]
+    getMyRoom(request: ID,seller: ID) : Room
     getMyRoomListForSeller(seller: ID) : [Room]
 }
 
@@ -18,6 +18,9 @@ type Mutation {
     sendBid(input: BidInput) : String!
     sendNewMessage(input: MessageInput) : Message
     choiceOneBid(bid: ID, request: ID) : Boolean
+    tradeComplete(bid: ID, request: ID) : Boolean
+    tradeCancle(request: ID) : Boolean
+    bidCancle(request: ID, author:ID):Boolean
 }
 
 type Subscription {
@@ -86,7 +89,7 @@ type Bid {
     request: Request
     author: User
     price: String
-    state: Boolean
+    state: String
 }
 
 input BidInput {

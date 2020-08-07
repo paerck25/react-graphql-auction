@@ -30,10 +30,10 @@ const Counter = ({data}) => {
         {
         (parseInt(end - start) <= 0)
             ?
-            <h4>경매 마감</h4>
+            <span>요청 마감</span>
             :
         <>
-            {hour > 9 ? <span>경매 마감 : {hour}:</span> : <span>경매 마감 : 0{hour}:</span>}
+            {hour > 9 ? <span>요청 마감까지 : {hour}:</span> : <span>요청 마감까지 : 0{hour}:</span>}
             {minutes > 9 ? <span>{minutes}:</span> : <span>0{minutes}:</span>}
             {seconds > 9 ? <span>{seconds}</span> : <span>0{seconds}</span>}
         </>

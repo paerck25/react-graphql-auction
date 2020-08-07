@@ -135,7 +135,7 @@ export default function EnrollStepper() {
                                 전문가들의 입찰을 기다려주세요!
                             </p>
                         </span>
-                        <Button variant="contained" color="primary" onClick={handleReset}>돌아가기</Button>
+                        <Button variant="outlined" onClick={handleReset}>돌아가기</Button>
                     </div>
                 ) : (
                         <div>
@@ -152,11 +152,11 @@ export default function EnrollStepper() {
                                 </Button>
                                 {activeStep === steps.length - 1
                                     ?
-                                    <Button variant="contained" color="primary" onClick={onClickCheck}>
+                                    <Button variant="outlined" onClick={onClickCheck}>
                                         Finish
                                 </Button>
                                     :
-                                    <Button variant="contained" color="primary" onClick={handleNext}>
+                                    <Button variant="outlined" onClick={handleNext}>
                                         Next
                                 </Button>}
                             </div>

@@ -40,6 +40,10 @@ function RequestList({category}) {
         )
     }
 
+    if(!loading){
+        console.log(data);
+    }
+
 
     if (error) {
         alert(error);
@@ -49,11 +53,12 @@ function RequestList({category}) {
         )
     }
 
-    if (data.getAllRequests.length === 0) {
-        return (
-            <h1 style={{textAlign:'center'}}>요청없음</h1>
-        )
-    } else {
+    // if (data.getAllRequests.length === 0) {
+    //     return (
+    //         <h1 style={{textAlign:'center'}}>요청없음</h1>
+    //     )
+    // } else {
+
         const requestList = data.getAllRequests
             .map((obj) => {
                 return (
@@ -73,7 +78,6 @@ function RequestList({category}) {
                 </Grid>
             </Container>
         )
-    }
 
 
 }

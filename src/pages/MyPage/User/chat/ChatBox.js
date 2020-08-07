@@ -32,15 +32,13 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function ChatBox(props) {
+function ChatBox({userInfo}) {
 
     const classes = useStyles();
 
     const [message, setMessage] = useState('');
 
     const [newMessages, setNewMessage] = useState([]);
-
-    const [userInfo] = useState(props.location.state)
 
     const { data,error } = useSubscription(START_CHAT,{
         variables : {
@@ -125,7 +123,7 @@ function ChatBox(props) {
     }
 
     return (
-        <div style={{ textAlign: 'center' }}>
+        <Container style={{ textAlign: 'center' }}>
             <Container ref={objDiv} className={classes.container}>
                 <List className={classes.root}>
                     {lastMessageList}
@@ -133,10 +131,10 @@ function ChatBox(props) {
                 </List>
             </Container>
             <form onKeyDown={onSubmitForm}>
-                <Input style={{ width: '92%' }} rowsMax={4} multiline value={message} onChange={onChangeMessage} />
-                <Button style={{ backgroundColor: 'yellow' }} onClick={onClickForm}>보내기</Button>
+                <Input style={{ width: '90%' }} rowsMax={4} multiline value={message} onChange={onChangeMessage} />
+                <Button style={{ backgroundColor: 'yellow',width: '10%' }} onClick={onClickForm}>보내기</Button>
             </form>
-        </div>
+        </Container>
     );
 }
 

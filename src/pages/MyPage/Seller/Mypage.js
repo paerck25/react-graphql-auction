@@ -7,9 +7,21 @@ import { Grid, Container, Divider } from '@material-ui/core';
 import ChatBox from './chat/ChatBox';
 import Image from 'material-ui-image';
 import Button from '@material-ui/core/Button';
+import ProfileModal from '../../../components/Profile/ProfileModal';
 
 const MyPage = () => {
     const userName = localStorage.getItem('userName');
+    const user_id = localStorage.getItem('user_id')
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
 
     const imageStyle = { borderRadius: '10px' }
     return (
@@ -20,7 +32,7 @@ const MyPage = () => {
                 <Button style={{ width: '100%', margin: '1px' }} variant="outlined" component={Link} to='/mypage'>
                     마이 페이지
                     </Button>
-                <Button style={{ width: '100%', margin: '1px' }} variant="outlined" component={Link} to='/mypage/profile'>
+                <Button style={{ width: '100%', margin: '1px' }} variant="outlined" onClick={handleClickOpen}>
                     프로필
                     </Button>
                 <Button style={{ width: '100%', margin: '1px' }} variant="outlined" component={Link} to='/mypage/chat'>
@@ -35,6 +47,7 @@ const MyPage = () => {
                 <Route path='/mypage/chat' component={Chat} exact />
                 <Route path='/mypage/chat/:id' component={ChatBox} exact />
             </Grid>
+            <ProfileModal open={open} onClose={handleClose} user_id={user_id} />
         </Grid>
     )
 }

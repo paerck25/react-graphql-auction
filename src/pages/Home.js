@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 const useStyles = makeStyles((theme) => ({
     heroContent: {
         padding: theme.spacing(8, 0, 6),
-        
+
     },
     heroButtons: {
         marginTop: theme.spacing(4),
@@ -38,12 +38,12 @@ export default function Album() {
                         <div className={classes.heroButtons}>
                             <Grid container spacing={2} justify="center">
                                 <Grid item>
-                                    <Button variant="contained" color="primary" onClick={()=>{history.push('/list')}}>
+                                    <Button variant="contained" color="primary" onClick={() => { history.push('/list') }}>
                                         LIST
                                     </Button>
                                 </Grid>
                                 <Grid item>
-                                    <Button variant="contained" color="primary" onClick={()=>{history.push('/enroll')}}>
+                                    <Button variant="contained" color="primary" onClick={() => { history.push('/enroll') }}>
                                         ENROLL
                                     </Button>
                                 </Grid>

@@ -28,13 +28,17 @@ const useStyles = makeStyles((theme) => ({
     cardContent: {
         flexGrow: 1,
     },
+    gridStyle: {
+        display: 'inline-block',
+        margin: 'auto',
+    },
     tagStyle: {
         display: 'inline-block',
-        backgroundColor: '#F0F0F0',
+        backgroundColor: 'lightgray',
         borderRadius: '3px',
-        padding: '2px 5px',
-        margin: '5px',
-        fontWeight: 'bold',
+        padding: '3px 5px',
+        marginTop: '5px',
+        marginRight: '3px',
     }
 }));
 
@@ -42,28 +46,26 @@ function Request({ data }) {
 
     const classes = useStyles();
 
-
     const showTagList = data.tags.map((obj) => {
-        // return <span key={obj}><Chip size="small" label={obj} />&nbsp;</span>
         return <small className={classes.tagStyle} key={obj}>{obj}</small>
     })
+
 
     return (
         <Card component={Link} to={{ pathname: `list/${data._id}`, state: { data: data } }} size="large" color="primary" variant="outlined" className={classes.card}>
             <CardContent className={classes.cardContent}>
                 <Grid container>
-                    <Grid item xs={6}>
-                        <Typography gutterBottom className={classes.cardHead}>
-                            {data.category}
+                    <Grid className={classes.gridStyle} item xs={6}>
+                        <small>{data.requestedAt}</small>
+                        <Typography className={classes.cardHead}>
+                            {data.author.name} 님의 {data.category} 요청
                         </Typography>
-                        <Typography>
-                            {showTagList}
-                        </Typography>
+                        {showTagList}
                     </Grid>
-                    <Grid item xs={6}>
-                        <Typography>
+                    <Grid className={classes.gridStyle} item xs={6}>
+                        <h2 style={{textAlign:'center'}}>
                             <Counter data={data}></Counter>
-                        </Typography>
+                        </h2>
                     </Grid>
                 </Grid>
             </CardContent>

@@ -11,7 +11,7 @@ function RequestMain() {
 
     return (
         <Grid style={{ marginTop: '2px' }} container spacing={1}>
-            <Grid style={{ textAlign: 'center', marginRight: '10px' }} item xs={2}>
+            <Grid item xs={2}>
                 <CategoryMenu setCategory={setCategory}/>
             </Grid>
             <Divider orientation="vertical" flexItem />

@@ -25,9 +25,9 @@ const CategoryMenu = ({setCategory}) => {
         setCategory(value)
     }
 
-    const categoryList = categories.map((obj)=>{
+    const categoryList = categories.map((obj,index)=>{
         return(
-            <ListItem button onClick={() => { onClickCategory(obj.category) }}>
+            <ListItem key={index} button onClick={() => { onClickCategory(obj.category) }}>
                 <ListItemText primary={obj.category} />
             </ListItem>
         )

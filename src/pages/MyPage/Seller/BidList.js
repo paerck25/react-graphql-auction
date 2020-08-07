@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { CircularProgress, Container, Grid, CardHeader, Divider } from '@material-ui/core';
+import { CircularProgress, Container, Grid, CardHeader, Divider, Card, CardContent } from '@material-ui/core';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,8 +11,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { GET_MY_BIDS } from '../../../lib/queries';
 import { useQuery } from '@apollo/client';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import RequestCard from '../../../components/RequestCard';
+import Counter from '../../../components/Counter';
+
 
 
 const BidList = () => {
@@ -54,34 +55,47 @@ const BidList = () => {
                     </TableCell>
                     <TableCell align="center">{obj.request.author.name}</TableCell>
                     <TableCell align="center">{obj.request.requestedAt}</TableCell>
-                    <TableCell align="center"><Link to='#'>상세보기</Link></TableCell>
+                    <TableCell align="center">{obj.request.state}</TableCell>
                 </TableRow>
             )
         })
 
         const ChosenList = data.getMyBids.filter((obj) => {
-            return obj.state === true;
+            return obj.state === '거래 진행중';
+        })
+
+        const WaittingList = data.getMyBids.filter((obj) => {
+            return obj.state === '거래 대기중';
         })
 
         const MyChosenList = ChosenList.map((obj) => {
             return (
                 <Grid style={{ margin: 'auto' }} item xs={4}>
-                    <Card size="large" color="primary" variant="outlined">
-                        <h3 style={{ textAlign: 'center' }}>{obj.request.author.name}님의 요청서</h3>
-                        <CardContent>
-                            {obj.request.category}
+                    <RequestCard obj={obj.request} />
+                </Grid>
+            )
+        })
+
+        const MyWaittingList = WaittingList.map((obj) => {
+            return (
+                <Grid style={{ margin: 'auto' }} item xs={4}>
+                    <Card variant="outlined">
+                        <CardContent style={{ margin: 'auto' }}>
+                            {obj.request.author.name} 님의 {obj.request.category} 요청
+                            <Counter data={obj.request} />
                         </CardContent>
                     </Card>
                 </Grid>
             )
         })
+
         return (
             <div>
-                <h2>현재 진행중인 거래</h2>
+                <h2>진행중인 거래</h2>
                 <Container>
                     {ChosenList.length === 0
                         ?
-                        <h1 style={{textAlign:'center'}}>현재 진행중인 거래가 없습니다!</h1>
+                        <h1 style={{ textAlign: 'center' }}>현재 진행중인 거래가 없습니다!</h1>
                         :
                         <Grid container spacing={4}>
                             {MyChosenList}
@@ -89,7 +103,19 @@ const BidList = () => {
                     }
                 </Container>
                 <Divider style={{ marginTop: '30px' }} />
-                <h2>입찰내역</h2>
+                <h2>대기중인 거래</h2>
+                <Container>
+                    {WaittingList.length === 0
+                        ?
+                        <h1 style={{ textAlign: 'center' }}>현재 대기중인 견적이 없습니다!</h1>
+                        :
+                        <Grid container spacing={4}>
+                            {MyWaittingList}
+                        </Grid>
+                    }
+                </Container>
+                <Divider style={{ marginTop: '30px' }} />
+                <h2>거래내역</h2>
                 <TableContainer variant="outlined" component={Paper}>
                     <Table>
                         <TableHead>
@@ -97,7 +123,7 @@ const BidList = () => {
                                 <TableCell>카테고리</TableCell>
                                 <TableCell align="center">이름</TableCell>
                                 <TableCell align="center">요청일</TableCell>
-                                <TableCell align="center"></TableCell>
+                                <TableCell align="center">상태</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>

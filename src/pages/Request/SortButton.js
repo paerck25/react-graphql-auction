@@ -45,9 +45,6 @@ const SortButton = () => {
                 <ListItem button onClick={()=>{onClickSort('마감임박순')}}>
                     <ListItemText primary="마감임박순" />
                 </ListItem>
-                <ListItem button onClick={()=>{onClickSort('입찰인원순')}}>
-                    <ListItemText primary="입찰인원순" />
-                </ListItem>
                 <ListItem button onClick={()=>{onClickSort('요청일순')}}>
                     <ListItemText primary="요청일순" />
                 </ListItem>
