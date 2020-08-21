@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { Divider, Container } from '@material-ui/core';
+import { Divider, Container, Toolbar } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,9 +13,9 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
         display: 'inline-block',
-        fontFamiliy: 'Georgia',
         fontSize: '30px',
         paddingLeft: '10px',
+        color : 'rgb(104,104,106)',
     },
     navStyle: {
         paddingTop : '5px',
@@ -23,8 +23,9 @@ const useStyles = makeStyles((theme) => ({
         float: 'right',
     },
     menuStyle: {
-        color: 'black',
         textDecoration: 'none',
+        color : 'rgb(104,104,106)',
+        margin : '10px',
     },
 }));
 
@@ -49,43 +50,45 @@ function Navigation() {
         if (is_login) {
             if (is_seller) {
                 return (
-                    <>
-                        <Link className={classes.menuStyle} to='/seller'><Button color="inherit">HOME</Button></Link>
-                        <Link className={classes.menuStyle} to='/user/enroll'><Button color="inherit">ENROLL</Button></Link>
-                        <Link className={classes.menuStyle} to='/seller/request'><Button color="inherit">LIST</Button></Link>
-                        <Link className={classes.menuStyle} to='/seller/mypage'><Button color="inherit">MYPAGE</Button></Link>
-                        <Link className={classes.menuStyle} to='#'><Button onClick={logout} color="inherit">LOGOUT</Button></Link>
-                    </>
+                    <Typography>
+                        <Link className={classes.menuStyle} to='/seller'>HOME</Link>
+                        <Link className={classes.menuStyle} to='/user/enroll'>ENROLL</Link>
+                        <Link className={classes.menuStyle} to='/seller/request'>LIST</Link>
+                        <Link className={classes.menuStyle} to='/seller/mypage'>MYPAGE</Link>
+                        <Link className={classes.menuStyle} to='#' onClick={logout}>LOGOUT</Link>
+                    </Typography>
                 )
             } else {
                 return (
-                    <>
-                        <Link className={classes.menuStyle} to='/user'><Button color="inherit">HOME</Button></Link>
-                        <Link className={classes.menuStyle} to='/user/enroll'><Button color="inherit">ENROLL</Button></Link>
-                        <Link className={classes.menuStyle} to='/user/mypage'><Button color="inherit">MYPAGE</Button></Link>
-                        <Link className={classes.menuStyle} to='#'><Button onClick={logout} color="inherit">LOGOUT</Button></Link>
-                    </>
+                    <Typography>
+                        <Link className={classes.menuStyle} to='/user'>HOME</Link>
+                        <Link className={classes.menuStyle} to='/user/enroll'>ENROLL</Link>
+                        <Link className={classes.menuStyle} to='/user/mypage'>MYPAGE</Link>
+                        <Link className={classes.menuStyle} to='#' onClick={logout}>LOGOUT</Link>
+                    </Typography> 
                 )
             }
         } else {
             return (
-                <>
-                    <Link className={classes.menuStyle} to='/'><Button color="inherit">HOME</Button></Link>
-                    <Link className={classes.menuStyle} to='/login'><Button color="inherit">LOGIN</Button></Link>
-                    <Link className={classes.menuStyle} to='/join'><Button color="inherit">JOIN</Button></Link>
-                </>
+                <Typography>
+                    <Link className={classes.menuStyle} to='/'>HOME</Link>
+                    <Link className={classes.menuStyle} to='/login'>LOGIN</Link>
+                    <Link className={classes.menuStyle} to='/join'>JOIN</Link>
+                </Typography>
             )
         }
     }
 
     return (
         <Container className={classes.root}>
-            <Typography className={classes.title}>
-                HELL
-            </Typography>
-            <div className={classes.navStyle}>
-                {loginMenu()}
-            </div>
+            <Toolbar>
+                <Typography className={classes.title}>
+                    HELL
+                </Typography>
+                <div className={classes.navStyle}>
+                    {loginMenu()}
+                </div>
+            </Toolbar>
         </Container>
     )
 }

@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from 'react-router-dom';
+import { Divider } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -12,46 +13,85 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(8, 0, 6),
 
     },
-    heroButtons: {
-        marginTop: theme.spacing(4),
+    containerStyle: {
+        backgroundColor: 'white',
+        padding: theme.spacing(3, 3, 3),
     },
+    buttonStyle: {
+        float: 'right',
+        marginTop: '8px',
+        marginRight: '50px',
+    }
 }));
 
 
-export default function Album() {
+const Home = () => {
     const classes = useStyles();
     const history = useHistory();
 
     return (
-        <div>
-            <main>
-                <div className={classes.heroContent}>
-                    <Container maxWidth="sm">
-                        <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                            Album layout
-                        </Typography>
-                        <Typography variant="h5" align="center" color="textSecondary" paragraph>
-                            Something short and leading about the collection below—its contents, the creator, etc.
-                            Make it short and sweet, but not too short so folks don&apos;t simply skip over it
-                            entirely.
-                        </Typography>
-                        <div className={classes.heroButtons}>
-                            <Grid container spacing={2} justify="center">
-                                <Grid item>
-                                    <Button variant="contained" color="primary" onClick={() => { history.push('/list') }}>
-                                        LIST
-                                    </Button>
-                                </Grid>
-                                <Grid item>
-                                    <Button variant="contained" color="primary" onClick={() => { history.push('/enroll') }}>
-                                        ENROLL
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                        </div>
-                    </Container>
-                </div>
-            </main>
-        </div>
+        <Container>
+            <Grid container className={classes.heroContent}>
+                <Grid item xs={8}>
+                    <Typography variant="h4" color="textSecondary" gutterBottom>
+                        Try it!
+                    </Typography>
+                    <Typography variant="h3" color="textSecondary" paragraph>
+                        when you want to have own website,<br />
+                        here is best solution.
+                    </Typography>
+                </Grid>
+            </Grid>
+            <Container className={classes.containerStyle}>
+                <Typography variant="h4" color="textSecondary" gutterBottom>
+                    Hello World!
+                </Typography>
+                <Divider />
+                <Typography variant="h5" color="textSecondary" paragraph>
+                    when you want to have own website,<br />
+                        here is best solution.
+                        asdfkajsdklfajsdlkfjas;dlkfajsd;lkfjasdflkajsd;fkajsd;lakjsd;f
+                        lkajsdkjfahsdhjfgasdkjhfgadskjhfgakdjhsfgakshjdfg
+                        askdfhalskjdfhalksjdfhalfkjsh
+                        askfdjhslakdfjhalsdkjfhalskdjfh
+                        asdfasdfasdfasdfasdfasdfadfsdfkajsdklfajsdlkfjas;dlkfajsd;lkfja
+                        sdflkajsd;fkajsd;lakjsd;flkajsdkjfahsdhjfgasdkjhfgadskjhfgakdjhsfgakshjdfg
+                        askdfhalskjdfhalksjdfhalfkjsh
+                        askfdjhslakdfjhalsdkjfhalskdjfh
+                        asdfasdfasdfasdfasdfasdfadfsdfkajsdklfajsdlkfjas;dlkfajsd;lkfja
+                        sdflkajsd;fkajsd;lakjsd;flkajsdkjfahsdhjfgasdkjhfgadskjhfgakdjhsfgakshjdfg
+                        askdfhalskjdfhalksjdfhalfkjsh
+                        askfdjhslakdfjhalsdkjfhalskdjfh
+                        asdfasdfasdfasdfasdfasdfadfsdfkajsdklfajsdlkfjas;dlkfajsd;lkfjas
+                        dflkajsd;fkajsd;lakjsd;flkajsdkjfahsdhjfgasdkjhfgadskjhfgakdjhsfgakshjdfg
+                        askdfhalskjdfhalksjdfhalfkjsh
+                        askfdjhslakdfjhalsdkjfhalskdjfh
+                        asdfasdfasdfasdfasdfasdfadfsdfkajsdklfajsdlkfjas;dlkfajsd;lkfjas
+                        dflkajsd;fkajsd;lakjsd;flkajsdkjfahsdhjfgasdkjhfgadskjhfgakdjhsfgakshjdfg
+                        askdfhalskjdfhalksjdfhalfkjsh
+                        askfdjhslakdfjhalsdkjfhalskdjfh
+                        asdfasdfasdfasdfasdfasdfadfsdfkajsdklfajsdlkfjas;dlkfajsd;lkfjasdf
+                        lkajsd;fkajsd;lakjsd;flkajsdkjfahsdhjfgasdkjhfgadskjhfgakdjhsfgakshjdfg
+                        askdfhalskjdfhalksjdfhalfkjsh
+                        askfdjhslakdfjhalsdkjfhalskdjfh
+                        asdfasdfasdfasdfasdfasdfadfsdfkajsdklfajsdlkfjas;dlkfajsd;lkfjasdf
+                        lkajsd;fkajsd;lakjsd;flkajsdkjfahsdhjfgasdkjhfgadskjhfgakdjhsfgakshjdfg
+                        askdfhalskjdfhalksjdfhalfkjsh
+                        askfdjhslakdfjhalsdkjfhalskdjfh
+                        asdfasdfasdfasdfasdfasdfadfsdfkajsdklfajsdlkfjas;dlkfajsd;lkfjas
+                        dflkajsd;fkajsd;lakjsd;flkajsdkjfahsdhjfgasdkjhfgadskjhfgakdjhsfgakshjdfg
+                        askdfhalskjdfhalksjdfhalfkjsh
+                        askfdjhslakdfjhalsdkjfhalskdjfh
+                        asdfasdfasdfasdfasdfasdfadfsdfkajsdklfajsdlkfjas;dlkfajsd;lkfjasd
+                        flkajsd;fkajsd;lakjsd;flkajsdkjfahsdhjfgasdkjhfgadskjhfgakdjhsfgakshjdfg
+                        askdfhalskjdfhalksjdfhalfkjsh
+                        askfdjhslakdfjhalsdkjfhalskdjfh
+                        asdfasdfasdfasdfasdfasdfadf
+                </Typography>
+            </Container>
+            <h1>shit</h1>
+        </Container>
     );
 }
+
+export default Home;

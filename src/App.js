@@ -50,7 +50,6 @@ function App() {
     <div style={{ backgroundColor: '#f9f9f9' }}>
     <Navigation></Navigation>
     </div>
-    <Container>
         <Switch>
           <Route path='/' component={Home} exact />
           <Route path='/seller' component={Seller} />
@@ -58,7 +57,6 @@ function App() {
           <Route path='/login' component={Login} />
           <Route path='/join' component={Join} />
         </Switch>
-      </Container>
       <div style={{ backgroundColor: '#f9f9f9' }}>
         <Footer></Footer>
       </div>

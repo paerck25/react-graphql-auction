@@ -5,6 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Profile from './Profile';
 import Backdrop from '@material-ui/core/Backdrop';
 import { makeStyles } from '@material-ui/core/styles';
+import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -57,5 +58,49 @@ const ProfileModal = ({ onClose, open, user_id }) => {
 
 
 }
+
+// const ProfileModal = ({ onClose, open, user_id }) => {
+
+//     const classes = useStyles();
+//     const [data, setData] = useState();
+//     const [loading, setLoading] = useState(true);
+
+//     const getMyProfile = () => {
+//         Axios.get('/my-profile',{
+//             user : user_id,
+//         })
+//         .then(res=>{
+//             setData(res.data);
+//             setLoading(false);
+//         })
+//         .catch(err=>{
+//             console.log(err);
+//         })
+//     }
+
+
+//     useEffect(() => {
+//         if (open) {
+//             getMyProfile();
+//         }
+//     }, [open])
+
+//     if (loading) {
+//         return (
+//             <Backdrop className={classes.backdrop} open={loading}>
+//                 <CircularProgress color="inherit" />
+//             </Backdrop>
+//         )
+//     }
+
+//     if (!loading) {
+//         return (
+//             <Profile profile={data} onClose={onClose} open={open} user_id={user_id} />
+//         )
+//     }
+
+
+// }
+
 
 export default ProfileModal

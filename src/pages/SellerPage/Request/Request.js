@@ -10,17 +10,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip'
 import CardMedia from '@material-ui/core/CardMedia';
 import { Grid,Paper } from '@material-ui/core';
+import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles((theme) => ({
     card: {
         height: '100%',
         display: 'flex',
         textDecoration: 'none',
-    },
-    cardHead: {
-        fontFamily: 'Montserrat, sans-serif',
-        fontWeight: 'bold',
-        fontSize: '20px',
     },
     cardMedia: {
         paddingTop: '56.25%', // 16:9
@@ -42,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Request({ data }) {
+function Request({ data,checked }) {
 
     const classes = useStyles();
 
@@ -50,28 +46,29 @@ function Request({ data }) {
         return <small className={classes.tagStyle} key={index}>{obj}</small>
     })
 
-
     return (
-        <Paper elevation={3}>
-            <Card component={Link} to={{ pathname: `/seller/request/${data._id}`, state: { data: data } }} className={classes.card}>
-                <CardContent className={classes.cardContent}>
-                    <Grid container>
-                        <Grid className={classes.gridStyle} item xs={6}>
-                            <small>{data.requestedAt}</small>
-                            <Typography className={classes.cardHead}>
-                                {data.author.name} 님의 {data.category} 요청
-                            </Typography>
-                            {showTagList}
+        <Slide direction="left" in={!checked} mountOnEnter unmountOnExit>
+            <Paper elevation={3}>
+                <Card component={Link} to={{ pathname: `/seller/request/${data._id}`, state: { data: data } }} className={classes.card}>
+                    <CardContent className={classes.cardContent}>
+                        <Grid container>
+                            <Grid className={classes.gridStyle} item xs={6}>
+                                <small>{data.requestedAt}</small>
+                                <Typography variant="h5">
+                                    {data.author.name} 님의 {data.category} 요청
+                                </Typography>
+                                {showTagList}
+                            </Grid>
+                            <Grid className={classes.gridStyle} item xs={6}>
+                                <Typography variant="h5" gutterBottom style={{textAlign:'center'}}>
+                                    <Counter data={data}></Counter>
+                                </Typography>
+                            </Grid>
                         </Grid>
-                        <Grid className={classes.gridStyle} item xs={6}>
-                            <h2 style={{textAlign:'center'}}>
-                                <Counter data={data}></Counter>
-                            </h2>
-                        </Grid>
-                    </Grid>
-                </CardContent>
-            </Card>
-        </Paper>
+                    </CardContent>
+                </Card>
+            </Paper>
+        </Slide>
     )
 }
 

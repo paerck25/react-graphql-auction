@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Enroll from './Enroll';
 import UserHome from './UserHome';
 import MyPage from './MyPage';
+import { Container } from '@material-ui/core';
 
 const Main = () => {
     return (

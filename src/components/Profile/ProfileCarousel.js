@@ -1,17 +1,17 @@
 import React from 'react'
-import { AutoRotatingCarousel } from 'material-auto-rotating-carousel';
 import Dialog from '@material-ui/core/Dialog';
+import { DialogContent } from '@material-ui/core';
 
 
-const ProfileCarousel = ( {open,setOpen,src} ) => {
+const ProfileCarousel = ({ open, setOpen, src }) => {
     return (
-        <Dialog 
-        style={{width:'auto',height:'auto'}}
-        open={open}
-        onClose={() => setOpen(false)}
-        onStart={() => setOpen(false)}
+        <Dialog
+            maxWidth="xl"
+            open={open}
+            onClose={() => setOpen(false)}
+            onStart={() => setOpen(false)}
         >
-            <img src={src}/>
+            <img style={{ display: 'block', margin: 'auto' }} src={src} alt="portfolio" />
         </Dialog>
     )
 }

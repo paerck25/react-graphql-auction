@@ -82,4 +82,64 @@ const NowTrading = ({ data, requestData }) => {
     )
 }
 
+// const NowTrading = ({ data, requestData }) => {
+
+//     const classes = useStyles();
+
+//     const history = useHistory();
+
+//     const bidOne = data.filter((obj) => {
+//         return obj.state === '거래 진행중';
+//     })
+
+//     const tradeCancle = () => {
+//         Axios.post('/cancle',{
+//             request: requestData._id,
+//         })
+//         .then(res=>{
+//             alert(res.data);
+//             history.replace('/user/mypage');
+//         })
+//         .catch(err=>{
+//             console.log(err);
+//         })
+//     }
+
+//     const tradeComplete = () => {
+//         Axios.post('/complete',{
+//             bid: bidOne[0]._id,
+//             request: requestData._id,
+//         })
+//         .then(res=>{
+//             alert(res.data);
+//             history.replace('/user/mypage');
+//         })
+//         .catch(err=>{
+//             console.log(err);
+//         })
+//     }
+
+//     return (
+//         <Container>
+//             <Grid className={classes.gridStyle} container spacing={9}>
+//                 <Grid item xs={6}>
+//                     <RequestCard obj={requestData} />
+//                 </Grid>
+//                 <Grid item xs={6}>
+//                     <h2>판매자</h2>
+//                     <BidCard data={bidOne[0]} requestData={requestData}/>
+//                     <UserCommuButton request_id={requestData._id} seller_id={bidOne[0].author._id} phone={bidOne[0].author.profile.phone} />
+//                     <Button onClick={tradeComplete} style={{ width: '100%' }} variant="outlined">
+//                         거래 완료
+//                     </Button>
+//                     <Button onClick={tradeCancle} style={{ width: '100%' }} variant="outlined">
+//                         거래 취소
+//                     </Button>
+//                 </Grid>
+//             </Grid>
+
+//         </Container>
+//     )
+// }
+
 export default NowTrading

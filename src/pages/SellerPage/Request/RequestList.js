@@ -8,10 +8,10 @@ import { GET_ALL_REQUESTS } from '../../../lib/queries';
 import { useQuery, useLazyQuery } from '@apollo/client';
 import SortButton from './SortButton';
 import { useHistory } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     cardGrid: {
-        paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
         margin: 'auto',
     },
@@ -22,13 +22,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function RequestList({category}) {
+const RequestList = ({ category }) => {
     const classes = useStyles();
     const history = useHistory();
 
     const { loading, data, error } = useQuery(GET_ALL_REQUESTS, {
         fetchPolicy: 'cache-and-network',
     });
+
 
     const [listSort, { loading: ld, data: dt, error: er }] = useLazyQuery()
 
@@ -40,7 +41,7 @@ function RequestList({category}) {
         )
     }
 
-    if(!loading){
+    if (!loading) {
         console.log(data);
     }
 
@@ -53,34 +54,86 @@ function RequestList({category}) {
         )
     }
 
-    // if (data.getAllRequests.length === 0) {
-    //     return (
-    //         <h1 style={{textAlign:'center'}}>요청없음</h1>
-    //     )
-    // } else {
 
-        const requestList = data.getAllRequests
-            .map((obj) => {
-                return (
-                    <Grid key={obj._id} item xs={12}>
-                        <Request data={obj}></Request>
-                    </Grid>
-                )
-            })
-
-
-        return (
-            <Container className={classes.cardGrid} maxWidth="md">
-                <h2 style={{display:'inline-block', margin:'0px'}}>{category}</h2>
-                <SortButton category={category} />
-                <Grid container spacing={3}>
-                    {requestList}
+    const requestList = data.getAllRequests
+        .map((obj) => {
+            return (
+                <Grid key={obj._id} item xs={12}>
+                    <Request data={obj} checked={loading}></Request>
                 </Grid>
-            </Container>
-        )
+            )
+        })
+
+
+    return (
+        <Container className={classes.cardGrid} maxWidth="md">
+            <Typography variant="h5" style={{ display: 'inline-block', margin: '0px' }}>{category}</Typography>
+            <SortButton category={category} />
+            <Grid container spacing={3}>
+                {requestList}
+            </Grid>
+        </Container>
+    )
 
 
 }
+
+// const RequestList = ({ category }) => {
+
+//     const classes = useStyles();
+//     const [data, setData] = useState([])
+//     const [loading, setLoading] = useState(true);
+
+//     const getAllRequests = () =>{
+//         axios.get('/all-request')
+//         .then(res=>{
+//             setData(res.data);
+//             setLoading(false);
+//         })
+//         .catch(err=>{
+//             console.log(err);
+//         })
+//     }
+
+//     useEffect(() => {
+//         getAllRequests();
+//     }, [])
+
+
+
+//     if (loading) {
+//         return (
+//             <CircularProgress className={classes.loadingStyle} />
+//         )
+//     }
+
+//     if (!loading) {
+//         console.log(data);
+//     }
+
+
+//     const requestList = data
+//         .map((obj) => {
+//             return (
+//                 <Grid key={obj._id} item xs={12}>
+//                     <Request data={obj}></Request>
+//                 </Grid>
+//             )
+//         })
+
+
+//     return (
+//         <Container className={classes.cardGrid} maxWidth="md">
+//             <h2 style={{ display: 'inline-block', margin: '0px' }}>{category}</h2>
+//             <SortButton category={category} />
+//             <Grid container spacing={3}>
+//                 {requestList}
+//             </Grid>
+//         </Container>
+//     )
+
+
+// }
 
 
 export default RequestList;

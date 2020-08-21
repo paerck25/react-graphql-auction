@@ -28,7 +28,7 @@ const CategoryMenu = ({setCategory}) => {
     const categoryList = categories.map((obj,index)=>{
         return(
             <ListItem key={index} button onClick={() => { onClickCategory(obj.category) }}>
-                <ListItemText inset primary={obj.category} />
+                <ListItemText primary={obj.category} />
             </ListItem>
         )
     })

@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import { blue } from '@material-ui/core/colors';
-import { Grid, DialogContent, DialogActions, GridList, GridListTile, TextField } from '@material-ui/core';
+import { Grid, DialogContent, DialogActions, GridList, GridListTile, TextField, Typography } from '@material-ui/core';
 import ProfileCarousel from './ProfileCarousel';
 import Rating from '@material-ui/lab/Rating';
 import ProfileEdit from './ProfileEdit';
@@ -99,9 +99,9 @@ const Profile = ({ profile, onClose, open, user_id }) => {
                         }
                     </Grid>
                     <Grid item xs={11}>
-                        <div style={{ display: "inline-block", marginTop: "5px", marginLeft: "5px" }}>
+                        <Typography variant="h6" color="textPrimary" style={{ display: "inline-block", marginTop: "5px", marginLeft: "5px" }}>
                             {profile.user.name}님의 프로필
-                        </div>
+                        </Typography>
                     </Grid>
                 </Grid>
             </DialogTitle>
@@ -109,6 +109,10 @@ const Profile = ({ profile, onClose, open, user_id }) => {
                 <div className={classes.root}>
                     {profile.exampleImages.length !== 0
                         ?
+                        profile.exampleImages.length === 1
+                        ?
+                        <img src={profile.exampleImages[0]} alt="123123" onClick={() => { onClickImageOpen(profile.exampleImages[0]) }}/>
+                        :
                         <GridList className={classes.gridList} cols={2.5}>
                             {profile.exampleImages.map((obj, index) => {
                                 return (
@@ -119,11 +123,11 @@ const Profile = ({ profile, onClose, open, user_id }) => {
                             })}
                         </GridList>
                         :
-                        <h2 style={{ textAlign: 'center', marginTop: '60px' }}>No Image</h2>
+                        <textPrimary style={{ textAlign: 'center', marginTop: '60px' }}>No Image</textPrimary>
                     }
                 </div>
                 <br />
-                <h3>소개 및 설명</h3>
+                <Typography variant="h6" color="textPrimary" gutterBottom>소개 및 설명</Typography>
                 {profile.text !== ''
                     ?
                     <TextField
@@ -142,7 +146,8 @@ const Profile = ({ profile, onClose, open, user_id }) => {
                         style={{ width: "100%" }}
                     />
                 }
-                <h3 style={{ display: 'inline-block' }}>이용자 리뷰</h3>
+                <br/><br/>
+                <Typography variant="h6" color="textPrimary" gutterBottom style={{ display: 'inline-block' }}>이용자 리뷰</Typography>
                 {reviewList.length !== 0
                     ?
                     <>
@@ -152,7 +157,7 @@ const Profile = ({ profile, onClose, open, user_id }) => {
                         </List>
                     </>
                     :
-                    <h4 style={{ textAlign: 'center' }}>등록된 리뷰가 없습니다.</h4>
+                    <Typography variant="h6" color="textPrimary" gutterBottom style={{ textAlign: 'center' }}>등록된 리뷰가 없습니다.</Typography>
                 }
                 <ProfileCarousel open={imageOpen} setOpen={setImageOpen} src={image} />
                 <ProfileEdit profile={profile} onClose={onEditClose} open={editOpen} user_id={user_id} profileClose={handleClose} />

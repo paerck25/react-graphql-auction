@@ -87,4 +87,71 @@ const Main = ({ request, seller, open, onClose }) => {
     }
 }
 
+// const Main = ({ request, seller, open, onClose }) => {
+
+//     const classes = useStyles();
+
+//     const [data, setData] = useState();
+//     const [loading, setLoading] = useState(true);
+
+//     const getMyRoom = () => {
+//         Axios.get('/my-room',{
+//             request : request,
+//             seller : seller,
+//         })
+//         .then((res) => {
+//             setData(res.data);
+//             setLoading(false);
+//         })
+//         .catch((err) => {
+//             console.log(err);
+//         });
+//     }
+
+//     useEffect(() => {
+//         if (open) {
+//             getMyRoom();
+//         }
+//         return () => {
+//             console.log('disconnect');
+//         }
+//     }, [open])
+
+
+//     if (loading) {
+//         return (
+//             <Backdrop className={classes.backdrop} open={loading}>
+//                 <CircularProgress color="inherit" />
+//             </Backdrop>
+//         )
+//     }
+
+//     if (!loading) {
+//         return (
+//             <Dialog onClose={onClose} open={open}>
+//                 <DialogTitle style={{ padding:'0px' }}>
+//                     <Grid container>
+//                         <Grid item xs={6}>
+//                             <div style={{marginLeft:'14px',marginTop:'10px'}}>채팅</div>
+//                         </Grid>
+//                         <Grid item xs={6}>
+//                             <IconButton onClick={onClose} style={{ float: 'right'}}>
+//                                 <CloseIcon />
+//                             </IconButton>
+//                         </Grid>
+//                     </Grid>
+//                 </DialogTitle>
+//                 <Divider />
+//                 <DialogContent style={{backgroundColor:'lightgray'}}>
+//                     <ChatBox userInfo={{
+//                         room: data._id,
+//                         messages: data.messages,
+//                     }}
+//                     />
+//                 </DialogContent>
+//             </Dialog>
+//         )
+//     }
+// }
+
 export default Main;

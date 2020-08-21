@@ -58,6 +58,10 @@ const useStyles = makeStyles((theme) => ({
     icon: {
         color: 'white',
     },
+    inputStyle: {
+        width: '50px',
+        height: '20px',
+    }
 }));
 
 const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
@@ -87,9 +91,15 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
 
     const [exPreview, setExPreview] = useState(profile.exampleImages);
 
-    const [text, setText] = useState('');
+    const [text, setText] = useState(profile.text);
 
-    const [phone, setPhone] = useState('');
+    const [phone, setPhone] = useState(profile.phone)
+
+    const [phoneInput, setPhoneInput] = useState({
+        phone1: '',
+        phone2: '',
+        phone3: '',
+    });
 
     const [savaProfile, { loading, data }] = useMutation(EDIT_MY_PROFILE)
 
@@ -98,7 +108,10 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
     }
 
     const onChangePhone = (e) => {
-        setPhone(e.target.value);
+        setPhoneInput({
+            ...phoneInput,
+            [e.target.name]: e.target.value,
+        });
     }
 
     const handleSaveProfile = () => {
@@ -252,6 +265,11 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
         }
     }, [data])
 
+    useEffect(() => {
+        if(phoneInput.phone1 || phoneInput.phone2 || phoneInput.phone3){
+            setPhone(`${phoneInput.phone1}-${phoneInput.phone2}-${phoneInput.phone3}`);
+        }
+    }, [phoneInput])
 
 
     return (
@@ -297,7 +315,7 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
                         </label>
                         <br /><br />
                         <h3 style={{ margin: '0px' }}>프로젝트 사진</h3>
-                        <small>자신이 완성한 프로젝트 사진을 올려주세요. 구매자의 선택에 도움이 됩니다.</small>
+                        <small>자신이 완성한 프로젝트 사진을 올려주세요. 구매자의 선택에 도움이 됩니다.</small><br />
                         <input type="file" onChange={onChangeImage} multiple accept="image/*" />
                         <div className={classes.root}>
                             <GridList className={classes.gridList} cols={2.5}>
@@ -307,21 +325,22 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
                         </div>
                         <br />
                         <h3 style={{ marginBottom: '0px' }}>상세 설명</h3>
-                        <small>자기 소개나 사진에 대한 설명을 적어주세요.</small>
+                        <small>자기 소개나 사진에 대한 설명을 적어주세요.</small><br /><br />
                         <TextField
                             multiline
+                            defaultValue={text}
                             variant="outlined"
                             onChange={onChangeText}
                             style={{ width: "100%" }}
                         />
                         <h3 style={{ marginBottom: '0px' }}>휴대전화</h3>
-                        <small>구매자와 연락을 할 수 있도록 휴대전화 번호를 적어주세요. 하이픈("-")제외</small>
-                        <TextField
-                            style={{ width: "100%" }}
-                            variant="outlined"
-                            onChange={onChangePhone}
-                        />
-                        <br />
+                        <small>구매자와 연락을 할 수 있도록 휴대전화 번호를 적어주세요.</small><br /><br />
+                        <input className={classes.inputStyle} name="phone1" onChange={onChangePhone} />
+                        -
+                        <input className={classes.inputStyle} name="phone2" onChange={onChangePhone} />
+                        -
+                        <input className={classes.inputStyle} name="phone3" onChange={onChangePhone} />
+                        <br /><br />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleSaveProfile} variant="contained" className={classes.buttonStyle}>저장</Button>
@@ -333,5 +352,267 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
         </>
     )
 }
+
+
+
+
+// const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
+
+//     const classes = useStyles();
+
+//     const handleClose = () => {
+//         onClose();
+//     }
+
+//     const [imageOpen, setImageOpen] = useState(false);
+
+//     const [image, setImage] = useState('');
+
+//     const onClickImageOpen = (src) => {
+//         setImage(src);
+//         setImageOpen(true);
+//     }
+
+//     const [profileImage, setProfileImage] = useState('');
+
+//     const [profilePreview, setProfilePreview] = useState(profile.profileImage);
+
+//     const [exampleImages, setExampleImages] = useState([]);
+
+//     const [examplePreview, setExamplePreview] = useState([]);
+
+//     const [exPreview, setExPreview] = useState(profile.exampleImages);
+
+//     const [text, setText] = useState('');
+
+//     const [phone, setPhone] = useState('');
+
+//     const onChangeText = (e) => {
+//         setText(e.target.value);
+//     }
+
+//     const onChangePhone = (e) => {
+//         setPhone(e.target.value);
+//     }
+
+//     const [loading, setLoading] = useState(false);
+
+//     const onClickAxios = async () => {
+//         setLoading(true);
+//         let formData = new FormData(); //객체
+//         const config = { //config 객체
+//             header: { "content-type": "multipart/form-data" },
+//         };
+
+//         formData.append('phone',phone);
+//         formData.append('text',text);
+//         formData.append('user', user_id);
+
+//         if (profileImage) {
+//             formData.append("profileImage", profileImage);
+//         } else {
+//             formData.append("profilePreview", profilePreview);
+//         }
+
+//         if (exPreview) {
+//             exPreview.map((obj) => {
+//                 formData.append("exPreview", obj);
+//             })
+//         }
+//         if (exampleImages) {
+//             exampleImages.map((obj) => {
+//                 formData.append("exampleImages", obj);
+//             })
+//         }
+//         Axios.post('/profile', formData, config)
+//             .then(res => {
+//                 setLoading(false);
+//                 alert(res.data);
+//                 handleClose();
+//                 profileClose();
+//             })
+//             .catch(err => {
+//                 console.log(err);
+//             })
+//     }
+
+//     const handleSaveProfile = () => {
+//         onClickAxios();
+//     }
+
+//     const onChnageProfileImage = (e) => {
+//         setProfileImage(e.target.files[0]);
+//         let files = e.target.files
+//         let reader = new FileReader();
+//         reader.onload = (e) => {
+//             setProfilePreview(e.target.result)
+//         }
+//         if (files.length !== 0) {
+//             console.log(files);
+//             reader.readAsDataURL(files[0])
+//         }
+//     }
+
+//     const imageRead = (obj) => {
+//         let reader = new FileReader();
+//         reader.onload = (e) => {
+//             setExamplePreview((examplePreview) => {
+//                 return [
+//                     ...examplePreview,
+//                     {
+//                         src: e.target.result,
+//                         obj: obj,
+//                     }
+//                 ]
+//             })
+//         }
+//         reader.readAsDataURL(obj);
+//     }
+
+//     const onChangeImage = (e) => {
+//         const files = e.target.files
+//         const filesLength = files.length;
+//         // setExampleImages(files);
+//         for (let i = 0; i < filesLength; i++) {
+//             setExampleImages((exampleImages) => {
+//                 return [...exampleImages, files[i]]
+//             });
+//             imageRead(files[i]);
+//         }
+//         console.log(exampleImages);
+//     }
+
+//     const onClickDeleteImage = (obj) => {
+//         setExampleImages(exampleImages.filter((x) => {
+//             return obj !== x;
+//         }))
+//         setExamplePreview(examplePreview.filter((x) => {
+//             return obj !== x.obj;
+//         }))
+//     }
+
+//     const onClicDeleteExPreview = (ex) => {
+//         setExPreview(exPreview.filter((x) => {
+//             return ex !== x;
+//         }))
+//         console.log(exPreview);
+//     }
+
+//     const showExamplePreview = examplePreview.map((obj, index) => {
+//         return (
+//             <GridListTile key={index} >
+//                 <img src={obj.src} onClick={() => { onClickImageOpen(obj.src) }} />
+//                 <GridListTileBar
+//                     titlePosition="bottom"
+//                     actionIcon={
+//                         <IconButton className={classes.icon} onClick={() => { onClickDeleteImage(obj.obj) }}>
+//                             <DeleteIcon />
+//                         </IconButton>
+//                     }
+//                     actionPosition="right"
+//                     className={classes.titleBar}
+//                 />
+//             </GridListTile>
+//         )
+//     })
+
+//     const showExPreview = exPreview.map((obj, index) => {
+//         return (
+//             <GridListTile key={index} >
+//                 <img src={obj} onClick={() => { onClickImageOpen(obj) }} />
+//                 <GridListTileBar
+//                     titlePosition="bottom"
+//                     actionIcon={
+//                         <IconButton className={classes.icon} onClick={() => { onClicDeleteExPreview(obj) }}>
+//                             <DeleteIcon />
+//                         </IconButton>
+//                     }
+//                     actionPosition="right"
+//                     className={classes.titleBar}
+//                 />
+//             </GridListTile>
+//         )
+//     })
+
+
+//     return (
+//         <>
+//             {loading
+//                 ?
+//                 <Backdrop className={classes.backdrop} open={loading}>
+//                     <CircularProgress color="inherit" />
+//                 </Backdrop>
+//                 :
+//                 <Dialog fullWidth={true} maxWidth="sm" onClose={handleClose} aria-labelledby="form-dialog-title" open={open}>
+//                     <DialogTitle id="simple-dialog-title">
+//                         <Grid container>
+//                             <Grid item xs={1}>
+//                                 {profilePreview === ''
+//                                     ?
+//                                     <Avatar className={classes.avatar}>
+//                                         <PersonIcon />
+//                                     </Avatar>
+//                                     :
+//                                     <Avatar className={classes.avatar} src={profilePreview} />
+//                                 }
+//                             </Grid>
+//                             <Grid item xs={11}>
+//                                 <div style={{ display: "inline-block", marginTop: "5px", marginLeft: "5px" }}>내 프로필 설정</div>
+//                             </Grid>
+//                         </Grid>
+//                     </DialogTitle>
+//                     <DialogContent>
+//                         <h3 style={{ margin: '0px' }}>프로필 사진</h3>
+//                         <small>나를 나타내는 사진을 올려주세요.</small>
+//                         <br /><br />
+//                         <label htmlFor='imageupload' style={{ display: 'inline-block' }}>
+//                             {profilePreview === ''
+//                                 ?
+//                                 <Avatar className={classes.avatarBig}>
+//                                     <PersonIcon style={{ fontSize: 80 }} />
+//                                 </Avatar>
+//                                 :
+//                                 <Avatar className={classes.avatarBig} src={profilePreview} />
+//                             }
+//                             <input type='file' id='imageupload' onChange={onChnageProfileImage} accept="image/*" style={{ display: 'none' }} />
+//                         </label>
+//                         <br /><br />
+//                         <h3 style={{ margin: '0px' }}>프로젝트 사진</h3>
+//                         <small>자신이 완성한 프로젝트 사진을 올려주세요. 구매자의 선택에 도움이 됩니다.</small>
+//                         <input type="file" onChange={onChangeImage} multiple accept="image/*" />
+//                         <div className={classes.root}>
+//                             <GridList className={classes.gridList} cols={2.5}>
+//                                 {showExPreview}
+//                                 {showExamplePreview}
+//                             </GridList>
+//                         </div>
+//                         <br />
+//                         <h3 style={{ marginBottom: '0px' }}>상세 설명</h3>
+//                         <small>자기 소개나 사진에 대한 설명을 적어주세요.</small>
+//                         <TextField
+//                             multiline
+//                             variant="outlined"
+//                             onChange={onChangeText}
+//                             style={{ width: "100%" }}
+//                         />
+//                         <h3 style={{ marginBottom: '0px' }}>휴대전화</h3>
+//                         <small>구매자와 연락을 할 수 있도록 휴대전화 번호를 적어주세요. 하이픈("-")제외</small>
+//                         <TextField
+//                             style={{ width: "100%" }}
+//                             variant="outlined"
+//                             onChange={onChangePhone}
+//                         />
+//                         <br />
+//                     </DialogContent>
+//                     <DialogActions>
+//                         <Button onClick={handleSaveProfile} variant="contained" className={classes.buttonStyle}>저장</Button>
+//                         <Button onClick={handleClose} variant="contained" className={classes.buttonStyle}>취소</Button>
+//                     </DialogActions>
+//                     <ProfileCarousel open={imageOpen} setOpen={setImageOpen} src={image} />
+//                 </Dialog>
+//             }
+//         </>
+//     )
+// }
 
 export default ProfileEdit

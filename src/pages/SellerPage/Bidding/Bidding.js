@@ -12,16 +12,17 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import { useMutation } from '@apollo/client';
 import { SEND_BID } from '../../../lib/queries';
+import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: '#fff',
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
     },
-  }));
-  
+}));
 
-function Bidding({ open, setOpen, data }) {
+
+const Bidding = ({ open, setOpen, data }) => {
 
     const classes = useStyles();
 
@@ -67,41 +68,127 @@ function Bidding({ open, setOpen, data }) {
     return (
         <div>
             {loading
-            ?
-            <Backdrop className={classes.backdrop} open={loading}>
-                <CircularProgress color="inherit" />
-            </Backdrop>
-            :
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">입찰하기</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        입력하신 가격과 함께 프로필이 구매자에게 전달됩니다.
+                ?
+                <Backdrop className={classes.backdrop} open={loading}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+                :
+                <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                    <DialogTitle id="form-dialog-title">입찰하기</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            입력하신 가격과 함께 프로필이 구매자에게 전달됩니다.
                     </DialogContentText>
-                    <form onSubmit={onSubmitForm}>
-                        <TextField
-                            autoFocus
-                            margin="dense"
-                            id="price"
-                            label="총 금액"
-                            type="number"
-                            fullWidth
-                            onChange={onChangePrice}
-                        />
-                    </form>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={onSubmitForm} color="primary">
-                        입찰
+                        <form onSubmit={onSubmitForm}>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="price"
+                                label="총 금액"
+                                type="number"
+                                fullWidth
+                                onChange={onChangePrice}
+                            />
+                        </form>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={onSubmitForm} color="primary">
+                            입찰
                     </Button>
-                    <Button onClick={handleClose} color="primary">
-                        취소
+                        <Button onClick={handleClose} color="primary">
+                            취소
                     </Button>
-                </DialogActions>
-            </Dialog>
+                    </DialogActions>
+                </Dialog>
             }
         </div>
     )
 }
+
+
+// const Bidding = ({ open, setOpen, data }) => {
+
+//     const classes = useStyles();
+
+//     const [price, setPrice] = useState(0);
+
+//     const user_id = useSelector(state => state.userAction.user_id);
+
+//     const userName = useSelector(state => state.userAction.userName);
+
+//     const [loading, setloading] = useState(false);
+
+//     const sendBid = () => {
+//         setloading(true);
+//         Axios.post('/bid', {
+//             request: data._id,
+//             author: user_id,
+//             name: userName,
+//             price: price,
+//         })
+//         .then(res=>{
+//             alert(res.data);
+//             setOpen(false);
+//             setloading(false);
+//         })
+//         .catch(err=>{
+//             console.log(err);
+//         })
+//     }
+
+
+
+//     const onChangePrice = (e) => {
+//         setPrice(e.target.value);
+//     }
+
+//     const onSubmitForm = (e) => {
+//         e.preventDefault();
+//         sendBid();
+//     }
+
+//     const handleClose = () => {
+//         setOpen(false);
+//     };
+
+//     return (
+//         <div>
+//             {loading
+//                 ?
+//                 <Backdrop className={classes.backdrop} open={loading}>
+//                     <CircularProgress color="inherit" />
+//                 </Backdrop>
+//                 :
+//                 <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+//                     <DialogTitle id="form-dialog-title">입찰하기</DialogTitle>
+//                     <DialogContent>
+//                         <DialogContentText>
+//                             입력하신 가격과 함께 프로필이 구매자에게 전달됩니다.
+//                     </DialogContentText>
+//                         <form onSubmit={onSubmitForm}>
+//                             <TextField
+//                                 autoFocus
+//                                 margin="dense"
+//                                 id="price"
+//                                 label="총 금액"
+//                                 type="number"
+//                                 fullWidth
+//                                 onChange={onChangePrice}
+//                             />
+//                         </form>
+//                     </DialogContent>
+//                     <DialogActions>
+//                         <Button onClick={onSubmitForm} color="primary">
+//                             입찰
+//                     </Button>
+//                         <Button onClick={handleClose} color="primary">
+//                             취소
+//                     </Button>
+//                     </DialogActions>
+//                 </Dialog>
+//             }
+//         </div>
+//     )
+// }
 
 export default Bidding;

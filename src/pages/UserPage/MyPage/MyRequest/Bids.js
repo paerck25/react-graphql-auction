@@ -93,7 +93,7 @@ const Bids = ({data,requestData,onClickChoice}) => {
 
     return (
         <div className={classes.scorllStyle}>
-            {data.length > 0 ? <>{bids}</> : <h2>현재까지 도착한 견적이 없습니다.</h2>}
+            {data.length > 0 ? <>{bids}</> : <Typography variant="h6">현재까지 도착한 견적이 없습니다.</Typography>}
         </div>
     )
 }
