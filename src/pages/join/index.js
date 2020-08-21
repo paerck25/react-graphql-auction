@@ -1,3 +1,3 @@
-import JoinHome from './JoinHome';
+import JoinForm from './JoinForm';
 
-export default JoinHome;
+export default JoinForm;

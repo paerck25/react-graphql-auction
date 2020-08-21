@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 let requestSchema = mongoose.Schema({
-    author : {type:mongoose.Schema.Types.ObjectId, ref:'user', required:true}, //작성자 (구매자의 ObjectID)
+    author : {type:mongoose.Types.ObjectId, ref:'user', required:true}, //작성자 (구매자의 ObjectID)
     detail : {type:String, required:true},
     category : {type:String, required:true},
     requestedAt : {type:String, required:true},

@@ -38,6 +38,7 @@ export default function Login() {
   const classes = useStyles();
   const history = useHistory();
   const is_login = useSelector(state => state.userAction.is_login);
+  const is_seller = useSelector(state => state.userAction.is_seller);
   const dispatch = useDispatch();
   const [login, { data }] = useMutation(LOGIN);
   const [user, setUser] = useState({
@@ -47,7 +48,11 @@ export default function Login() {
 
   useEffect(() => {
     if (is_login) {
-      history.push('/');
+      if(is_seller){
+        history.push('/seller');
+      } else {
+        history.push('/user');
+      }
     }
     if (data) {
       if (data.login._id) {
@@ -57,12 +62,16 @@ export default function Login() {
         localStorage.setItem('user_id', data.login._id);
         localStorage.setItem('userName', data.login.name);
         console.log(data.login.result);
-        history.push('/');
+        if(data.login.is_seller){
+          history.push('/seller');
+        } else {
+          history.push('/user');
+        }
       } else {
         alert(data.login.result);
       }
     }
-  }, [history, is_login, data, dispatch])
+  }, [history, is_login,is_seller, data, dispatch])
 
   const onChangeInput = (e) => {
     setUser({

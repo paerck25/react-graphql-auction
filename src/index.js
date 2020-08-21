@@ -40,6 +40,9 @@ const client = new ApolloClient({
 
 const store = createStore(rootReducer);
 
+document.querySelector('body').style.backgroundColor = '#F2F3F4'
+document.querySelector('body').style.margin = '0px'
+
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Provider store={store}>

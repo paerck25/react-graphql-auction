@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function JoinForm(props) {
+export default function JoinForm() {
 
   const classes = useStyles();
   const history = useHistory();
@@ -45,8 +45,6 @@ export default function JoinForm(props) {
     email: '',
     pwd: '',
   })
-
-  const [is_seller] = useState(props.location.state.is_seller);
 
   useEffect(() => {
     if (data) {
@@ -77,7 +75,7 @@ export default function JoinForm(props) {
             name: userInfo.name,
             email: userInfo.email,
             pwd: userInfo.pwd,
-            is_seller: is_seller,
+            is_seller: false,
           }
         }
       })
