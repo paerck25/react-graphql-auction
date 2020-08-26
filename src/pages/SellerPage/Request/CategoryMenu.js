@@ -1,5 +1,6 @@
 import React from 'react'
 import { List, ListItem, ListItemText } from '@material-ui/core';
+import SearchBar from './SearchBar';
 
 const CategoryMenu = ({setCategory}) => {
 
@@ -34,9 +35,12 @@ const CategoryMenu = ({setCategory}) => {
     })
 
     return (
+        <>
+        <SearchBar/>
         <List>
             {categoryList}
         </List>
+        </>
     )
 }
 

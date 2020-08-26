@@ -1,18 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
-import { CircularProgress, Container, Grid, CardHeader, Divider, Card, CardContent,Typography } from '@material-ui/core';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { GET_MY_BIDS } from '../../../lib/queries';
-import { useQuery } from '@apollo/client';
-import RequestCard from '../../../components/RequestCard';
-import Counter from '../../../components/Counter';
+import { CircularProgress, Typography, Button } from '@material-ui/core';
+import { GET_MY_BIDS, GET_MY_PROFILE_IMAGE } from '../../../lib/queries';
+import { useQuery, useLazyQuery } from '@apollo/client';
+import Chat from '../../../components/chat';
+import BidHistory from './BidHistory';
+import ChosenList from './ChoesnList';
 
 
 
@@ -25,116 +18,54 @@ const BidList = () => {
         margin: '18% auto',
     }
 
-    const history = useHistory();
 
-    const { loading, data, error } = useQuery(GET_MY_BIDS, {
+    const [chatOpen, setChatOpen] = useState(false);
+
+    const [request_id, setRequest_id] = useState('');
+
+    const handleChatClose = () => {
+        setChatOpen(false);
+    }
+
+    const handleChatOpen = (request_id) => {
+        setRequest_id(request_id)
+        setChatOpen(true);
+    }
+
+
+
+    const { loading, data, error, called } = useQuery(GET_MY_BIDS, {
         variables: { author: user_id },
         fetchPolicy: 'cache-and-network',
     }
     )
 
     if (error) {
-        alert(error);
-        history.push('/');
+        console.log(error);
         return (
             <CircularProgress style={loadingStyle} />
         )
     }
 
-    if (loading) {
+    if (loading && !data) {
         return (
             <CircularProgress style={loadingStyle} />
         )
-    } else {
-
-        const BidHistory = data.getMyBids.map((obj) => {
-            return (
-                <TableRow key={obj.request._id}>
-                    <TableCell component="th" scope="row">
-                        {obj.request.category}
-                    </TableCell>
-                    <TableCell align="center">{obj.request.author.name}</TableCell>
-                    <TableCell align="center">{obj.request.requestedAt}</TableCell>
-                    <TableCell align="center">{obj.state}</TableCell>
-                </TableRow>
-            )
-        })
-
-        const ChosenList = data.getMyBids.filter((obj) => {
-            return obj.state === '거래 진행중';
-        })
-
-        const WaittingList = data.getMyBids.filter((obj) => {
-            return obj.state === '거래 대기중';
-        })
-
-        const MyChosenList = ChosenList.map((obj) => {
-            return (
-                <Grid key={obj._id} style={{ margin: 'auto' }} item xs={4}>
-                    <RequestCard obj={obj.request} />
-                </Grid>
-            )
-        })
-
-        const MyWaittingList = WaittingList.map((obj) => {
-            return (
-                <Grid key={obj.request._id} style={{ margin: 'auto' }} item xs={4}>
-                    <Card style={{ textAlign: 'center' }} variant="outlined">
-                        <CardContent>
-                            {obj.request.author.name} 님의 {obj.request.category}<br/>
-                            <Counter data={obj.request} />
-                        </CardContent>
-                    </Card>
-                </Grid>
-            )
-        })
-
-        return (
-            <div>
-                <Typography variant="h5" gutterBottom>진행중인 거래</Typography>
-                <Container>
-                    {ChosenList.length === 0
-                        ?
-                        <Typography variant="h5" gutterBottom style={{ textAlign: 'center' }}>현재 진행중인 거래가 없습니다.</Typography>
-                        :
-                        <Grid container spacing={4}>
-                            {MyChosenList}
-                        </Grid>
-                    }
-                </Container>
-                <Divider style={{ marginTop: '30px' }} />
-                <Typography variant="h5" gutterBottom>대기중인 거래</Typography>
-                <Container>
-                    {WaittingList.length === 0
-                        ?
-                        <Typography variant="h5" gutterBottom style={{ textAlign: 'center' }}>현재 대기중인 견적이 없습니다.</Typography>
-                        :
-                        <Grid container spacing={4}>
-                            {MyWaittingList}
-                        </Grid>
-                    }
-                </Container>
-                <Divider style={{ marginTop: '30px' }} />
-                <Typography variant="h5" gutterBottom>거래내역</Typography>
-                <TableContainer variant="outlined" component={Paper}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>카테고리</TableCell>
-                                <TableCell align="center">이름</TableCell>
-                                <TableCell align="center">요청일</TableCell>
-                                <TableCell align="center">상태</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {BidHistory}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            </div>
-
-        )
     }
+
+
+    return (
+        <div>
+            <Typography variant="h5" gutterBottom>진행중인 거래</Typography>
+            <ChosenList handleChatOpen={handleChatOpen} data={data.getMyBids} />
+            <br /><br /><br />
+            <Typography variant="h5" gutterBottom>거래내역</Typography>
+            <BidHistory data={data.getMyBids} />
+            <Chat open={chatOpen} onClose={handleChatClose} request={request_id} seller={user_id} />
+        </div>
+
+    )
+
 
 }
 

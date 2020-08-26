@@ -9,6 +9,7 @@ import Rating from '@material-ui/lab/Rating';
 import Avatar from '@material-ui/core/Avatar';
 import ProfileModal from './Profile/ProfileModal';
 import UserCommuButton from './UserCommuButton';
+import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -68,15 +69,16 @@ const BidCard = ({ data, requestData, onClickChoice }) => {
         setOpen(false);
     };
 
-    const content = (function(){
-        if(onClickChoice){
-            return(
+
+    return (
+        <Card size="large" color="primary" variant="outlined" className={classes.card}>
+            <CardContent className={classes.cardContent}>
                 <Grid container>
                     <Grid item xs={4}>
-                        <Avatar onClick={() => { handleClickOpen(data.author._id, data.author.name) }} src="https://placeimg.com/100/100/animals" className={classes.large} />
+                        <Avatar onClick={() => { handleClickOpen(data.author._id, data.author.name) }} src={data.author.profile.profileImage} className={classes.large} />
                     </Grid>
                     <Grid item xs={4} style={{ margin: 'auto' }} >
-                        <Typography component="legend">
+                        <Typography component="legend" >
                             {data.author.name}
                         </Typography>
                         <Rating name="half-rating-read" value={1} precision={0.5} readOnly />
@@ -84,37 +86,12 @@ const BidCard = ({ data, requestData, onClickChoice }) => {
                         {data.price}원
                     </Grid>
                     <Grid item xs={4} style={{ margin: 'auto' }}>
-                        <UserCommuButton request_id={requestData._id} seller_id={data.author._id} />
+                        <UserCommuButton request_id={requestData._id} seller_id={data.author._id} phone={data.author.profile.phone} avatarSrc={data.author.profile.profileImage} />
                         <Button onClick={() => { onClickChoice(data._id) }} style={{ width: '100%' }} variant="outlined">
                             의뢰하기
                         </Button>
                     </Grid>
                 </Grid>
-            )
-        } else {
-            return(
-                <Grid container>
-                        <Grid item xs={6}>
-                            <Avatar onClick={() => { handleClickOpen(data.author._id, data.author.name) }} src="https://placeimg.com/100/100/animals" className={classes.large} />
-                        </Grid>
-                        <Grid item xs={6} style={{ margin: 'auto' }} >
-                            <Typography component="legend">
-                                {data.author.name}
-                            </Typography>
-                            <Rating name="half-rating-read" value={1} precision={0.5} readOnly />
-                            <br />
-                            {data.price}원
-                        </Grid>
-                    </Grid>
-            )
-        }
-    })();
-
-
-    return (
-        <Card size="large" color="primary" variant="outlined" className={classes.card}>
-            <CardContent className={classes.cardContent}>
-                {content}
                 <ProfileModal open={open} onClose={handleClose} user_id={user_id} />
             </CardContent>
         </Card>

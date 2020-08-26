@@ -19,7 +19,7 @@ function RequestMain() {
 
     return (
         <Container className={classes.heroContent}>
-            <Grid style={{ marginTop: '2px' }} container spacing={1}>
+            <Grid container spacing={9}>
                 <Grid item xs={2}>
                     <CategoryMenu setCategory={setCategory}/>
                 </Grid>

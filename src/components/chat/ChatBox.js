@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import { Input, Container, Divider, InputAdornment, OutlinedInput } from '@material-ui/core';
+import { Container, InputAdornment, OutlinedInput } from '@material-ui/core';
 import ChatList from './ChatList';
-import { START_CHAT, SEND_NEW_MESSAGE } from '../../../../lib/queries';
+import { START_CHAT, SEND_NEW_MESSAGE } from '../../lib/queries';
 import { useSubscription, useMutation } from '@apollo/client';
 import { useSelector } from 'react-redux';
 import SendIcon from '@material-ui/icons/Send';
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function ChatBox({ userInfo }) {
+function ChatBox({ userInfo,avatarSrc }) {
 
     const classes = useStyles();
 
@@ -76,11 +76,11 @@ function ChatBox({ userInfo }) {
 
 
     const lastMessageList = userInfo.messages.map((data, i) => {
-        return <ChatList key={i} data={data} userName={userName} />
+        return <ChatList key={i} data={data} userName={userName} avatarSrc={avatarSrc} />
     })
 
     const newMessageList = newMessages.map((data, i) => {
-        return <ChatList key={i} data={data} userName={userName} />
+        return <ChatList key={i} data={data} userName={userName} avatarSrc={avatarSrc} />
     })
 
     const onChangeMessage = (e) => {
@@ -121,8 +121,6 @@ function ChatBox({ userInfo }) {
                 }
             })
             setMessage('');
-        } else {
-            return;
         }
     }
 
@@ -137,7 +135,6 @@ function ChatBox({ userInfo }) {
             <form onKeyDown={onSubmitForm}>
                 <OutlinedInput
                     className={classes.inputStyle}
-                    va
                     rowsMax={4}
                     multiline
                     value={message}

@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const { upload, upload2 } = require('./imageUpload');
 const cors = require('cors');
 const Profile = require('./models/profile');
+const express = require('express');
 
 
 mongoose.connect("mongodb+srv://testDB:1234567890@cluster0-3zzdx.mongodb.net/graph?retryWrites=true&w=majority",
@@ -26,15 +27,13 @@ const server = new GraphQLServer({
 })
 
 server.express.use(cors());
-
-// server.express.post('/image' ,upload.fields([{name:'profileImage'},{name:'exampleImages'}]), (req,res,next) => {
-//     console.log('req',req.files);
-// })
+server.express.use('/start',express.static('build'));
 
 server.express.post('/image', upload.fields([{ name: 'profileImage' }, { name: 'exampleImages' }]), (req, res, next) => {
     let profileImage = '';
     let exampleImages = new Array;
     let exPreview = new Array;
+
     if(req.files.profileImage){
         profileImage = req.files.profileImage[0].location;
     } else {

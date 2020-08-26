@@ -27,6 +27,7 @@ export default function Footer(){
     const classes = useStyles();
 
     return(
+      <div style={{ backgroundColor: '#f9f9f9' }}>
         <footer className={classes.footer}>
             <Typography variant="h6" align="center" gutterBottom>
                 Footer
@@ -36,5 +37,6 @@ export default function Footer(){
             </Typography>
             <Copyright />
         </footer>
+      </div>
     )
 }

@@ -69,7 +69,7 @@ const resolvers = {
             if (ObjectId(args.author)) {
                 const result = Bid.find({ author: args.author }).populate({
                     path: 'request',
-                    populate: { path: 'author', select: 'name email' }
+                    populate: { path: 'author', select: 'name' }
                 })
                     .then((res) => {
                         return res
@@ -83,11 +83,10 @@ const resolvers = {
 
         getBidsInRequest: (root, args) => {
             if (ObjectId(args.request)) {
-                console.log('asdasdasdasd');
                 const result = Bid.find({ request: args.request }).populate({
                     path: 'author',
                     select: '_id name profile',
-                    populate: { path: 'profile', select: 'phone' }
+                    populate: { path: 'profile', select: 'phone profileImage' }
                 });
                 return result;
             }
@@ -97,19 +96,6 @@ const resolvers = {
             console.log('args', args);
             const result = Room.findOne({ request: args.request, seller: args.seller })
             return result;
-        },
-
-        getMyRoomListForSeller: (root, args) => {
-            if (ObjectId(args.seller)) {
-                const result = Room.find({ seller: args.seller })
-                    .populate({
-                        path: 'request',
-                        select: '_id author category',
-                        populate: { path: 'author', select: '_id name' }
-                    })
-                    .populate('seller', '_id name');
-                return result;
-            }
         },
     },
 
@@ -373,7 +359,7 @@ const resolvers = {
                     return 0;
                 })
             if (bidCount === 0) {
-                result = await Request.updateOne({ _id: args.request }, { $set: { state: '취소된 요청' } })
+                result = await Request.updateOne({ _id: args.request }, { $set: { state: '취소된 거래' } })
                     .then(() => {
                         console.log('time over and cancle');
                         return true
@@ -383,7 +369,7 @@ const resolvers = {
                         return false
                     })
             } else {
-                result = await Request.updateOne({ _id: args.request }, { $set: { state: '요청 마감' } })
+                result = await Request.updateOne({ _id: args.request }, { $set: { state: '요청 시간 마감' } })
                     .then(() => {
                         console.log('time over');
                         return true
@@ -412,6 +398,31 @@ const resolvers = {
                     console.log(err);
                 })
             return chat;
+        },
+
+        expertRegister: (root, args) => {
+            console.log(args.profile);
+            console.log(args.user);
+            const result = Profile.updateOne({ user: args.user._id }, { $set: { phone: args.profile.phone, text: args.profile.text } })
+                .then(() => {
+                    console.log('Profile Register!');
+                    return true;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    return false;
+                })
+            const result2 = User.updateOne({ _id: args.user._id }, { $set: { is_seller: args.user.is_seller } })
+                .then(() => {
+                    console.log('expert Register!');
+                    return true;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    return false;
+                })
+
+            return (result && result2);
         }
     },
 

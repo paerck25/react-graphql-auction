@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { CircularProgress, Backdrop, Divider, IconButton, Grid } from '@material-ui/core';
-import { GET_MY_ROOM } from '../../../../lib/queries';
+import { GET_MY_ROOM } from '../../lib/queries';
 import { useQuery, useLazyQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import ChatBox from './ChatBox';
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Main = ({ request, seller, open, onClose }) => {
+const Main = ({ request, seller, open, onClose, avatarSrc }) => {
 
     const classes = useStyles();
 
@@ -49,9 +49,6 @@ const Main = ({ request, seller, open, onClose }) => {
 
     if (error) {
         console.log(error);
-        return (
-            <h1>error</h1>
-        )
     }
 
     if (!called) {
@@ -80,6 +77,7 @@ const Main = ({ request, seller, open, onClose }) => {
                         room: data.getMyRoom._id,
                         messages: data.getMyRoom.messages,
                     }}
+                    avatarSrc = {avatarSrc}
                     />
                 </DialogContent>
             </Dialog>

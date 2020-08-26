@@ -7,6 +7,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import NowTrading from './NowTrading';
 import ReceiveList from './ReceiveList';
 import Axios from 'axios';
+import RequestCard from '../../../../components/RequestCard';
+import { Container } from '@material-ui/core';
+import TradeCompelete from './TradeCompelete';
+import CanceledTrade from './CanceledTrade';
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -78,17 +82,10 @@ const RequestDetail = (props) => {
         console.log(data);
     }
 
-    if (error) {
-        alert(error);
-        history.push('/');
-        return (
-            <CircularProgress className={classes.loadingStyle} />
-        )
-    }
 
     const onClickChoice = (bid_id) => {
         choiceOneBid({
-            variables: {
+            variables: { 
                 bid: bid_id,
                 request: requestData._id,
             }
@@ -98,13 +95,18 @@ const RequestDetail = (props) => {
 
     switch (requestData.state) {
         case '거래 진행중':
-            return <NowTrading data={data.getBidsInRequest} requestData={requestData} />
+            const data1 = data.getBidsInRequest.filter((obj) => {
+                return obj.state === '거래 진행중';
+            })[0]
+            return <NowTrading data={data1} requestData={requestData} />
+
         case '거래 완료':
-            return <h1>거래 완료</h1>
+            const data2 = data.getBidsInRequest.filter((obj) => {
+                return obj.state === '거래 완료';
+            })[0]
+            return <TradeCompelete data={data2} requestData={requestData}/>
         case '취소된 거래':
-            return <h1>취소된 거래</h1>
-        case '취소된 요청':
-            return <h1>취소된 요청(요청시간이 마감되었는데 견적서가 1개도 없음)</h1>
+            return <CanceledTrade requestData={requestData}/>
 
         default:
             return <ReceiveList onClickChoice={onClickChoice} bidData={data.getBidsInRequest} requestData={requestData} />

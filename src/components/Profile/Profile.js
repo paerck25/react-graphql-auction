@@ -89,14 +89,7 @@ const Profile = ({ profile, onClose, open, user_id }) => {
             <DialogTitle id="simple-dialog-title">
                 <Grid container>
                     <Grid item xs={1}>
-                        {profile.profileImage !== ''
-                            ?
-                            <Avatar className={classes.avatar} src={profile.profileImage} />
-                            :
-                            <Avatar className={classes.avatar}>
-                                <PersonIcon />
-                            </Avatar>
-                        }
+                        <Avatar className={classes.avatar} src={profile.profileImage} />
                     </Grid>
                     <Grid item xs={11}>
                         <Typography variant="h6" color="textPrimary" style={{ display: "inline-block", marginTop: "5px", marginLeft: "5px" }}>
@@ -110,18 +103,18 @@ const Profile = ({ profile, onClose, open, user_id }) => {
                     {profile.exampleImages.length !== 0
                         ?
                         profile.exampleImages.length === 1
-                        ?
-                        <img src={profile.exampleImages[0]} alt="123123" onClick={() => { onClickImageOpen(profile.exampleImages[0]) }}/>
-                        :
-                        <GridList className={classes.gridList} cols={2.5}>
-                            {profile.exampleImages.map((obj, index) => {
-                                return (
-                                    <GridListTile key={index} onClick={() => { onClickImageOpen(obj) }}>
-                                        <img src={obj} />
-                                    </GridListTile>
-                                )
-                            })}
-                        </GridList>
+                            ?
+                            <img src={profile.exampleImages[0]} alt="123123" onClick={() => { onClickImageOpen(profile.exampleImages[0]) }} />
+                            :
+                            <GridList className={classes.gridList} cols={2.5}>
+                                {profile.exampleImages.map((obj, index) => {
+                                    return (
+                                        <GridListTile key={index} onClick={() => { onClickImageOpen(obj) }}>
+                                            <img src={obj} />
+                                        </GridListTile>
+                                    )
+                                })}
+                            </GridList>
                         :
                         <textPrimary style={{ textAlign: 'center', marginTop: '60px' }}>No Image</textPrimary>
                     }
@@ -146,7 +139,7 @@ const Profile = ({ profile, onClose, open, user_id }) => {
                         style={{ width: "100%" }}
                     />
                 }
-                <br/><br/>
+                <br /><br />
                 <Typography variant="h6" color="textPrimary" gutterBottom style={{ display: 'inline-block' }}>이용자 리뷰</Typography>
                 {reviewList.length !== 0
                     ?
@@ -165,7 +158,7 @@ const Profile = ({ profile, onClose, open, user_id }) => {
             {userName === profile.user.name
                 ?
                 <DialogActions>
-                    <Button onClick={()=>{setEditOpen(true)}} variant="contained" className={classes.buttonStyle}>프로필 설정</Button>
+                    <Button onClick={() => { setEditOpen(true) }} variant="contained" className={classes.buttonStyle}>프로필 설정</Button>
                 </DialogActions>
                 :
                 <>

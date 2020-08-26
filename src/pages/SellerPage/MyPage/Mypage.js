@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Link } from 'react-router-dom';
-import Chat from './chat';
 import BidList from './BidList';
 import { Grid, Container, Divider, Avatar, makeStyles, Typography } from '@material-ui/core';
-import ChatBox from './chat/ChatBox';
-import Image from 'material-ui-image';
 import Button from '@material-ui/core/Button';
 import ProfileModal from '../../../components/Profile/ProfileModal';
 import { GET_MY_PROFILE_IMAGE } from '../../../lib/queries';
@@ -49,7 +46,7 @@ const MyPage = () => {
         setOpen(false);
     };
 
-    const { data } = useQuery(GET_MY_PROFILE_IMAGE, {
+    const { loding,data } = useQuery(GET_MY_PROFILE_IMAGE, {
         variables: {
             user: user_id,
         },
@@ -57,38 +54,26 @@ const MyPage = () => {
     })
 
     return (
+
         <Container className={classes.heroContent}>
             <Grid container>
                 <Grid className={classes.gridStyle} item xs={2}>
-                    {data &&
-                        data.getMyProfile.profileImage
-                        ?
-                        <Avatar className={classes.avatarStyle} src={data.getMyProfile.profileImage} />
-                        :
-                        <Avatar className={classes.avatarStyle}>
-                            <PersonIcon style={{ fontSize: 100 }} />
-                        </Avatar>
-                    }
+                    <Avatar className={classes.avatarStyle} src={(!loding && data) && data.getMyProfile.profileImage} />
                     <br />
                     <Typography variant="h5" gutterBottom>{userName}</Typography>
                     <Button className={classes.buttonStyle} variant="outlined" component={Link} to='/seller/mypage'>
                         판매 정보
-                        </Button>
+                    </Button>
                     <Button className={classes.buttonStyle} variant="outlined" component={Link} to='/user/mypage'>
                         구매 정보
-                        </Button>
+                    </Button>
                     <Button className={classes.buttonStyle} variant="outlined" onClick={handleClickOpen}>
                         나의 프로필
-                        </Button>
-                    <Button className={classes.buttonStyle} variant="outlined" component={Link} to='/seller/mypage/chat'>
-                        채팅 상담
-                        </Button>
+                    </Button>
                     <br />
                 </Grid>
                 <Grid item xs={9}>
-                    <Route exact path='/seller/mypage' component={BidList} />
-                    <Route path='/seller/mypage/chat' component={Chat} exact />
-                    <Route path='/seller/mypage/chat/:id' component={ChatBox} exact />
+                    <BidList/>
                 </Grid>
                 <ProfileModal name={userName} open={open} onClose={handleClose} user_id={user_id} />
             </Grid>

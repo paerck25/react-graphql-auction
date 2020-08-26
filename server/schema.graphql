@@ -7,7 +7,6 @@ type Query {
     getMyBids(author: ID!) : [Bid]
     getBidsInRequest(request: ID) : [Bid]
     getMyRoom(request: ID,seller: ID) : Room
-    getMyRoomListForSeller(seller: ID) : [Room]
 }
 
 type Mutation {
@@ -22,6 +21,7 @@ type Mutation {
     tradeCancle(request: ID) : Boolean
     bidCancle(request: ID, author:ID):Boolean
     requestTimeOver(request:ID):Boolean
+    expertRegister(user:UserInput,profile:ProfileInput) : Boolean
 }
 
 type Subscription {
@@ -46,10 +46,11 @@ type User {
 }
 
 input UserInput {
-    name: String!
-    email: String!
-    pwd: String!
-    is_seller: Boolean!
+    _id: ID
+    name: String
+    email: String
+    pwd: String
+    is_seller: Boolean
 }
 
 type Profile {
@@ -63,7 +64,7 @@ type Profile {
 }
 
 input ProfileInput {
-    user: ID!
+    user: ID
     phone: String
     profileImage: String
     exampleImages: [String]

@@ -19,6 +19,7 @@ const login_reducer = (state = initailState, action) => {
             return{
                 is_login : false,
                 user_id : '',
+                userName : '',
                 is_seller : null,
             }
         default:

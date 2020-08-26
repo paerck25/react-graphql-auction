@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import Counter from '../../../components/Counter'
 import { Container, Divider, Typography, ListItemText, List, ListItem, ListItemIcon } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,14 +7,15 @@ import Grid from '@material-ui/core/Grid';
 import Bidding from '../Bidding';
 import RequestCard from '../../../components/RequestCard';
 import CheckIcon from '@material-ui/icons/Check';
+import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
+        padding: theme.spacing(8, 0, 6),
     },
     gridStyle: {
-        margin: '4% auto',
-        width: "80%",
+        margin:'auto',
+        width: "90%",
         color: 'rgb(104,104,106)'
     },
     loadingStyle: {
@@ -28,15 +29,23 @@ function RequestDetail(props) {
     const classes = useStyles();
     const [data] = useState(props.location.state.data);
     const [open, setOpen] = useState(false);
+    const [checked, setChecked] = useState(false);
+
+    useEffect(()=>{
+        setChecked(true);
+        return () => {
+            setChecked(false);
+        }
+    },[])
 
     return (
-        <>
-            <Container>
+        <Fade in={checked}>
+            <Container className={classes.root}>
                 <Grid className={classes.gridStyle} container spacing={9}>
                     <Grid item xs={6}>
                         <RequestCard obj={data} />
                     </Grid>
-                    <Grid item xs={5}>
+                    <Grid item xs={6}>
                         {(data.deadLine < new Date().getTime())
                             ?
                             <>
@@ -55,7 +64,7 @@ function RequestDetail(props) {
                                         <List dense={true} key={index}>
                                             <ListItem>
                                                 <CheckIcon />&nbsp;&nbsp;
-                                                <ListItemText primary={obj} />
+                                                <ListItemText primary={obj} primaryTypographyProps={{variant:"subtitle1"}} />
                                             </ListItem>
                                         </List>
                                     )
@@ -63,6 +72,7 @@ function RequestDetail(props) {
                                 }
 
                                 <Typography variant="h5" gutterBottom style={{ textAlign: 'center' }}><Counter data={data} /></Typography>
+                                <br/>
                                 <Button style={{ width: "100%" }} variant="outlined" onClick={() => { setOpen(true) }}>
                                     입찰하기
                                 </Button>
@@ -73,7 +83,7 @@ function RequestDetail(props) {
                 <Divider />
                 <Bidding data={data} open={open} setOpen={setOpen} />
             </Container>
-        </>
+        </Fade>
     )
 }
 

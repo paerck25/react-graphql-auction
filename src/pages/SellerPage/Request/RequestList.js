@@ -8,7 +8,7 @@ import { GET_ALL_REQUESTS } from '../../../lib/queries';
 import { useQuery, useLazyQuery } from '@apollo/client';
 import SortButton from './SortButton';
 import { useHistory } from 'react-router-dom';
-import { Typography } from '@material-ui/core';
+import { Typography, Toolbar, Chip } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     cardGrid: {
@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
         display: 'block',
         margin: '10% auto',
     },
+    tagStyle: {
+        marginRight: '4px',
+    }
+
 }));
 
 
@@ -29,6 +33,21 @@ const RequestList = ({ category }) => {
     const { loading, data, error } = useQuery(GET_ALL_REQUESTS, {
         fetchPolicy: 'cache-and-network',
     });
+
+    const [tags, setTags] = useState([]);
+
+    const tagSort = tags.map((obj, index) => {
+        return <Chip className={classes.tagStyle} key={index} label={obj} variant="default" size="small" onDelete={() => { onClickRemove(index) }} />
+    })
+
+    const onClickRemove = (index) => {
+        const list = tags.filter((obj, x) => {
+            return x !== index;
+        })
+        setTags(list)
+    }
+
+
 
 
     const [listSort, { loading: ld, data: dt, error: er }] = useLazyQuery()
@@ -58,8 +77,8 @@ const RequestList = ({ category }) => {
     const requestList = data.getAllRequests
         .map((obj) => {
             return (
-                <Grid key={obj._id} item xs={12}>
-                    <Request data={obj} checked={loading}></Request>
+                <Grid key={obj._id} item xs={6}>
+                    <Request tags={tags} setTags={setTags} data={obj} checked={loading}></Request>
                 </Grid>
             )
         })
@@ -67,7 +86,10 @@ const RequestList = ({ category }) => {
 
     return (
         <Container className={classes.cardGrid} maxWidth="md">
-            <Typography variant="h5" style={{ display: 'inline-block', margin: '0px' }}>{category}</Typography>
+            <Typography variant="h5" style={{ display: 'inline-block', margin: '0px' }} gutterBottom>{category}</Typography>
+            <br />
+            <br/>
+            {tagSort}
             <SortButton category={category} />
             <Grid container spacing={3}>
                 {requestList}

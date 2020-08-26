@@ -9,17 +9,20 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link as RLink, useHistory } from 'react-router-dom';
-import { SIGNUP } from '../../lib/queries';
+import { SIGNUP } from '../lib/queries';
 import { useMutation } from '@apollo/client';
 import Axios from 'axios';
+import { Toolbar } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    padding: theme.spacing(7),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    backgroundColor : '#F2F3F4',
+    borderRadius : '10px',
   },
   avatar: {
     margin: theme.spacing(1),
@@ -34,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const JoinForm = () => {
+const JoinForm = ({handleLogin}) => {
 
   const classes = useStyles();
   const history = useHistory();
@@ -50,7 +53,7 @@ const JoinForm = () => {
   useEffect(() => {
     if (data) {
       if (data.signUp) {
-        history.push('/login')
+        handleLogin();
       } else {
         alert('이미 가입된 이메일입니다.')
       }
@@ -84,75 +87,73 @@ const JoinForm = () => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          회원가입
-        </Typography>
-        <form className={classes.form} noValidate onSubmit={onSubmitForm}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                autoComplete="name"
-                name="name"
-                variant="outlined"
-                required
-                fullWidth
-                id="name"
-                label="이름"
-                autoFocus
-                onChange={onChangeInfo}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="이메일"
-                name="email"
-                autoComplete="email"
-                type="email"
-                onChange={onChangeInfo}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="pwd"
-                label="비밀번호"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                onChange={onChangeInfo}
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
+      <Container className={classes.paper} component="main" maxWidth="xs">
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
             회원가입
-          </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link component={RLink} to="/login" variant="body2">
-                이미 아이디가 있으신가요? 로그인
-              </Link>
+        </Typography>
+          <form className={classes.form} noValidate onSubmit={onSubmitForm}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="name"
+                  name="name"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="name"
+                  label="이름"
+                  autoFocus
+                  onChange={onChangeInfo}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="이메일"
+                  name="email"
+                  autoComplete="email"
+                  type="email"
+                  onChange={onChangeInfo}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="pwd"
+                  label="비밀번호"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  onChange={onChangeInfo}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              회원가입
+          </Button>
+            <Grid container justify="flex-end">
+              <Grid item>
+                <Button onClick={handleLogin}>
+                  이미 아이디가 있으신가요? 로그인
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+      </Container>
   );
 }
 

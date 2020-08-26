@@ -3,62 +3,63 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => ({
+    myTextStyle: {
+        display: 'inline-block',
+        border: "1px solid yellow",
+        borderRadius: '5px',
+        padding: "2px 10px",
+        backgroundColor: 'yellow',
+        color: 'black',
+        fontSize: '15px',
+        maxWidth: '300px',
+        whiteSpace: 'pre-line',
+        wordBreak: 'break-all',
+    },
+    otherTextStyle: {
+        display: 'inline-block',
+        border: "1px solid white",
+        borderRadius: '5px',
+        padding: "2px 10px",
+        backgroundColor: 'white',
+        color: 'black',
+        fontSize: '15px',
+        maxWidth: '300px',
+        whiteSpace: 'pre-line',
+        wordBreak: 'break-all',
+    },
+    systemStyle: {
+        textAlign: "center",
+        margin: "15px 20px",
+    }
+}))
 
 
 
-const myTextStyle = {
-    display: 'inline-block',
-    border: "1px solid yellow",
-    borderRadius: '5px',
-    padding: "2px 10px",
-    backgroundColor: 'yellow',
-    color: 'black',
-    fontSize: '15px',
-    maxWidth: '300px',
-    whiteSpace: 'pre-line',
-    wordBreak: 'break-all',
-}
 
+function ChatList({ data, userName,avatarSrc }) {
 
-const otherTextStyle = {
-    display: 'inline-block',
-    border: "1px solid white",
-    borderRadius: '5px',
-    padding: "2px 10px",
-    backgroundColor: 'white',
-    color: 'black',
-    fontSize: '15px',
-    maxWidth: '300px',
-    whiteSpace: 'pre-line',
-    wordBreak: 'break-all',
-}
-
-const systemStyle = {
-    textAlign: "center",
-    margin: "15px 20px",
-}
-
-
-
-function ChatList({ data, userName }) {
+    const classes = useStyles();
 
     return (
         <>
             {(data.name === 'system') ?
                 <>
-                    <div style={systemStyle}>
+                    <div className={classes.systemStyle}>
                         {data.message}
                     </div>
                 </> :
                 (data.name === userName) ?
                     <>
-                        <ListItem alignItems="flex-start" style={{ textAlign: 'right', paddingRight: '0px' }}>
+                        <ListItem alignItems="center" style={{ textAlign: 'right', paddingRight: '0px' }}>
                             <ListItemText
                                 primary={
                                     <React.Fragment>
                                         <small>{data.createdAt}</small>
                                 &nbsp;&nbsp;
-                                <span style={myTextStyle}>
+                                <span className={classes.myTextStyle}>
                                             {data.message}
                                         </span>
                                     </React.Fragment>
@@ -67,15 +68,15 @@ function ChatList({ data, userName }) {
                         </ListItem>
                     </> :
                     <>
-                        <ListItem alignItems="flex-start" style={{ paddingLeft: '0px' }}>
+                        <ListItem alignItems="center" style={{ margin:'0px' }}>
                             <ListItemAvatar >
-                                <Avatar alt="Remy Sharp" src="https://placeimg.com/200/100/any" />
+                                <Avatar alt="Remy Sharp" src={avatarSrc} />
                             </ListItemAvatar>
                             <ListItemText
                                 primary={<small>{data.name}</small>}
                                 secondary={
                                     <React.Fragment>
-                                        <span style={otherTextStyle}>
+                                        <span className={classes.otherTextStyle}>
                                             {data.message}
                                         </span>
                             &nbsp;&nbsp;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Link } from 'react-router-dom';
-import Chat from './chat';
 import MyRequest from './MyRequest';
 import { Grid, Container, Divider, Avatar, Typography } from '@material-ui/core';
 import Image from 'material-ui-image';
@@ -51,7 +50,7 @@ const MyPage = () => {
         setOpen(false);
     };
 
-    const { data } = useQuery(GET_MY_PROFILE_IMAGE, {
+    const {loading, data } = useQuery(GET_MY_PROFILE_IMAGE, {
         variables: {
             user: user_id,
         },
@@ -62,15 +61,7 @@ const MyPage = () => {
         <Container className={classes.heroContent}>
             <Grid container>
                 <Grid className={classes.gridStyle} item xs={2}>
-                    {data &&
-                        data.getMyProfile.profileImage
-                        ?
-                        <Avatar className={classes.avatarStyle} src={data.getMyProfile.profileImage} />
-                        :
-                        <Avatar className={classes.avatarStyle}>
-                            <PersonIcon style={{ fontSize: 100 }} />
-                        </Avatar>
-                    }
+                    <Avatar className={classes.avatarStyle} src={!loading && data.getMyProfile.profileImage} />
                     <br />
                     <Typography variant="h5" gutterBottom>{userName}</Typography>
                     {is_seller
@@ -88,9 +79,7 @@ const MyPage = () => {
                     <br />
                 </Grid>
                 <Grid item xs={9}>
-                    <Route exact path='/user/mypage' component={MyRequest} />
-                    <Route path='/user/mypage/detail' component={RequestDetail} />
-                    <Route path='/user/mypage/chat' component={Chat} />
+                    <MyRequest />
                 </Grid>
                 <ProfileModal name={userName} open={open} onClose={handleClose} user_id={user_id} />
             </Grid>

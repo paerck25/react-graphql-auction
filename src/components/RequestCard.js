@@ -12,7 +12,8 @@ import LabelIcon from '@material-ui/icons/Label';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import Tooltip from '@material-ui/core/Tooltip';
-import { Paper, Typography, makeStyles, CardHeader, Toolbar } from '@material-ui/core';
+import { Paper, Typography, makeStyles, CardHeader, Toolbar, Divider } from '@material-ui/core';
+import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 
 const useStyle = makeStyles((theme) => ({
     rootStyle: {
@@ -21,7 +22,7 @@ const useStyle = makeStyles((theme) => ({
 }))
 
 
-const RequestCard = ({ obj }) => {
+const RequestCard = ({ obj,onClickChecked }) => {
 
     const classes = useStyle();
 
@@ -82,53 +83,58 @@ const RequestCard = ({ obj }) => {
         //     </CardContent>
         // </Card>
 
-        <Card className={classes.rootStyle} elevation={3}>
+        <Card onClick={onClickChecked} className={classes.rootStyle} elevation={3}>
             {obj.author.name !== null
                 &&
-                <CardHeader style={{textAlign:'center'}} title={`${obj.author.name}님의 요청서`} subheader={obj.requestedAt} />
+                <CardHeader style={{ textAlign: 'center' }} title={`${obj.author.name}님의 요청서`} subheader={obj.requestedAt} />
             }
+            <Divider/>
             <CardContent>
-                {[
-                    {
-                        icon: () => <BuildIcon />,
-                        title: '카테고리',
-                        text: obj.category
-                    },
-                    // {
-                    //     icon: () => <QueryBuilderIcon />,
-                    //     title : '요청 마감일',
-                    //     text: new Date(obj.deadLine).toLocaleString()
-                    // },
-                    {
-                        icon: () => <AddCircleOutlineIcon />,
-                        title: '상세설명',
-                        text: obj.detail
-                    },
-                    {
-                        icon: () => <LabelIcon />,
-                        title: '태그',
-                        text: obj.tags.map((obj2, index) => {
-                            return <span key={index}><Chip variant="outlined" size="small" label={obj2} />&nbsp;</span>
-                        })
-                    },
-                    {
-                        icon: () => <CalendarTodayIcon />,
-                        title: '희망 제작 마감일',
-                        text: obj.hopeDate
-                    },
-                ].map((obj3, index3) => {
-                    return (
-                        <div key={index3}>
-                            <ListItem>
-                                {obj3.icon()} &nbsp;&nbsp;&nbsp;
-                                <ListItemText primary={obj3.title} primaryTypographyProps={{ variant: "h5" }} />
-                            </ListItem>
-                            <Typography style={{marginLeft:'20px'}} variant="h6" color="textSecondary" paragraph>
-                                {obj3.text}
-                            </Typography>
-                        </div>
-                    )
-                })}
+                <List dense={true}>
+                    {[
+                        {
+                            icon: () => <BuildIcon />,
+                            title: '카테고리',
+                            text: obj.category
+                        },
+                        // {
+                        //     icon: () => <QueryBuilderIcon />,
+                        //     title : '요청 마감일',
+                        //     text: new Date(obj.deadLine).toLocaleString()
+                        // },
+                        {
+                            icon: () => <AddCircleOutlineIcon />,
+                            title: '상세설명',
+                            text: obj.detail
+                        },
+                        {
+                            icon: () => <LabelIcon />,
+                            title: '태그',
+                            text: obj.tags.map((obj2, index) => {
+                                return <span key={index}><Chip variant="outlined" size="small" label={obj2} />&nbsp;</span>
+                            })
+                        },
+                        {
+                            icon: () => <CalendarTodayIcon />,
+                            title: '희망 제작 마감일',
+                            text: obj.hopeDate
+                        },
+                    ].map((obj3, index3) => {
+                        return (
+                            <div key={index3}>
+                                <ListItem>
+                                    {obj3.icon()} &nbsp;&nbsp;&nbsp;
+                                    <ListItemText secondary={obj3.title} secondaryTypographyProps={{ variant: "h6" }} />
+                                </ListItem>
+                                <ListItem>
+                                    &nbsp;&nbsp;
+                                    <SubdirectoryArrowRightIcon fontSize="small" />&nbsp;&nbsp;
+                                    <ListItemText primary={obj3.text} primaryTypographyProps={{ variant: "h6" }} />
+                                </ListItem>
+                            </div>
+                        )
+                    })}
+                </List>
             </CardContent>
         </Card>
     )

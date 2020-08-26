@@ -266,7 +266,7 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
     }, [data])
 
     useEffect(() => {
-        if(phoneInput.phone1 || phoneInput.phone2 || phoneInput.phone3){
+        if (phoneInput.phone1 || phoneInput.phone2 || phoneInput.phone3) {
             setPhone(`${phoneInput.phone1}-${phoneInput.phone2}-${phoneInput.phone3}`);
         }
     }, [phoneInput])
@@ -284,14 +284,7 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
                     <DialogTitle id="simple-dialog-title">
                         <Grid container>
                             <Grid item xs={1}>
-                                {profilePreview === ''
-                                    ?
-                                    <Avatar className={classes.avatar}>
-                                        <PersonIcon />
-                                    </Avatar>
-                                    :
-                                    <Avatar className={classes.avatar} src={profilePreview} />
-                                }
+                                <Avatar className={classes.avatar} src={profilePreview} />
                             </Grid>
                             <Grid item xs={11}>
                                 <div style={{ display: "inline-block", marginTop: "5px", marginLeft: "5px" }}>내 프로필 설정</div>
@@ -303,14 +296,7 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
                         <small>나를 나타내는 사진을 올려주세요.</small>
                         <br /><br />
                         <label htmlFor='imageupload' style={{ display: 'inline-block' }}>
-                            {profilePreview === ''
-                                ?
-                                <Avatar className={classes.avatarBig}>
-                                    <PersonIcon style={{ fontSize: 80 }} />
-                                </Avatar>
-                                :
-                                <Avatar className={classes.avatarBig} src={profilePreview} />
-                            }
+                            <Avatar className={classes.avatarBig} src={profilePreview} />
                             <input type='file' id='imageupload' onChange={onChnageProfileImage} accept="image/*" style={{ display: 'none' }} />
                         </label>
                         <br /><br />

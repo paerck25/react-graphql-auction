@@ -14,17 +14,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Enroll(){
 
-    // const is_login = useSelector(state => state.userAction.is_login);
-    const is_login = localStorage.getItem('is_login');
     const history = useHistory();
     const classes = useStyles();
 
-    useEffect(()=>{
-        if(!is_login){
-            alert('로그인이 필요합니다.');
-            history.push('/login');
-        }
-    },[is_login,history])
 
     return(
         <Container className={classes.heroContent}>

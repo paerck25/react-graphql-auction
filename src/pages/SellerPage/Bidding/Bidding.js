@@ -43,7 +43,7 @@ const Bidding = ({ open, setOpen, data }) => {
 
 
     const onChangePrice = (e) => {
-        setPrice(e.target.value);
+        setPrice(Number(e.target.value).toLocaleString('en'));
     }
 
     const onSubmitForm = (e) => {
@@ -94,10 +94,10 @@ const Bidding = ({ open, setOpen, data }) => {
                     <DialogActions>
                         <Button onClick={onSubmitForm} color="primary">
                             입찰
-                    </Button>
+                        </Button>
                         <Button onClick={handleClose} color="primary">
                             취소
-                    </Button>
+                        </Button>
                     </DialogActions>
                 </Dialog>
             }

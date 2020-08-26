@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +9,8 @@ import { Divider, Paper } from '@material-ui/core';
 import Background from '../../img/background3.jpg'
 import { Link } from 'react-router-dom';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import Zoom from '@material-ui/core/Zoom';
+import ExpertRegister from '../ExpertRegister/ExpertRegister';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -39,6 +41,21 @@ const useStyles = makeStyles((theme) => ({
 const UserHome = () => {
     const classes = useStyles();
     const history = useHistory();
+    const [checked, setChecked] = useState(false);
+    const [open, setOpen] = useState(false);
+
+    const onClose = () => {
+        setOpen(false);
+    }
+
+    const user_id = localStorage.getItem('user_id');
+
+    useEffect(() => {
+        setChecked(true);
+        return () => {
+            setChecked(false);
+        }
+    }, [])
 
     return (
         <>
@@ -60,6 +77,7 @@ const UserHome = () => {
             <Container>
                 <Grid container spacing={9}>
                     <Grid item xs={6}>
+                    <Zoom in={checked} timeout={250}>
                         <Paper className={classes.containerStyle} elevation={3}>
                             <Typography variant="h5" color="textSecondary" gutterBottom>
                                 is Guest?
@@ -72,23 +90,27 @@ const UserHome = () => {
                                 </Button>
                             </Typography>
                         </Paper>
+                    </Zoom>
                     </Grid>
                     <Grid item xs={6}>
-                        <Paper className={classes.containerStyle} elevation={3}>
-                            <Typography variant="h5" color="textSecondary" gutterBottom>
-                                is Expert?
-                            </Typography>
-                            <Typography variant="h6" color="textSecondary" paragraph>
-                                when you want to have own website,<br/>
-                                here is best solution.
-                                <Button component={Link} className={classes.linkStyle} to="/user/enroll">
-                                    EXPERT Register<ArrowForwardIcon fontSize="small" />
-                                </Button>
-                            </Typography>
-                        </Paper>
+                        <Zoom in={checked} timeout={500}>
+                            <Paper className={classes.containerStyle} elevation={3}>
+                                <Typography variant="h5" color="textSecondary" gutterBottom>
+                                    is Expert?
+                                </Typography>
+                                <Typography variant="h6" color="textSecondary" paragraph>
+                                    when you want to have own website,<br/>
+                                    here is best solution.
+                                    <Button onClick={()=>{setOpen(true)}} className={classes.linkStyle}>
+                                        EXPERT Register<ArrowForwardIcon fontSize="small" />
+                                    </Button>
+                                </Typography>
+                            </Paper>
+                        </Zoom>
                     </Grid>
                 </Grid>
             </Container>
+            <ExpertRegister onClose={onClose} open={open} user_id={user_id}/>
         </>
     );
 }

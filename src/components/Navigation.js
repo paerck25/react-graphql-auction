@@ -25,7 +25,11 @@ const useStyles = makeStyles((theme) => ({
     menuStyle: {
         textDecoration: 'none',
         color : 'rgb(104,104,106)',
-        margin : '10px',
+        padding : '10px',
+        transition : 'all 0.1s',
+        '&:hover':{
+            backgroundColor : '#F2F3F4',
+        }
     },
 }));
 
@@ -71,7 +75,6 @@ function Navigation() {
         } else {
             return (
                 <Typography>
-                    <Link className={classes.menuStyle} to='/'>HOME</Link>
                     <Link className={classes.menuStyle} to='/login'>LOGIN</Link>
                     <Link className={classes.menuStyle} to='/join'>JOIN</Link>
                 </Typography>
@@ -80,16 +83,18 @@ function Navigation() {
     }
 
     return (
-        <Container className={classes.root}>
-            <Toolbar>
-                <Typography className={classes.title}>
-                    HELL
-                </Typography>
-                <div className={classes.navStyle}>
-                    {loginMenu()}
-                </div>
-            </Toolbar>
-        </Container>
+        <div style={{ backgroundColor: '#f9f9f9' }}>
+            <Container className={classes.root}>
+                <Toolbar>
+                    <Typography className={classes.title}>
+                        HELL
+                    </Typography>
+                    <div className={classes.navStyle}>
+                        {loginMenu()}
+                    </div>
+                </Toolbar>
+            </Container>
+        </div>
     )
 }
 

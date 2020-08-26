@@ -18,7 +18,7 @@ const RequestHistory = ({data}) => {
                 </TableCell>
                 <TableCell align="center">{obj.requestedAt}</TableCell>
                 <TableCell align="center">{obj.state}</TableCell>
-                <TableCell align="center"><Link to={{ pathname: `/user/mypage/detail`, state: obj }}>상세보기</Link></TableCell>
+                <TableCell align="center"><Link to={{ pathname: `/user/detail`, state: obj }}>상세보기</Link></TableCell>
             </TableRow>
         )
     })

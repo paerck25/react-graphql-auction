@@ -13,14 +13,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMutation } from '@apollo/client';
 import { LOGIN } from '../lib/queries';
 import Axios from 'axios';
+import { Toolbar } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    padding: theme.spacing(7),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    backgroundColor : '#F2F3F4',
+    borderRadius : '10px',
   },
   avatar: {
     margin: theme.spacing(1),
@@ -35,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = () => {
+const Login = ({handleJoin}) => {
 
   const classes = useStyles();
   const history = useHistory();
@@ -50,7 +53,7 @@ const Login = () => {
 
   useEffect(() => {
     if (is_login) {
-      if(is_seller){
+      if (is_seller) {
         history.push('/seller');
       } else {
         history.push('/user');
@@ -64,7 +67,7 @@ const Login = () => {
         localStorage.setItem('user_id', data.login._id);
         localStorage.setItem('userName', data.login.name);
         console.log(data.login.result);
-        if(data.login.is_seller){
+        if (data.login.is_seller) {
           history.push('/seller');
         } else {
           history.push('/user');
@@ -73,7 +76,7 @@ const Login = () => {
         alert(data.login.result);
       }
     }
-  }, [history, is_login,is_seller, data, dispatch])
+  }, [history, is_login, is_seller, data, dispatch])
 
   const onChangeInput = (e) => {
     setUser({
@@ -89,12 +92,10 @@ const Login = () => {
         ...user
       }
     })
-    console.log('???????');
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
+      <Container className={classes.paper} component="main" maxWidth="xs">
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
@@ -138,20 +139,18 @@ const Login = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Button href="#">
                 비밀번호 찾기
-              </Link>
+              </Button>
             </Grid>
             <Grid item>
-              <Link component={RLink} to="/join" variant="body2">
+              <Button onClick={handleJoin}>
                 회원가입
-              </Link>
+              </Button>
             </Grid>
           </Grid>
         </form>
-        <br />
-      </div>
-    </Container>
+      </Container>
   );
 }
 

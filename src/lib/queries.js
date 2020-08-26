@@ -49,7 +49,6 @@ query GetMyBids($author:ID!){
       author{
         _id
         name
-        email
       }
       detail
       category
@@ -60,30 +59,6 @@ query GetMyBids($author:ID!){
       state
     }
     state
-  }
-}
-`
-
-export const GET_MY_ROOM_LIST_FOR_SELLER = gql`
-query GetMyRoomListForSeller($seller:ID){
-  getMyRoomListForSeller(seller:$seller){
-    _id
-    request{
-      author{
-        _id
-        name
-      }
-      category
-    }
-    seller{
-      _id
-      name
-    }
-    messages{
-      name
-      message
-      createdAt
-    }
   }
 }
 `
@@ -115,6 +90,7 @@ query GetBidsInRequest($request:ID){
       name
       profile{
         phone
+        profileImage
       }
     }
     price
@@ -242,6 +218,12 @@ mutation RequestTimeOver($request:ID){
 export const EDIT_MY_PROFILE = gql`
 mutation EditMyProfile($input:ProfileInput){
   editMyProfile(input:$input)
+}
+`
+
+export const EXPERT_REGISTER = gql`
+mutation ExpertRegister($user:UserInput,$profile:ProfileInput){
+  expertRegister(user:$user,profile:$profile)
 }
 `
 
