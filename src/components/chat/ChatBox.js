@@ -27,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
         overflowY: 'auto',
         overflowX: 'hidden',
         margin: '0px auto',
+        padding : 0,
+        '&::-webkit-scrollbar' : {
+            display : 'none',
+        },
     },
     inputStyle: {
         width: '100%',

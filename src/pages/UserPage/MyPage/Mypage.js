@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import MyRequest from './MyRequest';
-import { Grid, Container, Divider, Avatar, Typography } from '@material-ui/core';
-import Image from 'material-ui-image';
+import { Grid, Container,  Avatar, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import RequestDetail from './MyRequest/RequestDetail';
 import { useSelector } from 'react-redux';
 import ProfileModal from '../../../components/Profile/ProfileModal';
 import { GET_MY_PROFILE_IMAGE } from '../../../lib/queries';
 import { useQuery } from '@apollo/client';
-import PersonIcon from '@material-ui/icons/Person';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -61,13 +58,13 @@ const MyPage = () => {
         <Container className={classes.heroContent}>
             <Grid container>
                 <Grid className={classes.gridStyle} item xs={2}>
-                    <Avatar className={classes.avatarStyle} src={!loading && data.getMyProfile.profileImage} />
+                    <Avatar className={classes.avatarStyle} src={(!loading && data) ? data.getMyProfile.profileImage : null} />
                     <br />
                     <Typography variant="h5" gutterBottom>{userName}</Typography>
                     {is_seller
                         &&
-                        <Button className={classes.buttonStyle} variant="outlined" component={Link} to='/seller/mypage'>
-                            판매 정보
+                    <Button className={classes.buttonStyle} variant="outlined" component={Link} to='/seller/mypage'>
+                        판매 정보
                     </Button>
                     }
                     <Button className={classes.buttonStyle} variant="outlined" component={Link} to='/user/mypage'>

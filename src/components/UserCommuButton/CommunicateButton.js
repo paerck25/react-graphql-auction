@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Button } from '@material-ui/core';
 import PopOver from './PopOver';
 import UserChat from '../chat';

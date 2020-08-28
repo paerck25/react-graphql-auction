@@ -4,15 +4,12 @@ import CardContent from '@material-ui/core/CardContent';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import BuildIcon from '@material-ui/icons/Build';
 import Chip from '@material-ui/core/Chip';
-import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import LabelIcon from '@material-ui/icons/Label';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import Tooltip from '@material-ui/core/Tooltip';
-import { Paper, Typography, makeStyles, CardHeader, Toolbar, Divider } from '@material-ui/core';
+import {  makeStyles, CardHeader, Divider } from '@material-ui/core';
 import SubdirectoryArrowRightIcon from '@material-ui/icons/SubdirectoryArrowRight';
 
 const useStyle = makeStyles((theme) => ({

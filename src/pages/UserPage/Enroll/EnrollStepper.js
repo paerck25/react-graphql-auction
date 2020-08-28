@@ -12,7 +12,6 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { SEND_REQUEST } from '../../../lib/queries';
 import { useMutation } from '@apollo/client';
-import Axios from 'axios';
 import ConfirmDialog from './ConfirmDialog';
 
 const useStyles = makeStyles((theme) => ({
@@ -114,6 +113,8 @@ const EnrollStepper = () => {
                 break;
             case 5:
                 setOpen(true);
+                break;
+            default :
                 break;
 
         }

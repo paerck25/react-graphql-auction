@@ -58,6 +58,7 @@ query GetMyBids($author:ID!){
       requestedAt
       state
     }
+    price
     state
   }
 }
@@ -197,15 +198,15 @@ mutation TradeComplete($bid:ID,$request:ID){
 }
 `
 
-export const TRADE_CANCLE = gql`
-mutation TradeCancle($request:ID){
-  tradeCancle(request:$request)
+export const TRADE_CANCEL = gql`
+mutation TradeCancel($request:ID){
+  tradeCancel(request:$request)
 }
 `
 
-export const BID_CANCLE = gql`
-mutation BidCancle($request:ID,$author:ID){
-  bidCancle(request:$request,author:$author)
+export const BID_CANCEL = gql`
+mutation BidCancel($request:ID,$author:ID){
+  bidCancel(request:$request,author:$author)
 }
 `
 

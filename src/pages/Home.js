@@ -1,103 +1,114 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useHistory, Link } from 'react-router-dom';
-import { Divider, Toolbar, Slide } from '@material-ui/core';
-import Background from '../img/background.jpg';
+import { Toolbar, Slide, Dialog, Grid } from '@material-ui/core';
+import Background from '../img/background3.jpg';
+import Background1 from '../img/background.jpg';
 import Login from './Login';
 import Join from './Join';
 
 
 const useStyles = makeStyles((theme) => ({
     title: {
-        textDecoration: 'none',
-        color: 'white',
+        color: 'rgb(104,104,106)',
+    },
+    nav: {
+        display: 'inline-block',
+        float: 'right',
+        color: 'rgb(104,104,106)',
     },
     backgroundImage: {
         backgroundImage: `url(${Background})`,
         height: '969px',
         overflow: 'hidden',
+        margin: 0,
+        padding: 0,
     },
-    heroContent: {
-        padding: theme.spacing(8, 0, 6),
+    backgroundOpacity: {
+        backgroundColor: 'rgba( 225, 225, 225, 0.5 )',
+        height: '969px',
     },
-    containerStyle: {
-        backgroundColor: 'white',
-        padding: theme.spacing(3, 3, 3),
+    navBar: {
+        display: 'flex',
+        alignItems: 'center',
+        margin: '10px',
+    },
+    divStyle: {
+        color: 'white',
+        // backgroundImage: `url(${Background1})`,
+        padding: theme.spacing(4, 4, 4),
     },
     buttonStyle: {
-        float: 'right',
         marginTop: '8px',
         marginRight: '50px',
     }
 }));
 
+const Transition1 = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="right" ref={ref} {...props} />;
+});
+
+const Transition2 = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="left" ref={ref} {...props} />;
+});
+
 
 const Home = () => {
     const classes = useStyles();
 
-    const [homeChecked, setHomeChecked] = useState(true);
     const [loginChecked, setLoginChecked] = useState(false);
     const [joinChecked, setJoinChecked] = useState(false);
 
     const handleHome = () => {
         setJoinChecked(false);
         setLoginChecked(false);
-        setHomeChecked(true);
     }
 
     const handleLogin = () => {
-        setHomeChecked(false);
         setJoinChecked(false);
         setLoginChecked(true);
     }
 
     const handleJoin = () => {
-        setHomeChecked(false);
         setLoginChecked(false);
         setJoinChecked(true);
     }
 
     return (
         <div className={classes.backgroundImage}>
-            <Toolbar style={{ marginBottom: '100px', }}>
-                <Button className={classes.title} onClick={handleHome}>
-                    <Typography variant="h4">
+            <Container>
+                <div className={classes.navBar}>
+                    <Typography className={classes.title} onClick={handleHome} component={Button} variant="h4">
                         HELL
                     </Typography>
-                </Button>
-            </Toolbar>
-            <Slide timeout={{ enter: 400, exit: 0 }} mountOnEnter unmountOnExit direction="down" in={homeChecked}>
-                <Container className={classes.containerStyle}>
-                    <Typography variant="h3" align="center" gutterBottom>Welcome to the Hell</Typography>
-                    <Typography variant="h5" paragraph>
-                        HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloH
-                        elloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHel
-                        loHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloH
-                        elloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHell
-                        oHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHell
-                        oHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHell
-                        oHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello
-                        HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello
-                        HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHel
-                        loHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello
-                        HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello
-                        HelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHell
-                        oHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHelloHello
+                    <Typography className={classes.nav} onClick={handleLogin} component={Button} variant="h6">
+                        로그인
                     </Typography>
-                    <Button variant="contained" color="primary" onClick={handleLogin}>로그인</Button>
-                    <Button variant="contained" color="primary" onClick={handleJoin}>회원가입</Button>
-                </Container>
-            </Slide>
-            <Slide timeout={{ enter: 400, exit: 0 }} mountOnEnter unmountOnExit direction="right" in={loginChecked}>
-                <div><Login handleJoin={handleJoin} /></div>
-            </Slide>
-            <Slide timeout={{ enter: 400, exit: 0 }} mountOnEnter unmountOnExit direction="left" in={joinChecked}>
-                <div><Join handleLogin={handleLogin} /></div>
-            </Slide>
+                    <Typography className={classes.nav} onClick={handleJoin} component={Button} variant="h6">
+                        회원가입
+                    </Typography>
+                </div>
+            </Container>
+            <div className={classes.backgroundOpacity}>
+                <Dialog open={loginChecked}
+                    TransitionComponent={Transition1}
+                    keepMounted
+                    onClose={handleHome}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description">
+                    <Login handleJoin={handleJoin} />
+                </Dialog>
+                <Dialog open={joinChecked}
+                    TransitionComponent={Transition2}
+                    keepMounted
+                    onClose={handleHome}
+                    aria-labelledby="alert-dialog-slide-title"
+                    aria-describedby="alert-dialog-slide-description">
+                    <Join handleLogin={handleLogin} />
+                </Dialog>
+            </div>
         </div>
     );
 }

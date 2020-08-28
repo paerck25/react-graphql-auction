@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { Divider, Container, Toolbar } from '@material-ui/core';
+import {  Container, Toolbar } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,7 +49,6 @@ function Navigation() {
         alert('로그아웃');
     }
     const loginMenu = () => {
-        console.log('is_seller',is_seller);
         if (is_login) {
             if (is_seller) {
                 return (

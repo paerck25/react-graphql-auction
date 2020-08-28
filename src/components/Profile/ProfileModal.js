@@ -5,7 +5,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Profile from './Profile';
 import Backdrop from '@material-ui/core/Backdrop';
 import { makeStyles } from '@material-ui/core/styles';
-import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -32,7 +31,7 @@ const ProfileModal = ({ onClose, open, user_id }) => {
         if (open) {
             getProfile();
         }
-    }, [open, data])
+    }, [open, data,getProfile])
 
     if (error) {
         console.log('에러에러에러에러에러', error);

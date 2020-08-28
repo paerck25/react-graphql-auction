@@ -4,7 +4,6 @@ import Enroll from './Enroll';
 import UserHome from './UserHome';
 import MyPage from './MyPage';
 import RequestDetail from './MyPage/MyRequest/RequestDetail';
-import { Container } from '@material-ui/core';
 
 const Main = () => {
     return (

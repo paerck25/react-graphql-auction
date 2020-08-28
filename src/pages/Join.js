@@ -2,17 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link as RLink, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { SIGNUP } from '../lib/queries';
 import { useMutation } from '@apollo/client';
-import Axios from 'axios';
-import { Toolbar } from '@material-ui/core';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     backgroundColor : '#F2F3F4',
     borderRadius : '10px',
+    color: 'rgb(104,104,106)',
   },
   avatar: {
     margin: theme.spacing(1),
@@ -35,6 +33,10 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  button : {
+    color: 'rgb(104,104,106)',
+    padding : 0,
+  }
 }));
 
 const JoinForm = ({handleLogin}) => {
@@ -58,7 +60,7 @@ const JoinForm = ({handleLogin}) => {
         alert('이미 가입된 이메일입니다.')
       }
     }
-  }, [data, history])
+  }, [data, history,handleLogin])
 
 
   const onChangeInfo = (e) => {
@@ -147,7 +149,7 @@ const JoinForm = ({handleLogin}) => {
           </Button>
             <Grid container justify="flex-end">
               <Grid item>
-                <Button onClick={handleLogin}>
+                <Button className={classes.button} onClick={handleLogin}>
                   이미 아이디가 있으신가요? 로그인
                 </Button>
               </Grid>

@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { CircularProgress, Backdrop, Divider, IconButton, Grid } from '@material-ui/core';
 import { GET_MY_ROOM } from '../../lib/queries';
-import { useQuery, useLazyQuery } from '@apollo/client';
+import {  useLazyQuery } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import ChatBox from './ChatBox';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import CloseIcon from '@material-ui/icons/Close';
+import Paper from '@material-ui/core/Paper';
+import Draggable from 'react-draggable';
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -16,6 +17,14 @@ const useStyles = makeStyles((theme) => ({
         color: '#fff',
     },
 }));
+
+function PaperComponent(props) {
+    return (
+      <Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'}>
+        <Paper {...props} />
+      </Draggable>
+    );
+  }
 
 const Main = ({ request, seller, open, onClose, avatarSrc }) => {
 
@@ -36,7 +45,7 @@ const Main = ({ request, seller, open, onClose, avatarSrc }) => {
         return () => {
             console.log('disconnect');
         }
-    }, [open])
+    }, [open,getRoom])
 
     if (loading) {
         return (
@@ -58,32 +67,44 @@ const Main = ({ request, seller, open, onClose, avatarSrc }) => {
     if (called && !loading) {
         console.log('chat connect');
         return (
-            <Dialog onClose={onClose} open={open}>
-                <DialogTitle style={{ padding:'0px' }}>
+            <Dialog
+                open={open}
+                onClose={onClose}
+                PaperComponent={PaperComponent}
+                aria-labelledby="draggable-dialog-title"
+            >
+                <DialogTitle style={{ cursor: 'move',padding: '0px' }} id="draggable-dialog-title">
                     <Grid container>
                         <Grid item xs={6}>
-                            <div style={{marginLeft:'14px',marginTop:'10px'}}>채팅</div>
+                            <div style={{ marginLeft: '14px', marginTop: '10px' }}>채팅</div>
                         </Grid>
                         <Grid item xs={6}>
-                            <IconButton onClick={onClose} style={{ float: 'right'}}>
+                            <IconButton onClick={onClose} style={{ float: 'right' }}>
                                 <CloseIcon />
                             </IconButton>
                         </Grid>
                     </Grid>
                 </DialogTitle>
                 <Divider />
-                <DialogContent style={{backgroundColor:'lightgray'}}>
+                <DialogContent style={{ backgroundColor: 'lightgray' }}>
                     <ChatBox userInfo={{
                         room: data.getMyRoom._id,
                         messages: data.getMyRoom.messages,
                     }}
-                    avatarSrc = {avatarSrc}
+                        avatarSrc={avatarSrc}
                     />
                 </DialogContent>
             </Dialog>
         )
     }
 }
+
+
+
+
+
+
+
 
 // const Main = ({ request, seller, open, onClose }) => {
 

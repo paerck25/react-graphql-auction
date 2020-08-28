@@ -5,15 +5,12 @@ import Avatar from '@material-ui/core/Avatar';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import { Grid, DialogContent, DialogActions, GridList, GridListTile, TextField, IconButton, GridListTileBar } from '@material-ui/core';
-import PersonIcon from '@material-ui/icons/Person';
 import { blue } from '@material-ui/core/colors';
 import { EDIT_MY_PROFILE } from '../../lib/queries';
 import { useMutation } from '@apollo/client';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Dropzone from "react-dropzone";
 import ProfileCarousel from './ProfileCarousel';
-import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Axios from 'axios';
 
@@ -67,10 +64,6 @@ const useStyles = makeStyles((theme) => ({
 const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
 
     const classes = useStyles();
-
-    const handleClose = () => {
-        onClose();
-    }
 
     const [imageOpen, setImageOpen] = useState(false);
 
@@ -133,6 +126,7 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
             header: { "content-type": "multipart/form-data" },
         };
         formData.append('user', user_id);
+        console.log(formData);
         if (profileImage) {
             formData.append("profileImage", profileImage);
         } else {
@@ -141,12 +135,12 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
 
         if (exPreview) {
             exPreview.map((obj) => {
-                formData.append("exPreview", obj);
+                return formData.append("exPreview", obj);
             })
         }
         if (exampleImages) {
             exampleImages.map((obj) => {
-                formData.append("exampleImages", obj);
+                return formData.append("exampleImages", obj);
             })
         }
         Axios.post('http://localhost:4000/image', formData, config)
@@ -219,7 +213,7 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
     const showExamplePreview = examplePreview.map((obj, index) => {
         return (
             <GridListTile key={index} >
-                <img src={obj.src} onClick={() => { onClickImageOpen(obj.src) }} />
+                <img src={obj.src} alt="없음" onClick={() => { onClickImageOpen(obj.src) }} />
                 <GridListTileBar
                     titlePosition="bottom"
                     actionIcon={
@@ -237,7 +231,7 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
     const showExPreview = exPreview.map((obj, index) => {
         return (
             <GridListTile key={index} >
-                <img src={obj} onClick={() => { onClickImageOpen(obj) }} />
+                <img src={obj} alt="없음" onClick={() => { onClickImageOpen(obj) }} />
                 <GridListTileBar
                     titlePosition="bottom"
                     actionIcon={
@@ -257,13 +251,13 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
         if (data) {
             if (data.editMyProfile) {
                 alert('저장 완료!');
-                handleClose();
+                onClose();
                 profileClose();
             } else {
                 alert('저장 실패! 다시 시도해 주세요.')
             }
         }
-    }, [data])
+    }, [data,onClose,profileClose])
 
     useEffect(() => {
         if (phoneInput.phone1 || phoneInput.phone2 || phoneInput.phone3) {
@@ -280,7 +274,7 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
                     <CircularProgress color="inherit" />
                 </Backdrop>
                 :
-                <Dialog fullWidth={true} maxWidth="sm" onClose={handleClose} aria-labelledby="form-dialog-title" open={open}>
+                <Dialog fullWidth={true} maxWidth="sm" onClose={onClose} aria-labelledby="form-dialog-title" open={open}>
                     <DialogTitle id="simple-dialog-title">
                         <Grid container>
                             <Grid item xs={1}>
@@ -330,7 +324,7 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleSaveProfile} variant="contained" className={classes.buttonStyle}>저장</Button>
-                        <Button onClick={handleClose} variant="contained" className={classes.buttonStyle}>취소</Button>
+                        <Button onClick={onClose} variant="contained" className={classes.buttonStyle}>취소</Button>
                     </DialogActions>
                     <ProfileCarousel open={imageOpen} setOpen={setImageOpen} src={image} />
                 </Dialog>
@@ -346,7 +340,7 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
 
 //     const classes = useStyles();
 
-//     const handleClose = () => {
+//     const onClose = () => {
 //         onClose();
 //     }
 
@@ -414,7 +408,7 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
 //             .then(res => {
 //                 setLoading(false);
 //                 alert(res.data);
-//                 handleClose();
+//                 onClose();
 //                 profileClose();
 //             })
 //             .catch(err => {
@@ -529,7 +523,7 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
 //                     <CircularProgress color="inherit" />
 //                 </Backdrop>
 //                 :
-//                 <Dialog fullWidth={true} maxWidth="sm" onClose={handleClose} aria-labelledby="form-dialog-title" open={open}>
+//                 <Dialog fullWidth={true} maxWidth="sm" onClose={onClose} aria-labelledby="form-dialog-title" open={open}>
 //                     <DialogTitle id="simple-dialog-title">
 //                         <Grid container>
 //                             <Grid item xs={1}>
@@ -592,7 +586,7 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
 //                     </DialogContent>
 //                     <DialogActions>
 //                         <Button onClick={handleSaveProfile} variant="contained" className={classes.buttonStyle}>저장</Button>
-//                         <Button onClick={handleClose} variant="contained" className={classes.buttonStyle}>취소</Button>
+//                         <Button onClick={onClose} variant="contained" className={classes.buttonStyle}>취소</Button>
 //                     </DialogActions>
 //                     <ProfileCarousel open={imageOpen} setOpen={setImageOpen} src={image} />
 //                 </Dialog>

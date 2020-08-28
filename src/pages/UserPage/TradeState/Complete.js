@@ -1,6 +1,6 @@
 import React from 'react'
-import RequestCard from '../../../../components/RequestCard'
-import { Container, Grid, Typography, Divider, makeStyles, Avatar, Button } from '@material-ui/core'
+import RequestCard from '../../../components/RequestCard'
+import { Container, Grid, Typography,  makeStyles, Avatar, Button } from '@material-ui/core'
 import Rating from '@material-ui/lab/Rating';
 import PersonIcon from '@material-ui/icons/Person';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -27,13 +27,13 @@ const useStyles = makeStyles((theme) => ({
     icon: {
         display: 'block',
         fontSize: 50,
-        marginTop: '80px',
+        marginTop: '50px',
         margin: 'auto',
         color: "#4caf50",
     }
 }));
 
-const TradeCompelete = ({ data, requestData }) => {
+const Complete = ({ data, requestData }) => {
 
     const classes = useStyles();
     return (
@@ -90,4 +90,4 @@ const TradeCompelete = ({ data, requestData }) => {
     )
 }
 
-export default TradeCompelete
+export default Complete

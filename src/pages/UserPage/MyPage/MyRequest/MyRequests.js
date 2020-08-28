@@ -1,23 +1,36 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { Container, Grid, Divider, Chip, Typography, Paper, CardHeader, makeStyles } from '@material-ui/core';
+import { Container, Grid, Chip, Typography, CardHeader, makeStyles } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Counter from '../../../../components/Counter'
 
-const useStyles = makeStyles((theme)=>({
-    cardStyle : {
+const useStyles = makeStyles((theme) => ({
+    cardStyle: {
         textAlign: 'center',
         transition: 'all 0.2s',
-        '&:hover' : {
-            backgroundColor : '#EAECEE'
-        }
+        '&:hover': {
+            backgroundColor: '#EAECEE'
+        },
     },
-    gridStyle : {
+    cardHeaderStyle : {
+        paddingBottom : 0,
+    },
+    gridStyle: {
         margin: 'auto',
     },
-    linkStyle : {
+    linkStyle: {
         textDecoration: 'none'
+    },
+    tagStyle: {
+        margin : '2px',
+    },
+    tagDivStyle: {
+        display: 'block',
+        overflow: 'hidden',
+        whiteSpace: 'nowrap',
+        maxWidth: '100%',
+        maxHeight: '1.7em',
     }
 }));
 
@@ -34,17 +47,18 @@ const MyRequests = ({ data }) => {
     const MyRequestList = requestList.map((obj) => {
 
         const showTagList = obj.tags.map((obj, index) => {
-            return <Chip key={index} style={{ margin: '2px' }} label={obj} variant="outlined" size="small" />
+            return <Chip className={classes.tagStyle} key={index} label={obj} variant="outlined" size="small" />
         })
 
         return (
             <Grid className={classes.gridStyle} key={obj._id} item xs={4}>
                 <Link className={classes.linkStyle} to={{ pathname: `/user/detail`, state: obj }}>
                     <Card className={classes.cardStyle} size="large" color="primary">
-                        <CardHeader title={obj.category} subheader={obj.requestedAt} />
+                        <CardHeader className={classes.cardHeaderStyle} title={obj.category} subheader={obj.requestedAt} />
                         <CardContent>
-                            {showTagList}
-                            <br /><br />
+                            <div className={classes.tagDivStyle}>
+                                {showTagList}
+                            </div><br/>
                             {obj.state === '요청 진행중' ? <Counter data={obj} /> : <>{obj.state}</>}
                         </CardContent>
                     </Card>

@@ -9,7 +9,6 @@ import Rating from '@material-ui/lab/Rating';
 import Avatar from '@material-ui/core/Avatar';
 import ProfileModal from './Profile/ProfileModal';
 import UserCommuButton from './UserCommuButton';
-import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles((theme) => ({
     card: {

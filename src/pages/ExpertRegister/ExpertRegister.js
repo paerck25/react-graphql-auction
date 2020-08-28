@@ -4,16 +4,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import { Grid, DialogContent, DialogActions, GridList, GridListTile, TextField, IconButton, GridListTileBar } from '@material-ui/core';
+import { Grid, DialogContent,  GridList, GridListTile, TextField, IconButton, GridListTileBar } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import { blue } from '@material-ui/core/colors';
 import { EXPERT_REGISTER } from '../../lib/queries';
 import { useMutation } from '@apollo/client';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Dropzone from "react-dropzone";
 import ProfileCarousel from '../../components/Profile/ProfileCarousel';
-import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Axios from 'axios';
 import Stepper from '@material-ui/core/Stepper';
@@ -93,10 +91,6 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
 
     const classes = useStyles();
 
-    const handleClose = () => {
-        onClose();
-    }
-
     const [imageOpen, setImageOpen] = useState(false);
 
     const [image, setImage] = useState('');
@@ -169,12 +163,12 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
 
         if (exPreview) {
             exPreview.map((obj) => {
-                formData.append("exPreview", obj);
+                return formData.append("exPreview", obj);
             })
         }
         if (exampleImages) {
             exampleImages.map((obj) => {
-                formData.append("exampleImages", obj);
+                return formData.append("exampleImages", obj);
             })
         }
         Axios.post('http://localhost:4000/image', formData, config)
@@ -247,7 +241,7 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
     const showExamplePreview = examplePreview.map((obj, index) => {
         return (
             <GridListTile key={index} >
-                <img src={obj.src} onClick={() => { onClickImageOpen(obj.src) }} />
+                <img src={obj.src} alt="없음" onClick={() => { onClickImageOpen(obj.src) }} />
                 <GridListTileBar
                     titlePosition="bottom"
                     actionIcon={
@@ -265,7 +259,7 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
     const showExPreview = exPreview.map((obj, index) => {
         return (
             <GridListTile key={index} >
-                <img src={obj} onClick={() => { onClickImageOpen(obj) }} />
+                <img src={obj} alt="없음" onClick={() => { onClickImageOpen(obj) }} />
                 <GridListTileBar
                     titlePosition="bottom"
                     actionIcon={
@@ -285,7 +279,7 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
         if (data) {
             if (data.expertRegister) {
                 alert('등록 완료!');
-                handleClose();
+                onClose();
             } else {
                 alert('등록 실패! 다시 시도해 주세요.')
             }
@@ -293,7 +287,7 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
         if(error){
             console.log('graphql에러!',error);
         }
-    }, [data,error])
+    }, [data,error,onClose])
 
     useEffect(() => {
         if (phoneInput.phone1 || phoneInput.phone2 || phoneInput.phone3) {
@@ -389,7 +383,7 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
                     <CircularProgress color="inherit" />
                 </Backdrop>
                 :
-                <Dialog fullWidth={true} maxWidth="sm" onClose={handleClose} aria-labelledby="form-dialog-title" open={open}>
+                <Dialog fullWidth={true} maxWidth="sm" onClose={onClose} aria-labelledby="form-dialog-title" open={open}>
                     <DialogTitle style={{ padding: '0px' }}>
                         <Grid container>
                             <Grid item xs={6}>

@@ -72,6 +72,7 @@ const resolvers = {
                     populate: { path: 'author', select: 'name' }
                 })
                     .then((res) => {
+                        console.log(res);
                         return res
                     })
                     .catch(err => {
@@ -93,14 +94,12 @@ const resolvers = {
         },
 
         getMyRoom: (root, args) => {
-            console.log('args', args);
             const result = Room.findOne({ request: args.request, seller: args.seller })
             return result;
         },
     },
 
     Mutation: {
-
         login: (root, args) => {
             const result = User.findOne({ email: args.email })
                 .then(async user => {
@@ -203,7 +202,7 @@ const resolvers = {
         sendBid: (root, args) => {
             const result = Bid.findOne({ request: args.input.request, author: args.input.author })
                 .then(data => {
-                    if (data === null) {
+                    if (data === null || data.state === '입찰 취소') {
                         const str = Bid.create(
                             {
                                 ...args.input,
@@ -294,19 +293,10 @@ const resolvers = {
             return (result1 && result2);
         },
 
-        tradeCancle: (root, args) => {
-            const result1 = Room.deleteMany({ request: args.request })
-                .then(() => {
-                    console.log('all Room delete');
-                    return true
-                })
-                .catch((err) => {
-                    console.log(err);
-                    return false
-                })
+        tradeCancel: (root, args) => {
             const result2 = Bid.updateMany({ request: args.request }, { $set: { state: '취소된 거래' } })
                 .then(() => {
-                    console.log('all Bid cancle');
+                    console.log('all Bid cancel');
                     return true
                 })
                 .catch((err) => {
@@ -315,17 +305,17 @@ const resolvers = {
                 })
             const result3 = Request.updateOne({ _id: args.request }, { $set: { state: '취소된 거래' } })
                 .then(() => {
-                    console.log('Request cancle');
+                    console.log('Request cancel');
                     return true
                 })
                 .catch((err) => {
                     console.log(err);
                     return false
                 })
-            return (result1 && result2 && result3);
+            return (result2 && result3);
         },
 
-        bidCancle: (root, args) => {
+        bidCancel: (root, args) => {
             const result1 = Room.deleteOne({ request: args.request, seller: args.author })
                 .then(() => {
                     console.log('Room delete');
@@ -335,9 +325,9 @@ const resolvers = {
                     console.log(err);
                     return false
                 })
-            const result2 = Bid.updateOne({ request: args.request, author: args.author }, { $set: { state: '취소된 거래' } })
+            const result2 = Bid.updateOne({ request: args.request, author: args.author }, { $set: { state: '입찰 취소' } })
                 .then(() => {
-                    console.log('bid cancle');
+                    console.log('bidCancel');
                     return true
                 })
                 .catch((err) => {
@@ -361,7 +351,7 @@ const resolvers = {
             if (bidCount === 0) {
                 result = await Request.updateOne({ _id: args.request }, { $set: { state: '취소된 거래' } })
                     .then(() => {
-                        console.log('time over and cancle');
+                        console.log('time over and cancel');
                         return true
                     })
                     .catch((err) => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
@@ -104,13 +104,13 @@ const Profile = ({ profile, onClose, open, user_id }) => {
                         ?
                         profile.exampleImages.length === 1
                             ?
-                            <img src={profile.exampleImages[0]} alt="123123" onClick={() => { onClickImageOpen(profile.exampleImages[0]) }} />
+                            <img src={profile.exampleImages[0]} alt="비어있음" onClick={() => { onClickImageOpen(profile.exampleImages[0]) }} />
                             :
                             <GridList className={classes.gridList} cols={2.5}>
                                 {profile.exampleImages.map((obj, index) => {
                                     return (
                                         <GridListTile key={index} onClick={() => { onClickImageOpen(obj) }}>
-                                            <img src={obj} />
+                                            <img src={obj} alt="비어있음" />
                                         </GridListTile>
                                     )
                                 })}

@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Container, Divider, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import RequestCard from '../../../../components/RequestCard';
 import Bids from './Bids';
 import { useMutation } from '@apollo/client';
-import { TRADE_CANCLE } from '../../../../lib/queries';
+import { TRADE_CANCEL } from '../../../../lib/queries';
 import { useHistory } from 'react-router-dom';
 import Counter from '../../../../components/Counter';
-import Axios from 'axios';
+import Notice from '../../../../components/Notice';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     },
     gridStyle: {
         margin: '4% auto',
-        width: "80%",
+        width: "90%",
     },
     loadingStyle: {
         display: 'block',
@@ -42,18 +42,18 @@ const ReceiveList = ({ requestData, bidData, onClickChoice, }) => {
 
     const classes = useStyles();
 
-    const [tradeCancle, { data: cancle }] = useMutation(TRADE_CANCLE, {
+    const [tradeCancel, { data: cancel }] = useMutation(TRADE_CANCEL, {
         variables: {
             request: requestData._id,
         }
     })
 
     useEffect(() => {
-        if (cancle) {
-            alert(cancle.tradeCancle);
+        if (cancel) {
+            alert(cancel.tradeCancel);
             history.replace('/user/mypage');
         }
-    }, [cancle])
+    }, [cancel,history])
 
     return (
         <Container className={classes.root}>
@@ -61,7 +61,7 @@ const ReceiveList = ({ requestData, bidData, onClickChoice, }) => {
                 <Grid item xs={6}>
                     <RequestCard obj={requestData} />
                     <Typography variant="h6" className={classes.counterStyle}><Counter data={requestData} /></Typography>
-                    <Button onClick={tradeCancle} className={classes.buttonStyle} variant="outlined">
+                    <Button onClick={tradeCancel} className={classes.buttonStyle} variant="outlined">
                         거래 취소
                     </Button>
                 </Grid>
@@ -71,44 +71,7 @@ const ReceiveList = ({ requestData, bidData, onClickChoice, }) => {
                     <Bids onClickChoice={onClickChoice} data={bidData} requestData={requestData} />
                 </Grid>
             </Grid>
-            <Divider/>
-            <Grid container className={classes.gridStyle} spacing={9}>
-                <Grid item xs={4}>
-                    <Typography align="center" variant="h5" gutterBottom>안내</Typography>
-                    <ul>
-                        <li>
-                            본 웹사이트는 고객과 전문가를 연결시켜드리는 중개 플랫폼 입니다.
-                        </li>
-                        <br />
-                        <li>
-                            사이트 운영자는 거래에 관여하지 않습니다.
-                        </li>
-                        <br />
-                        <li>
-
-                        </li>
-                    </ul>
-                </Grid>
-                <Grid item xs={4}>
-                    <Typography align="center" variant="h5" gutterBottom>교환/환불</Typography>
-                </Grid>
-                <Grid item xs={4}>
-                    <Typography align="center" variant="h5" gutterBottom>평점과 리뷰</Typography>
-                    <ul>
-                        <li>
-                            평점과 리뷰는 거래 완료 고객에 한해서만 작성이 가능합니다.
-                        </li>
-                        <br />
-                        <li>
-                            사이트 운영자는 거래에 관여하지 않습니다.
-                        </li>
-                        <br />
-                        <li>
-
-                        </li>
-                    </ul>
-                </Grid>
-            </Grid>
+            <Notice/>
         </Container>
     )
 }
@@ -119,8 +82,8 @@ const ReceiveList = ({ requestData, bidData, onClickChoice, }) => {
 
 //     const classes = useStyles();
 
-//     const tradeCancle = () => {
-//         Axios.post('/cancle',{
+//     const tradeCancel = () => {
+//         Axios.post('/cancel',{
 //             request : requestData._id,
 //         })
 //         .then(res=>{
@@ -138,7 +101,7 @@ const ReceiveList = ({ requestData, bidData, onClickChoice, }) => {
 //                 <Grid item xs={5}>
 //                     <RequestCard obj={requestData} />
 //                     <Typography variant="5" style={{textAlign:'center'}}><Counter data={requestData}/></Typography variant="5">
-//                     <Button onClick={tradeCancle} className={classes.buttonStyle} variant="outlined">
+//                     <Button onClick={tradeCancel} className={classes.buttonStyle} variant="outlined">
 //                         거래 취소
 //                     </Button>
 //                 </Grid>

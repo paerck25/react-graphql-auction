@@ -9,9 +9,9 @@ import Paper from '@material-ui/core/Paper';
 
 const BidHistory = ({ data }) => {
 
-    const showBidHistory = data.map((obj) => {
+    const showBidHistory = data.map((obj,index) => {
         return (
-            <TableRow key={obj.request._id}>
+            <TableRow key={obj.request._id+index}>
                 <TableCell component="th" scope="row">
                     {obj.request.category}
                 </TableCell>

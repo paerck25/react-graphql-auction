@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import Grid from '@material-ui/core/Grid';
-import { Divider, Container, makeStyles } from '@material-ui/core';
+import { Container, makeStyles } from '@material-ui/core';
 import RequestList from './RequestList';
 import CategoryMenu from './CategoryMenu';
 

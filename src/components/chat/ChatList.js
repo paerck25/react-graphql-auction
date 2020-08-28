@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => ({
 
 
 
-function ChatList({ data, userName,avatarSrc }) {
+function ChatList({ data, userName, avatarSrc }) {
 
     const classes = useStyles();
 
@@ -53,7 +53,7 @@ function ChatList({ data, userName,avatarSrc }) {
                 </> :
                 (data.name === userName) ?
                     <>
-                        <ListItem alignItems="center" style={{ textAlign: 'right', paddingRight: '0px' }}>
+                        <ListItem alignItems="center" style={{ textAlign: 'right'}}>
                             <ListItemText
                                 primary={
                                     <React.Fragment>
@@ -68,8 +68,8 @@ function ChatList({ data, userName,avatarSrc }) {
                         </ListItem>
                     </> :
                     <>
-                        <ListItem alignItems="center" style={{ margin:'0px' }}>
-                            <ListItemAvatar >
+                        <ListItem alignItems="center">
+                            <ListItemAvatar>
                                 <Avatar alt="Remy Sharp" src={avatarSrc} />
                             </ListItemAvatar>
                             <ListItemText

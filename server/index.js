@@ -8,7 +8,7 @@ const Profile = require('./models/profile');
 const express = require('express');
 
 
-mongoose.connect("mongodb+srv://testDB:1234567890@cluster0-3zzdx.mongodb.net/graph?retryWrites=true&w=majority",
+mongoose.connect(process.env.MONGO_URL,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -64,22 +64,5 @@ server.express.post('/image', upload.fields([{ name: 'profileImage' }, { name: '
             console.log(err);
         })
 })
-
-// server.express.post('/image', upload2.fields([{ name: 'profileImage' }, { name: 'exampleImages' }]), (req, res, next) => {
-//     let profileImage = '';
-//     let exampleImages = [];
-//     if(req.files.profileImage){
-//         profileImage = req.files.profileImage[0].location;
-//     }
-//     if(req.files.exampleImages){
-//         req.files.exampleImages.map((obj)=>{
-//             exampleImages.push(obj.location);
-//         })
-//     }
-//     let exPreview = req.body.exPreview;
-//     console.log('body!!!!!!!!!!',exPreview);
-//     console.log(profileImage);
-//     console.log(exampleImages);
-// })
 
 server.start(() => console.log('http://localhost:4000'))

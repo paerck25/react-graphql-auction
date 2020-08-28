@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {REQUEST_TIME_OVER} from '../lib/queries';
 import { useMutation } from '@apollo/client';
-import Axios from 'axios';
 
 const Counter = ({data}) => {
     const [start, setStart] = useState(parseInt(new Date().getTime() / 1000));
@@ -25,7 +24,7 @@ const Counter = ({data}) => {
             }, 1000);
         }
         return () => clearInterval(interval);
-    }, [end, start]);
+    }, [end, start,timeOver]);
 
 
     function countDown() {

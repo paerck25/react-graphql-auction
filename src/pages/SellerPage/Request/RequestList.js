@@ -5,10 +5,9 @@ import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { GET_ALL_REQUESTS } from '../../../lib/queries';
-import { useQuery, useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import SortButton from './SortButton';
-import { useHistory } from 'react-router-dom';
-import { Typography, Toolbar, Chip } from '@material-ui/core';
+import { Typography, Chip } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     cardGrid: {
@@ -28,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 
 const RequestList = ({ category }) => {
     const classes = useStyles();
-    const history = useHistory();
 
     const { loading, data, error } = useQuery(GET_ALL_REQUESTS, {
         fetchPolicy: 'cache-and-network',
@@ -48,12 +46,6 @@ const RequestList = ({ category }) => {
     }
 
 
-
-
-    const [listSort, { loading: ld, data: dt, error: er }] = useLazyQuery()
-
-
-
     if (loading) {
         return (
             <CircularProgress className={classes.loadingStyle} />
@@ -67,7 +59,6 @@ const RequestList = ({ category }) => {
 
     if (error) {
         alert(error);
-        history.push('/');
         return (
             <CircularProgress className={classes.loadingStyle} />
         )

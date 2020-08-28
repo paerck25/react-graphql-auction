@@ -12,7 +12,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import { useMutation } from '@apollo/client';
 import { SEND_BID } from '../../../lib/queries';
-import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {

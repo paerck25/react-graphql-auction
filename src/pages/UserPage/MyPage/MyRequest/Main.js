@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { CircularProgress, Divider,Typography} from '@material-ui/core';
 import { GET_MY_REQUESTS } from '../../../../lib/queries';
 import { useQuery } from '@apollo/client';
@@ -18,8 +17,6 @@ const Main = () => {
         margin: '18% auto',
     }
 
-    const history = useHistory();
-
     const { loading, data, error } = useQuery(GET_MY_REQUESTS, {
         variables: { author: user_id },
         fetchPolicy: 'cache-and-network',
@@ -28,7 +25,6 @@ const Main = () => {
 
     if (error) {
         alert(error);
-        history.push('/');
         return (
             <CircularProgress style={loadingStyle} />
         )

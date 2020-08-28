@@ -4,7 +4,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Divider from '@material-ui/core/Divider';
 import BuildIcon from '@material-ui/icons/Build';
 import QueryBuilderIcon from '@material-ui/icons/QueryBuilder';
 import { TextField, InputAdornment, OutlinedInput, Paper, Typography, Tooltip, Card } from '@material-ui/core';
@@ -13,7 +12,6 @@ import LabelIcon from '@material-ui/icons/Label';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import Checkbox from '@material-ui/core/Checkbox';
-import RequestCard from '../../../components/RequestCard';
 import Slide from '@material-ui/core/Slide';
 
 const useStyles = makeStyles((theme) => ({

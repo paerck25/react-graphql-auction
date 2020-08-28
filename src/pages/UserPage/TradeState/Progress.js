@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom';
-import { Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText, Divider } from '@material-ui/core';
+import React, { useEffect } from 'react'
+import { useHistory } from 'react-router-dom';
+import { Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import { useMutation } from '@apollo/client';
-import { TRADE_CANCLE, TRADE_COMPLETE } from '../../../../lib/queries';
-import UserCommuButton from '../../../../components/UserCommuButton';
-import RequestCard from '../../../../components/RequestCard';
+import { TRADE_CANCEL, TRADE_COMPLETE } from '../../../lib/queries';
+import UserCommuButton from '../../../components/UserCommuButton';
+import RequestCard from '../../../components/RequestCard';
 import { makeStyles } from '@material-ui/core/styles';
-import BidCard from '../../../../components/BidCard';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import PersonIcon from '@material-ui/icons/Person';
+import Notice from '../../../components/Notice';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,14 +30,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const NowTrading = ({ data, requestData }) => {
+const Progress = ({ data, requestData }) => {
 
     const classes = useStyles();
 
     const history = useHistory();
-    
 
-    const [tradeCancle, { data: cancle }] = useMutation(TRADE_CANCLE, {
+
+    const [tradeCancel, { data: cancel }] = useMutation(TRADE_CANCEL, {
         variables: {
             request: requestData._id,
         }
@@ -51,17 +51,15 @@ const NowTrading = ({ data, requestData }) => {
     })
 
     useEffect(() => {
-        console.log('data', data);
-        console.log('requestData', requestData);
         if (complete) {
             alert(complete.tradeComplete);
             history.replace('/user/mypage');
         }
-        if (cancle) {
-            alert(cancle.tradeCancle);
+        if (cancel) {
+            alert(cancel.tradeCancel);
             history.replace('/user/mypage');
         }
-    }, [complete, cancle])
+    }, [complete, cancel, history])
 
 
 
@@ -74,14 +72,14 @@ const NowTrading = ({ data, requestData }) => {
                 <Grid item xs={6}>
                     <Grid container spacing={6}>
                         <Grid item xs={3}>
-                        {data.author.profile.profileImage 
-                            ?
-                            <Avatar src={data.author.profile.profileImage} className={classes.large} />
-                            :
-                            <Avatar className={classes.large}>
-                                <PersonIcon style={{ fontSize: 100 }} />
-                            </Avatar>
-                        }
+                            {data.author.profile.profileImage
+                                ?
+                                <Avatar src={data.author.profile.profileImage} className={classes.large} />
+                                :
+                                <Avatar className={classes.large}>
+                                    <PersonIcon style={{ fontSize: 100 }} />
+                                </Avatar>
+                            }
                         </Grid>
                         <Grid item xs={6} style={{ marginTop: '8px' }}>
                             <Typography variant="h6">
@@ -104,54 +102,17 @@ const NowTrading = ({ data, requestData }) => {
                     <Button onClick={tradeComplete} style={{ width: '100%' }} variant="outlined">
                         거래 완료
                     </Button>
-                    <Button onClick={tradeCancle} style={{ width: '100%' }} variant="outlined">
+                    <Button onClick={tradeCancel} style={{ width: '100%' }} variant="outlined">
                         거래 취소
                     </Button>
                 </Grid>
             </Grid>
-            <Divider/>
-            <Grid container className={classes.gridStyle} spacing={9}>
-                <Grid item xs={4}>
-                    <Typography align="center" variant="h5" gutterBottom>안내</Typography>
-                    <ul>
-                        <li>
-                            본 웹사이트는 고객과 전문가를 연결시켜드리는 중개 플랫폼 입니다.
-                        </li>
-                        <br/>
-                        <li>
-                            사이트 운영자는 거래에 관여하지 않습니다.
-                        </li>
-                        <br/>
-                        <li>
-
-                        </li>
-                    </ul>
-                </Grid>
-                <Grid item xs={4}>
-                    <Typography align="center" variant="h5" gutterBottom>교환/환불</Typography>
-                </Grid>
-                <Grid item xs={4}>
-                    <Typography align="center" variant="h5" gutterBottom>평점과 리뷰</Typography>
-                    <ul>
-                        <li>
-                            평점과 리뷰는 거래 완료 고객에 한해서만 작성이 가능합니다.
-                        </li>
-                        <br/>
-                        <li>
-                            사이트 운영자는 리뷰에 관여하지 않습니다.
-                        </li>
-                        <br/>
-                        <li>
-
-                        </li>
-                    </ul>
-                </Grid>
-            </Grid>
+            <Notice/>
         </Container>
     )
 }
 
-// const NowTrading = ({ data, requestData }) => {
+// const Progress = ({ data, requestData }) => {
 
 //     const classes = useStyles();
 
@@ -161,8 +122,8 @@ const NowTrading = ({ data, requestData }) => {
 //         return obj.state === '거래 진행중';
 //     })
 
-//     const tradeCancle = () => {
-//         Axios.post('/cancle',{
+//     const tradeCancel = () => {
+//         Axios.post('/cancel',{
 //             request: requestData._id,
 //         })
 //         .then(res=>{
@@ -201,7 +162,7 @@ const NowTrading = ({ data, requestData }) => {
 //                     <Button onClick={tradeComplete} style={{ width: '100%' }} variant="outlined">
 //                         거래 완료
 //                     </Button>
-//                     <Button onClick={tradeCancle} style={{ width: '100%' }} variant="outlined">
+//                     <Button onClick={tradeCancel} style={{ width: '100%' }} variant="outlined">
 //                         거래 취소
 //                     </Button>
 //                 </Grid>
@@ -211,4 +172,4 @@ const NowTrading = ({ data, requestData }) => {
 //     )
 // }
 
-export default NowTrading
+export default Progress

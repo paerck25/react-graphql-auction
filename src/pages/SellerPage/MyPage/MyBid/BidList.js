@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { CircularProgress, Typography, Button } from '@material-ui/core';
-import { GET_MY_BIDS, GET_MY_PROFILE_IMAGE } from '../../../lib/queries';
-import { useQuery, useLazyQuery } from '@apollo/client';
-import Chat from '../../../components/chat';
+import { CircularProgress, Typography,  Container } from '@material-ui/core';
+import { GET_MY_BIDS } from '../../../../lib/queries';
+import { useQuery } from '@apollo/client';
+import Chat from '../../../../components/chat';
 import BidHistory from './BidHistory';
 import ChosenList from './ChoesnList';
 
@@ -34,7 +34,7 @@ const BidList = () => {
 
 
 
-    const { loading, data, error, called } = useQuery(GET_MY_BIDS, {
+    const { loading, data, error } = useQuery(GET_MY_BIDS, {
         variables: { author: user_id },
         fetchPolicy: 'cache-and-network',
     }
@@ -55,14 +55,20 @@ const BidList = () => {
 
 
     return (
-        <div>
-            <Typography variant="h5" gutterBottom>진행중인 거래</Typography>
-            <ChosenList handleChatOpen={handleChatOpen} data={data.getMyBids} />
-            <br /><br /><br />
-            <Typography variant="h5" gutterBottom>거래내역</Typography>
-            <BidHistory data={data.getMyBids} />
+        <>
+            <Container>
+                <Typography variant="h5" gutterBottom>진행중인 거래</Typography>
+                <br/>
+                <ChosenList handleChatOpen={handleChatOpen} data={data.getMyBids} />
+            </Container>
+            <br/><br/>
+            <Container>
+                <Typography variant="h5" gutterBottom>거래내역</Typography>
+                <br/>
+                <BidHistory data={data.getMyBids} />
+            </Container>
             <Chat open={chatOpen} onClose={handleChatClose} request={request_id} seller={user_id} />
-        </div>
+        </>
 
     )
 

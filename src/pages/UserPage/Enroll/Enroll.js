@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Stepper from './EnrollStepper';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
 
@@ -14,9 +12,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Enroll(){
 
-    const history = useHistory();
     const classes = useStyles();
-
 
     return(
         <Container className={classes.heroContent}>

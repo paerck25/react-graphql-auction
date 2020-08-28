@@ -4,13 +4,10 @@ import { GET_BIDS_IN_REQUEST, CHOICE_ONE_BID } from '../../../../lib/queries';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import NowTrading from './NowTrading';
 import ReceiveList from './ReceiveList';
-import Axios from 'axios';
-import RequestCard from '../../../../components/RequestCard';
-import { Container } from '@material-ui/core';
-import TradeCompelete from './TradeCompelete';
-import CanceledTrade from './CanceledTrade';
+import Progress from '../../TradeState/Progress';
+import Complete from '../../TradeState/Complete';
+import Canceled from '../../TradeState/Canceled';
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -57,7 +54,7 @@ const RequestDetail = (props) => {
 
     const [requestData] = useState(props.location.state);
 
-    const { loading, data, error } = useQuery(GET_BIDS_IN_REQUEST, {
+    const { loading, data } = useQuery(GET_BIDS_IN_REQUEST, {
         variables: { request: requestData._id },
         fetchPolicy: 'cache-and-network',
     }
@@ -70,7 +67,7 @@ const RequestDetail = (props) => {
             alert(data2.choiceOneBid);
             history.replace('/user/mypage');
         }
-    }, [data2])
+    }, [data2,history])
 
     if (loading) {
         return (
@@ -98,18 +95,22 @@ const RequestDetail = (props) => {
             const data1 = data.getBidsInRequest.filter((obj) => {
                 return obj.state === '거래 진행중';
             })[0]
-            return <NowTrading data={data1} requestData={requestData} />
+            return <Progress data={data1} requestData={requestData} />
 
         case '거래 완료':
             const data2 = data.getBidsInRequest.filter((obj) => {
                 return obj.state === '거래 완료';
             })[0]
-            return <TradeCompelete data={data2} requestData={requestData}/>
+            return <Complete data={data2} requestData={requestData}/>
+
         case '취소된 거래':
-            return <CanceledTrade requestData={requestData}/>
+            return <Canceled requestData={requestData}/>
 
         default:
-            return <ReceiveList onClickChoice={onClickChoice} bidData={data.getBidsInRequest} requestData={requestData} />
+            const data3 = data.getBidsInRequest.filter((obj) => {
+                return obj.state !== '입찰 취소';
+            })
+            return <ReceiveList onClickChoice={onClickChoice} bidData={data3} requestData={requestData} />
     }
 
 

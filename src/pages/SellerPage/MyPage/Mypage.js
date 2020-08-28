@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Link } from 'react-router-dom';
-import BidList from './BidList';
-import { Grid, Container, Divider, Avatar, makeStyles, Typography } from '@material-ui/core';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import BidList from './MyBid/BidList';
+import { Grid, Container, Avatar, makeStyles, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import ProfileModal from '../../../components/Profile/ProfileModal';
 import { GET_MY_PROFILE_IMAGE } from '../../../lib/queries';
 import { useQuery } from '@apollo/client';
-import PersonIcon from '@material-ui/icons/Person';
+
 
 const useStyle = makeStyles((theme) => ({
     heroContent: {
