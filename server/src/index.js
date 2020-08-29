@@ -1,11 +1,11 @@
 const { GraphQLServer, PubSub } = require('graphql-yoga');
 const pubsub = new PubSub();
 const resolvers = require('./resolvers');
+const typeDefs = require('./typeDefs');
 const mongoose = require('mongoose');
 const { upload, upload2 } = require('./imageUpload');
-const cors = require('cors');
 const Profile = require('./models/profile');
-const express = require('express');
+require('dotenv').config();
 
 
 mongoose.connect(process.env.MONGO_URL,
@@ -21,13 +21,10 @@ mongoose.connection.on('open', () => {
 })
 
 const server = new GraphQLServer({
-    typeDefs: './server/schema.graphql',
+    typeDefs,
     resolvers,
     context: { pubsub },
 })
-
-server.express.use(cors());
-server.express.use('/start',express.static('build'));
 
 server.express.post('/image', upload.fields([{ name: 'profileImage' }, { name: 'exampleImages' }]), (req, res, next) => {
     let profileImage = '';
