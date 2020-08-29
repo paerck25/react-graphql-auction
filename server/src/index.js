@@ -3,8 +3,10 @@ const pubsub = new PubSub();
 const resolvers = require('./resolvers');
 const typeDefs = require('./typeDefs');
 const mongoose = require('mongoose');
-const { upload } = require('./imageUpload');
+const { upload, upload2 } = require('./imageUpload');
 const Profile = require('./models/profile');
+const express = require('express');
+const path = require('path');
 require('dotenv').config();
 
 
@@ -25,6 +27,12 @@ const server = new GraphQLServer({
     resolvers,
     context: { pubsub },
 })
+
+server.express.use(express.static('public'));
+
+server.express.get('*', (req, res) => {
+    res.sendFile('index.html', { root: 'public' });
+});
 
 server.express.post('/image', upload.fields([{ name: 'profileImage' }, { name: 'exampleImages' }]), (req, res, next) => {
     let profileImage = '';
