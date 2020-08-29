@@ -12,12 +12,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: 180,
     height: 43,
-    // '&:hover': {
-    //     width : 250,
-    // },
-    // '&:focus-within':{
-    //     width : 250,
-    // }
   },
   input: {
     marginLeft: theme.spacing(1),

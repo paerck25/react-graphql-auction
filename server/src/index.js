@@ -3,7 +3,7 @@ const pubsub = new PubSub();
 const resolvers = require('./resolvers');
 const typeDefs = require('./typeDefs');
 const mongoose = require('mongoose');
-const { upload, upload2 } = require('./imageUpload');
+const { upload } = require('./imageUpload');
 const Profile = require('./models/profile');
 require('dotenv').config();
 

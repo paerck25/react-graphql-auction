@@ -76,42 +76,4 @@ const ReceiveList = ({ requestData, bidData, onClickChoice, }) => {
     )
 }
 
-// const ReceiveList = ({ requestData, bidData, onClickChoice, }) => {
-
-//     const history = useHistory();
-
-//     const classes = useStyles();
-
-//     const tradeCancel = () => {
-//         Axios.post('/cancel',{
-//             request : requestData._id,
-//         })
-//         .then(res=>{
-//             alert(res.data);
-//             history.replace('/user/mypage');
-//         })
-//         .catch(err=>{
-//             console.log(err);
-//         })
-//     }
-
-//     return (
-//         <Container>
-//             <Grid className={classes.gridContainerStyle} container spacing={6}>
-//                 <Grid item xs={5}>
-//                     <RequestCard obj={requestData} />
-//                     <Typography variant="5" style={{textAlign:'center'}}><Counter data={requestData}/></Typography variant="5">
-//                     <Button onClick={tradeCancel} className={classes.buttonStyle} variant="outlined">
-//                         거래 취소
-//                     </Button>
-//                 </Grid>
-//                 <Grid item xs={7}>
-//                     <Typography variant="5">받은 견적</Typography variant="5">
-//                     <Bids onClickChoice={onClickChoice} data={bidData} requestData={requestData} />
-//                 </Grid>
-//             </Grid>
-//         </Container>
-//     )
-// }
-
 export default ReceiveList

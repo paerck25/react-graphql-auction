@@ -24,62 +24,6 @@ const RequestCard = ({ obj,onClickChecked }) => {
     const classes = useStyle();
 
     return (
-        // <Card className={classes.rootStyle} elevation={3}>
-        //     {obj.author.name !== null 
-        //         &&
-        //         <CardHeader title= {`${obj.author.name}님의 요청서`} subheader={obj.requestedAt} />
-        //     }
-        //     <CardContent>
-        //         <List>
-        //             {[
-        //                 {
-        //                     icon: () => <BuildIcon />,
-        //                     title: '카테고리',
-        //                     text: obj.category
-        //                 },
-        //                 // {
-        //                 //     icon: () => <QueryBuilderIcon />,
-        //                 //     title : '요청 마감일',
-        //                 //     text: new Date(obj.deadLine).toLocaleString()
-        //                 // },
-        //                 {
-        //                     icon: () => <AddCircleOutlineIcon />,
-        //                     title: '상세설명',
-        //                     text: obj.detail
-        //                 },
-        //                 {
-        //                     icon: () => <LabelIcon />,
-        //                     title: '태그',
-        //                     text: obj.tags.map((obj2, index) => {
-        //                         return <span key={index}><Chip variant="outlined" size="small" label={obj2} />&nbsp;</span>
-        //                     })
-        //                 },
-        //                 {
-        //                     icon: () => <CalendarTodayIcon />,
-        //                     title: '희망 제작 마감일',
-        //                     text: obj.hopeDate
-        //                 },
-        //             ].map((obj3, index3) => {
-        //                 return (
-        //                     <ListItem key={index3}>
-        //                         <ListItemIcon>
-        //                             <Tooltip arrow title={obj3.title}>
-        //                                 {obj3.icon()}
-        //                             </Tooltip>
-        //                         </ListItemIcon>
-        //                         {/* <ListItemText
-        //                         primary={obj3.title,obj3.icon()}
-        //                     /> */}
-        //                         <ListItemText
-        //                             primary={obj3.text}
-        //                         />
-        //                     </ListItem>
-        //                 )
-        //             })}
-        //         </List>
-        //     </CardContent>
-        // </Card>
-
         <Card onClick={onClickChecked} className={classes.rootStyle} elevation={3}>
             {obj.author.name !== null
                 &&
@@ -94,11 +38,6 @@ const RequestCard = ({ obj,onClickChecked }) => {
                             title: '카테고리',
                             text: obj.category
                         },
-                        // {
-                        //     icon: () => <QueryBuilderIcon />,
-                        //     title : '요청 마감일',
-                        //     text: new Date(obj.deadLine).toLocaleString()
-                        // },
                         {
                             icon: () => <AddCircleOutlineIcon />,
                             title: '상세설명',

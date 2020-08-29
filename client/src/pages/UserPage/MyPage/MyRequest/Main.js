@@ -48,50 +48,5 @@ const Main = () => {
 
 }
 
-// const Main = () => {
-
-//     const user_id = useSelector(state => state.userAction.user_id);
-
-//     const loadingStyle = {
-//         display: 'block',
-//         margin: '18% auto',
-//     }
-
-//     const [data, setData] = useState([]);
-//     const [loading, setLoading] = useState(true);
-
-//     const getMyRequests = () => {
-//         axios.get('/my-request',{
-//             author: user_id
-//         })
-//         .then(res=>{
-//             setData(res.data);
-//             setLoading(false);
-//         })
-//         .catch(err=>{
-//             console.log(err);
-//         })
-//     }
-
-//     useEffect(() => {
-//         getMyRequests();
-//     }, [])
-
-//     if (loading) {
-//         return (
-//             <CircularProgress style={loadingStyle} />
-//         )
-//     } 
-//         return (
-//             <div>
-//                 <h2>나의 요청</h2>
-//                 <MyRequests data={data}/>
-//                 <Divider style={{ marginTop: '30px' }} />
-//                 <h2>요청 내역</h2>
-//                 <RequestHistory data={data}/>
-//             </div>
-//         )
-
-// }
 
 export default Main;
