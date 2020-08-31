@@ -74,7 +74,7 @@ const RequestList = ({ category }) => {
     const requestList = data.getAllRequests
         .map((obj) => {
             return (
-                <Grid key={obj._id} item xs={6}>
+                <Grid key={obj._id} item xs={12} sm={12} md={6}>
                     <Request tags={tags} setTags={setTags} data={obj} checked={loading}></Request>
                 </Grid>
             )

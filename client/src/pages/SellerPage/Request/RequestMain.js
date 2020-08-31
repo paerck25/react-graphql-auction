@@ -19,11 +19,11 @@ function RequestMain() {
 
     return (
         <Container className={classes.heroContent}>
-            <Grid container spacing={9}>
-                <Grid item xs={2}>
+            <Grid container spacing={3}>
+                <Grid item xs={12} sm={3}>
                     <CategoryMenu setCategory={setCategory}/>
                 </Grid>
-                <Grid item xs={9}>
+                <Grid item xs={12} sm={9}>
                     <RequestList category={category}/>
                 </Grid>
             </Grid>

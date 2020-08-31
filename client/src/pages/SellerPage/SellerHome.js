@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     divStyle: {
         backgroundImage: `url(${Background})`,
         height: '400px',
+        marginBottom : '80px',
     },
     heroContent: {
         padding: theme.spacing(8, 0, 6),
@@ -22,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     containerStyle: {
         backgroundColor: 'white',
         padding: theme.spacing(3, 3, 3),
-        margin: '100px auto'
     },
     buttonStyle: {
         float: 'right',
@@ -65,8 +65,8 @@ const SellerHome = () => {
                 </Container>
             </div>
             <Container>
-                <Grid container spacing={9}>
-                    <Grid item xs={6}>
+                <Grid container spacing={3} maxWidth="md">
+                    <Grid item xs={12} sm={6} md={6}>
                     <Zoom in={checked} timeout={250}>
                         <Paper className={classes.containerStyle} elevation={3}>
                             <Typography variant="h5" color="textSecondary" gutterBottom>
@@ -81,7 +81,7 @@ const SellerHome = () => {
                         </Paper>
                     </Zoom>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} sm={6} md={6}>
                         <Zoom in={checked} timeout={500}>
                             <Paper className={classes.containerStyle} elevation={3}>
                                 <Typography variant="h5" color="textSecondary" gutterBottom>

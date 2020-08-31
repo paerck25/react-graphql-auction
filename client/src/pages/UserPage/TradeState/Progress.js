@@ -66,10 +66,10 @@ const Progress = ({ data, requestData }) => {
     return (
         <Container className={classes.root}>
             <Grid className={classes.gridStyle} container spacing={9}>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <RequestCard obj={requestData} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <Grid container spacing={6}>
                         <Grid item xs={3}>
                             {data.author.profile.profileImage

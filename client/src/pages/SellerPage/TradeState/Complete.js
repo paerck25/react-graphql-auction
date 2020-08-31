@@ -31,10 +31,10 @@ const Complete = ({ data }) => {
     return (
         <Container className={classes.root}>
             <Grid className={classes.gridStyle} container spacing={9}>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <RequestCard obj={data.request} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <CheckCircleIcon className={classes.icon} />
                     <br />
                     <Typography align="center" variant="h4" paragraph>

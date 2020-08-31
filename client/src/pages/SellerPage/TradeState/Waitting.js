@@ -62,10 +62,10 @@ const Watting = ({ data }) => {
     return (
         <Container className={classes.root}>
             <Grid className={classes.gridStyle} container spacing={7}>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <RequestCard obj={data.request} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <Typography align="center" variant="h5" gutterBottom>
                         낙찰 대기중입니다.
                     </Typography>

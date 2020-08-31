@@ -27,10 +27,10 @@ const Canceled = ({ data }) => {
     return (
         <Container className={classes.root}>
             <Grid className={classes.gridStyle} container spacing={7}>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <RequestCard obj={data.request} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <br />
                     <CancelIcon className={classes.icon} color="error" />
                     <br />

@@ -42,10 +42,10 @@ function RequestDetail(props) {
         <Fade in={checked}>
             <Container className={classes.root}>
                 <Grid className={classes.gridStyle} container spacing={9}>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <RequestCard obj={data} />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         {(data.deadLine < new Date().getTime())
                             ?
                             <>

@@ -57,7 +57,7 @@ const MyPage = () => {
 
         <Container className={classes.heroContent}>
             <Grid container>
-                <Grid className={classes.gridStyle} item xs={2}>
+                <Grid className={classes.gridStyle} item xs={12} md={2}>
                     <Avatar className={classes.avatarStyle} src={(!loding && data) && data.getMyProfile.profileImage} />
                     <br />
                     <Typography variant="h5" gutterBottom>{userName}</Typography>
@@ -72,7 +72,7 @@ const MyPage = () => {
                     </Button>
                     <br />
                 </Grid>
-                <Grid item xs={9}>
+                <Grid item xs={12} md={9}>
                     <BidList/>
                 </Grid>
                 <ProfileModal name={userName} open={open} onClose={handleClose} user_id={user_id} />

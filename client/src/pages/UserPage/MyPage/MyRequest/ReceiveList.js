@@ -58,14 +58,14 @@ const ReceiveList = ({ requestData, bidData, onClickChoice, }) => {
     return (
         <Container className={classes.root}>
             <Grid className={classes.gridStyle} container spacing={6}>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                     <RequestCard obj={requestData} />
                     <Typography variant="h6" className={classes.counterStyle}><Counter data={requestData} /></Typography>
                     <Button onClick={tradeCancel} className={classes.buttonStyle} variant="outlined">
                         거래 취소
                     </Button>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} sm={6}>
                     <Typography variant="h5">받은 견적</Typography>
                     <br />
                     <Bids onClickChoice={onClickChoice} data={bidData} requestData={requestData} />

@@ -51,7 +51,7 @@ const MyRequests = ({ data }) => {
         })
 
         return (
-            <Grid className={classes.gridStyle} key={obj._id} item xs={4}>
+            <Grid className={classes.gridStyle} key={obj._id} item xs={12} sm={6} md={4}>
                 <Link className={classes.linkStyle} to={{ pathname: `/user/detail`, state: obj }}>
                     <Card className={classes.cardStyle} size="large" color="primary">
                         <CardHeader className={classes.cardHeaderStyle} title={obj.category} subheader={obj.requestedAt} />

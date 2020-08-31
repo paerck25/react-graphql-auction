@@ -70,10 +70,10 @@ const Progress = ({ data }) => {
     return (
         <Container className={classes.root}>
             <Grid className={classes.gridStyle} container spacing={9}>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <RequestCard obj={data.request} />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12} md={6}>
                     <List>
                         <ListItem>
                             <ListItemText primary="거래 진행중" primaryTypographyProps={{ variant: "h4" }} />

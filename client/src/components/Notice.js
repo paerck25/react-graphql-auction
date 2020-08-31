@@ -14,7 +14,7 @@ const Notice = () => {
     const classes = useStyles();
     return (
         <Grid container className={classes.gridStyle} spacing={9}>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
                 <Typography align="center" variant="h5" gutterBottom>안내</Typography>
                 <ul>
                     <li>
@@ -30,10 +30,10 @@ const Notice = () => {
                     </li>
                 </ul>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
                 <Typography align="center" variant="h5" gutterBottom>교환/환불</Typography>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
                 <Typography align="center" variant="h5" gutterBottom>평점과 리뷰</Typography>
                 <ul>
                     <li>
