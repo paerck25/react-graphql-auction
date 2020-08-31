@@ -73,10 +73,9 @@ const SellerHome = () => {
                                 is Guest?
                             </Typography>
                             <Typography variant="h6" color="textSecondary" paragraph>
-                                when you want to have own website,<br />
-                                here is best solution.
+                                전문가라도 다른 전문가에게 요청할 수 있습니다.
                                 <Button component={Link} className={classes.linkStyle} to="/user/enroll">
-                                    REQUEST ENROLL<ArrowForwardIcon fontSize="small" />
+                                    요청하기<ArrowForwardIcon fontSize="small" />
                                 </Button>
                             </Typography>
                         </Paper>
@@ -89,10 +88,9 @@ const SellerHome = () => {
                                     is Expert?
                                 </Typography>
                                 <Typography variant="h6" color="textSecondary" paragraph>
-                                    when you want to have own website,<br/>
-                                    here is best solution.
+                                    고객들의 요청을 확인하세요!
                                     <Button component={Link} className={classes.linkStyle} to="/seller/request">
-                                        REQUEST LIST<ArrowForwardIcon fontSize="small" />
+                                        요청 리스트<ArrowForwardIcon fontSize="small" />
                                     </Button>
                                 </Typography>
                             </Paper>

@@ -23,8 +23,8 @@ query GetOneUser($email:String!) {
 `
 
 export const GET_ALL_REQUESTS = gql`
-query GetAllRequests{
-  getAllRequests{
+query GetAllRequests($category:String,$page:Int){
+  getAllRequests(category:$category,page:$page){
     _id
     author {
       _id
@@ -141,7 +141,7 @@ query GetMyProfile($user:ID){
 }
 `
 
- // ######################### Mutation #########################
+// ######################### Mutation #########################
 
 export const SEND_REQUEST = gql`
 mutation SendRequest($input:RequestInput){

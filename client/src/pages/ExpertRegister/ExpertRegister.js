@@ -279,6 +279,7 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
         if (data) {
             if (data.expertRegister) {
                 alert('등록 완료!');
+                localStorage.setItem('is_seller',true);
                 onClose();
             } else {
                 alert('등록 실패! 다시 시도해 주세요.')

@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor : '#F2F3F4',
-    borderRadius : '10px',
+    backgroundColor: '#F2F3F4',
+    borderRadius: '10px',
     color: 'rgb(104,104,106)',
   },
   avatar: {
@@ -33,13 +33,13 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  button : {
+  button: {
     color: 'rgb(104,104,106)',
-    padding : 0,
+    padding: 0,
   }
 }));
 
-const JoinForm = ({handleLogin}) => {
+const JoinForm = ({ handleLogin }) => {
 
   const classes = useStyles();
   const history = useHistory();
@@ -53,14 +53,14 @@ const JoinForm = ({handleLogin}) => {
   })
 
   useEffect(() => {
-    if (data) {
-      if (data.signUp) {
+    if(data){
+      if(data.signUp){
         handleLogin();
-      } else {
-        alert('이미 가입된 이메일입니다.')
+      }else{
+        alert('이미 가입된 이메일입니다.');
       }
     }
-  }, [data, history,handleLogin])
+  }, [data])
 
 
   const onChangeInfo = (e) => {
@@ -89,73 +89,73 @@ const JoinForm = ({handleLogin}) => {
   }
 
   return (
-      <Container className={classes.paper} component="main" maxWidth="xs">
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            회원가입
+    <Container className={classes.paper} component="main" maxWidth="xs">
+      <Avatar className={classes.avatar}>
+        <LockOutlinedIcon />
+      </Avatar>
+      <Typography component="h1" variant="h5">
+        회원가입
         </Typography>
-          <form className={classes.form} noValidate onSubmit={onSubmitForm}>
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="name"
-                  name="name"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="name"
-                  label="이름"
-                  autoFocus
-                  onChange={onChangeInfo}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="email"
-                  label="이메일"
-                  name="email"
-                  autoComplete="email"
-                  type="email"
-                  onChange={onChangeInfo}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  variant="outlined"
-                  required
-                  fullWidth
-                  name="pwd"
-                  label="비밀번호"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={onChangeInfo}
-                />
-              </Grid>
-            </Grid>
-            <Button
-              type="submit"
+      <form className={classes.form} noValidate onSubmit={onSubmitForm}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              autoComplete="name"
+              name="name"
+              variant="outlined"
+              required
               fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              회원가입
+              id="name"
+              label="이름"
+              autoFocus
+              onChange={onChangeInfo}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              id="email"
+              label="이메일"
+              name="email"
+              autoComplete="email"
+              type="email"
+              onChange={onChangeInfo}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              required
+              fullWidth
+              name="pwd"
+              label="비밀번호"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+              onChange={onChangeInfo}
+            />
+          </Grid>
+        </Grid>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+        >
+          회원가입
           </Button>
-            <Grid container justify="flex-end">
-              <Grid item>
-                <Button className={classes.button} onClick={handleLogin}>
-                  이미 아이디가 있으신가요? 로그인
-                </Button>
-              </Grid>
-            </Grid>
-          </form>
-      </Container>
+        <Grid container justify="flex-end">
+          <Grid item>
+            <Button className={classes.button} onClick={handleLogin}>
+              이미 아이디가 있으신가요? 로그인
+              </Button>
+          </Grid>
+        </Grid>
+      </form>
+    </Container>
   );
 }
 

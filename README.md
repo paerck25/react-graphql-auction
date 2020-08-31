@@ -6,8 +6,7 @@
 
 ### 실행하기
 1. npm install
-2. npm start
-<br/>
-실행을 하면 서버도 같이 작동합니다.
+2. cd client -> npm start
+3. cd ../server -> node src
 
 

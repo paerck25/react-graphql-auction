@@ -28,7 +28,13 @@ const useStyles = makeStyles((theme) => ({
 const RequestList = ({ category }) => {
     const classes = useStyles();
 
+    const [page, setPage] = useState(1);
+
     const { loading, data, error } = useQuery(GET_ALL_REQUESTS, {
+        variables : {
+            category : category,
+            page : page,
+        },
         fetchPolicy: 'cache-and-network',
     });
 

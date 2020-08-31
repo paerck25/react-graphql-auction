@@ -81,10 +81,10 @@ const UserHome = () => {
                                 is Guest?
                             </Typography>
                             <Typography variant="h6" color="textSecondary" paragraph>
-                                when you want to have own website,<br />
-                                here is best solution.
+                                간단한 요청으로<br/>
+                                전문가들의 견적을 받아보세요.
                                 <Button component={Link} className={classes.linkStyle} to="/user/enroll">
-                                    REQUEST ENROLL<ArrowForwardIcon fontSize="small" />
+                                    요청하기<ArrowForwardIcon fontSize="small" />
                                 </Button>
                             </Typography>
                         </Paper>
@@ -97,10 +97,10 @@ const UserHome = () => {
                                     is Expert?
                                 </Typography>
                                 <Typography variant="h6" color="textSecondary" paragraph>
-                                    when you want to have own website,<br/>
-                                    here is best solution.
+                                    고객을 만나고 싶은<br/>
+                                    전문가라면 먼저 등록을 해주세요.
                                     <Button onClick={()=>{setOpen(true)}} className={classes.linkStyle}>
-                                        EXPERT Register<ArrowForwardIcon fontSize="small" />
+                                        전문가 등록<ArrowForwardIcon fontSize="small" />
                                     </Button>
                                 </Typography>
                             </Paper>

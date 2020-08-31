@@ -3,7 +3,7 @@ type Query {
     getAllUsers: [User]
     getUser(email: String!) : User
     getMyProfile(user: ID) : Profile
-    getAllRequests: [Request]
+    getAllRequests(category:String,page:Int): [Request]
     getMyRequests(author: ID!) : [Request]
     getMyBids(author: ID!) : [Bid]
     getBidsInRequest(request: ID) : [Bid]

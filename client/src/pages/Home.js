@@ -21,15 +21,18 @@ const useStyles = makeStyles((theme) => ({
     },
     backgroundImage: {
         backgroundImage: `url(${Background})`,
-        height: '969px',
+        height: '786px',
         overflow: 'hidden',
         margin: 0,
         padding: 0,
     },
-    backgroundOpacity: {
-        backgroundColor: 'rgba( 225, 225, 225, 0.5 )',
-        height: '969px',
+    heroContent: {
+        padding: "140px 10px",
+        color: 'rgb(104,104,106)',
     },
+    heroButtons: {
+        marginTop: theme.spacing(4),
+      },    
     navBar: {
         display: 'flex',
         alignItems: 'center',
@@ -83,32 +86,47 @@ const Home = () => {
                     <Typography className={classes.title} onClick={handleHome} component={Button} variant="h4">
                         HELL
                     </Typography>
-                    <Typography className={classes.nav} onClick={handleLogin} component={Button} variant="h6">
-                        로그인
-                    </Typography>
-                    <Typography className={classes.nav} onClick={handleJoin} component={Button} variant="h6">
-                        회원가입
-                    </Typography>
                 </div>
             </Container>
-            <div className={classes.backgroundOpacity}>
-                <Dialog open={loginChecked}
-                    TransitionComponent={Transition1}
-                    keepMounted
-                    onClose={handleHome}
-                    aria-labelledby="alert-dialog-slide-title"
-                    aria-describedby="alert-dialog-slide-description">
-                    <Login handleJoin={handleJoin} />
-                </Dialog>
-                <Dialog open={joinChecked}
-                    TransitionComponent={Transition2}
-                    keepMounted
-                    onClose={handleHome}
-                    aria-labelledby="alert-dialog-slide-title"
-                    aria-describedby="alert-dialog-slide-description">
-                    <Join handleLogin={handleLogin} />
-                </Dialog>
-            </div>
+            <Container className={classes.heroContent} maxWidth="sm">
+                <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                    HELL
+                </Typography>
+                <Typography variant="h5" align="center" color="textSecondary" paragraph>
+                    웹사이트, 간단한 등록으로 전문가를 찾아보세요.<br/>
+                    고객과 it 전문가를 연결해주는 중개 플랫폼
+                </Typography>
+                <div className={classes.heroButtons}>
+                    <Grid container spacing={2} justify="center">
+                        <Grid item>
+                            <Button onClick={handleLogin} variant="contained" color="primary">
+                                로그인
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button onClick={handleJoin} variant="outlined" color="primary">
+                                회원가입
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </div>
+            </Container>
+            <Dialog open={loginChecked}
+                TransitionComponent={Transition1}
+                keepMounted
+                onClose={handleHome}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description">
+                <Login handleJoin={handleJoin} />
+            </Dialog>
+            <Dialog open={joinChecked}
+                TransitionComponent={Transition2}
+                keepMounted
+                onClose={handleHome}
+                aria-labelledby="alert-dialog-slide-title"
+                aria-describedby="alert-dialog-slide-description">
+                <Join handleLogin={handleLogin} />
+            </Dialog>
         </div>
     );
 }

@@ -35,21 +35,38 @@ const resolvers = {
             }
         },
 
-        getAllRequests: () => {
-            const result = Request.find().populate('author', '_id name')
-                .then(requests => {
-                    const request = requests.filter((obj) => {
-                        return obj.state === '요청 진행중'
+        getAllRequests: (root, args) => {
+            if (args.category === '모든 요청') {
+                const result = Request.find().populate('author', '_id name').skip(6 * (args.page - 1)).limit(6).sort({ requestedAt: -1 })
+                    .then(requests => {
+                        const request = requests.filter((obj) => {
+                            return obj.state === '요청 진행중'
+                        })
+                        const removeList = request.filter((obj) => {
+                            return new Date(obj.deadLine).getTime() > new Date().getTime();
+                        })
+                        return removeList
                     })
-                    const removeList = request.filter((obj) => {
-                        return new Date(obj.deadLine).getTime() > new Date().getTime();
+                    .catch(err => {
+                        console.log(err);
                     })
-                    return removeList
-                })
-                .catch(err => {
-                    console.log(err);
-                })
-            return result;
+                return result;
+            } else {
+                const result = Request.find({ category: args.category }).populate('author', '_id name').skip(6 * (args.page - 1)).limit(6).sort({ requestedAt: -1 })
+                    .then(requests => {
+                        const request = requests.filter((obj) => {
+                            return obj.state === '요청 진행중'
+                        })
+                        const removeList = request.filter((obj) => {
+                            return new Date(obj.deadLine).getTime() > new Date().getTime();
+                        })
+                        return removeList
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+                return result;
+            }
         },
 
         getMyRequests: (root, args) => {
