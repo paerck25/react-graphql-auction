@@ -3,7 +3,6 @@
 디자인은 Material.ui를 사용하였습니다.
 
 ### 실행하기
-1. cd client -> npm install -> npm start
-2. cd ../server -> npm install -> node src
+1. npm start
 
 
