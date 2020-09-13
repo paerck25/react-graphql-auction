@@ -37,21 +37,17 @@ const resolvers = {
 
         getAllRequests: (root, args) => {
             if (args.category === '모든 요청') {
-                const requests = Request.find().populate('author', '_id name').sort({ requestedAt: -1 }).skip(6 * (args.page - 1)).limit(7)
+                const requests = Request.find({state:'요청 진행중'}).populate('author', '_id name').sort({ requestedAt: -1 }).skip(6 * (args.page - 1)).limit(6)
                     .then(res => {
-                        const result = res.filter((obj) => {
-                            return obj.state === '요청 진행중'
-                        })
-                        const removeList = result.filter((obj) => {
+                        const removeList = res.filter((obj) => {
                             return new Date(obj.deadLine).getTime() > new Date().getTime();
                         })
-                        console.log(removeList);
                         return removeList
                     })
                     .catch(err => {
                         console.log(err);
                     })
-                const count = Request.countDocuments()
+                const count = Request.countDocuments({state:'요청 진행중'})
                     .then(res => {
                         if (res % 6 === 0) {
                             return res / 6;
@@ -63,21 +59,17 @@ const resolvers = {
                     })
                 return { requests, count };
             } else {
-                const requests = Request.find({ category: args.category }).populate('author', '_id name').sort({ requestedAt: -1 }).skip(6 * (args.page - 1)).limit(7)
+                const requests = Request.find({ category: args.category,state:'요청 진행중' }).populate('author', '_id name').sort({ requestedAt: -1 }).skip(6 * (args.page - 1)).limit(6)
                     .then(res => {
-                        const result = res.filter((obj) => {
-                            return obj.state === '요청 진행중'
-                        })
-                        const removeList = result.filter((obj) => {
+                        const removeList = res.filter((obj) => {
                             return new Date(obj.deadLine).getTime() > new Date().getTime();
                         })
-                        console.log(removeList);
                         return removeList
                     })
                     .catch(err => {
                         console.log(err);
                     })
-                const count = Request.countDocuments({ category: args.category })
+                const count = Request.countDocuments({ category: args.category,state:'요청 진행중' })
                     .then(res => {
                         if (res % 6 === 0) {
                             return res / 6;

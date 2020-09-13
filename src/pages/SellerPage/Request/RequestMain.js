@@ -16,15 +16,16 @@ function RequestMain() {
 
     const classes = useStyle();
     const [category,setCategory] = useState('모든 요청');
+    const [page, setPage] = useState(1);
 
     return (
         <Container className={classes.heroContent}>
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={3}>
-                    <CategoryMenu setCategory={setCategory}/>
+                    <CategoryMenu setCategory={setCategory} setPage={setPage} />
                 </Grid>
                 <Grid item xs={12} sm={9}>
-                    <RequestList category={category}/>
+                    <RequestList category={category} page={page} setPage={setPage} />
                 </Grid>
             </Grid>
         </Container>

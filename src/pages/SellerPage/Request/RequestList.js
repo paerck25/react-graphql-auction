@@ -21,15 +21,16 @@ const useStyles = makeStyles((theme) => ({
     },
     tagStyle: {
         marginRight: '4px',
+    },
+    pagination:{
+        marginTop : '30px',
     }
 
 }));
 
 
-const RequestList = ({ category }) => {
+const RequestList = ({ category, page, setPage }) => {
     const classes = useStyles();
-
-    const [page, setPage] = useState(1);
 
     const handleChangePage = (event, value) => {
         setPage(value);
@@ -99,7 +100,7 @@ const RequestList = ({ category }) => {
             <Grid container spacing={3}>
                 {requestList}
             </Grid>
-            <Pagination count={data.getAllRequests.count} page={page} onChange={handleChangePage} defaultPage={1} />
+            <Pagination className={classes.pagination} count={data.getAllRequests.count} page={page} onChange={handleChangePage} defaultPage={1} />
             </>
             :
             <Typography variant="h5" style={{marginTop:'40px'}}>진행중인 요청이 없습니다.</Typography>
