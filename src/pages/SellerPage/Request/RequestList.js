@@ -8,6 +8,7 @@ import { GET_ALL_REQUESTS } from '../../../lib/queries';
 import { useQuery } from '@apollo/client';
 import SortButton from './SortButton';
 import { Typography, Chip } from '@material-ui/core';
+import Pagination from '@material-ui/lab/Pagination';
 
 const useStyles = makeStyles((theme) => ({
     cardGrid: {
@@ -30,10 +31,14 @@ const RequestList = ({ category }) => {
 
     const [page, setPage] = useState(1);
 
+    const handleChangePage = (event, value) => {
+        setPage(value);
+      };
+
     const { loading, data, error } = useQuery(GET_ALL_REQUESTS, {
-        variables : {
-            category : category,
-            page : page,
+        variables: {
+            category: category,
+            page: page,
         },
         fetchPolicy: 'cache-and-network',
     });
@@ -71,7 +76,7 @@ const RequestList = ({ category }) => {
     }
 
 
-    const requestList = data.getAllRequests
+    const requestList = data.getAllRequests.requests
         .map((obj) => {
             return (
                 <Grid key={obj._id} item xs={12} sm={12} md={6}>
@@ -85,12 +90,20 @@ const RequestList = ({ category }) => {
         <Container className={classes.cardGrid} maxWidth="md">
             <Typography variant="h5" style={{ display: 'inline-block', margin: '0px' }} gutterBottom>{category}</Typography>
             <br />
-            <br/>
+            <br />
             {tagSort}
             <SortButton category={category} />
+            {data.getAllRequests.count !== 0
+            ?
+            <>
             <Grid container spacing={3}>
                 {requestList}
             </Grid>
+            <Pagination count={data.getAllRequests.count} page={page} onChange={handleChangePage} defaultPage={1} />
+            </>
+            :
+            <Typography variant="h5" style={{marginTop:'40px'}}>진행중인 요청이 없습니다.</Typography>
+            }
         </Container>
     )
 

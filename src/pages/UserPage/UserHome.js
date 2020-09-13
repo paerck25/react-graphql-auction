@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -13,13 +13,16 @@ import ExpertRegister from '../ExpertRegister/ExpertRegister';
 
 
 const useStyles = makeStyles((theme) => ({
-    divStyle: {
+    banner: {
         backgroundImage: `url(${Background})`,
         height: '400px',
-        marginBottom: '100px',
+        marginBottom: '80px',
     },
-    heroContent: {
+    bannerCotainer: {
         padding: theme.spacing(8, 0, 6),
+    },
+    content : {
+        marginBottom: '80px',
     },
     containerStyle: {
         backgroundColor: 'white',
@@ -32,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     },
     linkStyle: {
         color: 'rgb(104,104,106)',
-        float : 'right',
+        float: 'right',
     }
 
 }));
@@ -57,38 +60,34 @@ const UserHome = () => {
 
     return (
         <>
-            <div className={classes.divStyle}>
-                <Container>
-                    <Grid container className={classes.heroContent}>
-                        <Grid item xs={8}>
-                            <Typography variant="h4" color="textSecondary" gutterBottom>
-                                Try it!
-                        </Typography>
-                            <Typography variant="h3" color="textSecondary" paragraph>
-                                When you want to have own website,<br />
+            <div className={classes.banner}>
+                <Container className={classes.bannerCotainer}>
+                    <Typography variant="h4" color="textSecondary" gutterBottom>
+                        Try it!
+                    </Typography>
+                    <Typography variant="h3" color="textSecondary" paragraph>
+                        When you want to have own website,<br />
                                 Here is best solution.
-                        </Typography>
-                        </Grid>
-                    </Grid>
+                    </Typography>
                 </Container>
             </div>
-            <Container>
+            <Container className={classes.content}>
                 <Grid container spacing={9}>
                     <Grid item xs={12} md={6}>
-                    <Zoom in={checked} timeout={250}>
-                        <Paper className={classes.containerStyle} elevation={3}>
-                            <Typography variant="h5" color="textSecondary" gutterBottom>
-                                is Guest?
+                        <Zoom in={checked} timeout={250}>
+                            <Paper className={classes.containerStyle} elevation={3}>
+                                <Typography variant="h5" color="textSecondary" gutterBottom>
+                                    is Guest?
                             </Typography>
-                            <Typography variant="h6" color="textSecondary" paragraph>
-                                간단한 요청으로<br/>
+                                <Typography variant="h6" color="textSecondary" paragraph>
+                                    간단한 요청으로<br />
                                 전문가들의 견적을 받아보세요.
                                 <Button component={Link} className={classes.linkStyle} to="/user/enroll">
-                                    요청하기<ArrowForwardIcon fontSize="small" />
-                                </Button>
-                            </Typography>
-                        </Paper>
-                    </Zoom>
+                                        요청하기<ArrowForwardIcon fontSize="small" />
+                                    </Button>
+                                </Typography>
+                            </Paper>
+                        </Zoom>
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <Zoom in={checked} timeout={500}>
@@ -97,9 +96,9 @@ const UserHome = () => {
                                     is Expert?
                                 </Typography>
                                 <Typography variant="h6" color="textSecondary" paragraph>
-                                    고객을 만나고 싶은<br/>
+                                    고객을 만나고 싶은<br />
                                     전문가라면 먼저 등록을 해주세요.
-                                    <Button onClick={()=>{setOpen(true)}} className={classes.linkStyle}>
+                                    <Button onClick={() => { setOpen(true) }} className={classes.linkStyle}>
                                         전문가 등록<ArrowForwardIcon fontSize="small" />
                                     </Button>
                                 </Typography>
@@ -108,7 +107,7 @@ const UserHome = () => {
                     </Grid>
                 </Grid>
             </Container>
-            <ExpertRegister onClose={onClose} open={open} user_id={user_id}/>
+            <ExpertRegister onClose={onClose} open={open} user_id={user_id} />
         </>
     );
 }

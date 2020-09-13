@@ -3,7 +3,7 @@ type Query {
     getAllUsers: [User]
     getUser(email: String!) : User
     getMyProfile(user: ID) : Profile
-    getAllRequests(category:String,page:Int): [Request]
+    getAllRequests(category:String,page:Int): AllRequest
     getMyRequests(author: ID!) : [Request]
     getMyBids(author: ID!) : [Bid]
     getBidsInRequest(request: ID) : [Bid]
@@ -95,6 +95,11 @@ type Request {
     hopeDate: String
     state: String
     tags: [String]
+}
+
+type AllRequest {
+    requests : [Request]
+    count : Int
 }
 
 input RequestInput {

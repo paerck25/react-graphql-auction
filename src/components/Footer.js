@@ -2,41 +2,43 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
+import { Container, Divider, Grid } from '@material-ui/core';
+import Github from '../img/github-icon.png';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="https://github.com/paerck25">
+        KDJ-Github
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
+      <br/><br/>
+      <Link color="inherit" href="https://github.com/paerck25">
+        <img src={Github} alt="github_icon" width="30px" height="30px" />
+      </Link>
     </Typography>
   );
 }
 
 const useStyles = makeStyles((theme) => ({
   footer: {
-    padding: theme.spacing(6),
+    padding: theme.spacing(4),
   },
 }));
 
-export default function Footer(){
+export default function Footer() {
 
-    const classes = useStyles();
+  const classes = useStyles();
 
-    return(
-      <div style={{ backgroundColor: '#f9f9f9' }}>
-        <footer className={classes.footer}>
-            <Typography variant="h6" align="center" gutterBottom>
-                Footer
-            </Typography>
-            <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-                Something here to give the footer a purpose!
-            </Typography>
-            <Copyright />
-        </footer>
-      </div>
-    )
+  return (
+    <footer className={classes.footer}>
+      <Typography variant="h5" align="center">
+        HELL
+      </Typography>
+      <br/>
+      <Copyright />
+    </footer>
+  )
 }

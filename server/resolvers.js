@@ -37,35 +37,57 @@ const resolvers = {
 
         getAllRequests: (root, args) => {
             if (args.category === '모든 요청') {
-                const result = Request.find().populate('author', '_id name').skip(6 * (args.page - 1)).limit(6).sort({ requestedAt: -1 })
-                    .then(requests => {
-                        const request = requests.filter((obj) => {
+                const requests = Request.find().populate('author', '_id name').sort({ requestedAt: -1 }).skip(6 * (args.page - 1)).limit(7)
+                    .then(res => {
+                        const result = res.filter((obj) => {
                             return obj.state === '요청 진행중'
                         })
-                        const removeList = request.filter((obj) => {
+                        const removeList = result.filter((obj) => {
                             return new Date(obj.deadLine).getTime() > new Date().getTime();
                         })
+                        console.log(removeList);
                         return removeList
                     })
                     .catch(err => {
                         console.log(err);
                     })
-                return result;
+                const count = Request.countDocuments()
+                    .then(res => {
+                        if (res % 6 === 0) {
+                            return res / 6;
+                        }
+                        return Math.ceil(res / 6);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+                return { requests, count };
             } else {
-                const result = Request.find({ category: args.category }).populate('author', '_id name').skip(6 * (args.page - 1)).limit(6).sort({ requestedAt: -1 })
-                    .then(requests => {
-                        const request = requests.filter((obj) => {
+                const requests = Request.find({ category: args.category }).populate('author', '_id name').sort({ requestedAt: -1 }).skip(6 * (args.page - 1)).limit(7)
+                    .then(res => {
+                        const result = res.filter((obj) => {
                             return obj.state === '요청 진행중'
                         })
-                        const removeList = request.filter((obj) => {
+                        const removeList = result.filter((obj) => {
                             return new Date(obj.deadLine).getTime() > new Date().getTime();
                         })
+                        console.log(removeList);
                         return removeList
                     })
                     .catch(err => {
                         console.log(err);
                     })
-                return result;
+                const count = Request.countDocuments({ category: args.category })
+                    .then(res => {
+                        if (res % 6 === 0) {
+                            return res / 6;
+                        }
+                        return  Math.ceil(res / 6);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+                return { requests, count };
             }
         },
 
