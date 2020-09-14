@@ -171,7 +171,7 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
                 return formData.append("exampleImages", obj);
             })
         }
-        Axios.post('http://localhost:4000/image', formData, config)
+        Axios.post('/image', formData, config)
             .then(res => {
                 console.log(res);
             })

@@ -28,10 +28,10 @@ const server = new GraphQLServer({
     context: { pubsub },
 })
 
-server.express.use(express.static('public'));
+server.express.use(express.static('build'));
 
 server.express.get('*', (req, res) => {
-    res.sendFile('index.html', { root: 'public' });
+    res.sendFile('index.html', { root: 'build' });
 });
 
 server.express.post('/image', upload.fields([{ name: 'profileImage' }, { name: 'exampleImages' }]), (req, res, next) => {

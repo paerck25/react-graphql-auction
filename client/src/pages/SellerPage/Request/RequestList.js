@@ -91,7 +91,6 @@ const RequestList = ({ category, page, setPage }) => {
         <Container className={classes.cardGrid} maxWidth="md">
             <Typography variant="h5" style={{ display: 'inline-block', margin: '0px' }} gutterBottom>{category}</Typography>
             <br />
-            <br />
             {tagSort}
             <SortButton category={category} />
             {data.getAllRequests.count !== 0
