@@ -9,14 +9,14 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 import { getMainDefinition } from '@apollo/client/utilities';
 
 const wsLink = new WebSocketLink({
-  uri : 'ws://15.164.219.183:4000/',
+  uri : `ws://${window.location.hostname}:4000/`,
   options : {
     reconnect : true
   }
 })
 
 const httpLink = new HttpLink({
-  uri: '/'
+  uri: `http://${window.location.hostname}:4000`
 });
 
 const link = split(

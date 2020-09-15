@@ -142,7 +142,7 @@ const ProfileEdit = ({ profile, onClose, open, user_id, profileClose }) => {
                 return formData.append("exampleImages", obj);
             })
         }
-        Axios.post('/image', formData, config)
+        Axios.post(`http://${window.location.hostname}:4000/image`, formData, config)
             .then(res => {
                 console.log(res);
             })

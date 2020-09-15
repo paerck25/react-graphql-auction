@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
-import { Grid, DialogContent,  GridList, GridListTile, TextField, IconButton, GridListTileBar } from '@material-ui/core';
+import { Grid, DialogContent, GridList, GridListTile, TextField, IconButton, GridListTileBar } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import { blue } from '@material-ui/core/colors';
 import { EXPERT_REGISTER } from '../../lib/queries';
@@ -120,7 +120,7 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
         phone3: '',
     });
 
-    const [register, { loading, data,error }] = useMutation(EXPERT_REGISTER)
+    const [register, { loading, data, error }] = useMutation(EXPERT_REGISTER)
 
     const onChangeText = (e) => {
         setText(e.target.value);
@@ -134,18 +134,6 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
     }
 
     const handleExpertRegister = () => {
-        register({
-            variables: {
-                user: {
-                    _id: user_id,
-                    is_seller: true,
-                },
-                profile: {
-                    phone: phone,
-                    text: text,
-                }
-            }
-        });
         onClickAxios();
     }
 
@@ -171,13 +159,25 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
                 return formData.append("exampleImages", obj);
             })
         }
-        Axios.post('/image', formData, config)
+        Axios.post(`http://${window.location.hostname}:4000/image`, formData, config)
             .then(res => {
                 console.log(res);
             })
             .catch(err => {
-                console.log('rest 에러!',err);
+                console.log('rest 에러!', err);
             })
+        register({
+            variables: {
+                user: {
+                    _id: user_id,
+                    is_seller: true,
+                },
+                profile: {
+                    phone: phone,
+                    text: text,
+                }
+            }
+        });
     }
 
     const onChnageProfileImage = (e) => {
@@ -279,16 +279,17 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
         if (data) {
             if (data.expertRegister) {
                 alert('등록 완료!');
-                localStorage.setItem('is_seller',true);
+                localStorage.setItem('is_seller', true);
+                window.location.reload();
                 onClose();
             } else {
                 alert('등록 실패! 다시 시도해 주세요.')
             }
         }
-        if(error){
-            console.log('graphql에러!',error);
+        if (error) {
+            console.log('graphql에러!', error);
         }
-    }, [data,error,onClose])
+    }, [data, error, onClose])
 
     useEffect(() => {
         if (phoneInput.phone1 || phoneInput.phone2 || phoneInput.phone3) {
@@ -424,7 +425,7 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
                                                         완료
                                                 </Button>
                                                     :
-                                                <Button
+                                                    <Button
                                                         variant="contained"
                                                         color="primary"
                                                         onClick={handleNext}
