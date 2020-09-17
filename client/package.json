@@ -21,7 +21,7 @@
   },
   "scripts": {
     "client": "react-scripts start",
-    "server": "cd ../server && node src",
+    "server": "cd ../server && nodemon src",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "build": "react-scripts build && rm -r ../server/build && cp -r ./build ../server/build",
     "docker" : "cd ../server && docker build -t paerck25/react-graphql-auction ."

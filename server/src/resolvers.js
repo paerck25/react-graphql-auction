@@ -37,18 +37,21 @@ const resolvers = {
 
         getAllRequests: (root, args) => {
             if (args.category === '모든 요청') {
-                const requests = Request.find({state:'요청 진행중'}).populate('author', '_id name').sort({ requestedAt: -1 }).skip(6 * (args.page - 1)).limit(6)
+                const requests = Request.find({ state: '요청 진행중', deadLine: { $gt: new Date().getTime() } })
+                    .populate('author', '_id name')
+                    .sort({ requestedAt: -1 })
+                    .skip(6 * (args.page - 1))
+                    .limit(6)
                     .then(res => {
-                        const removeList = res.filter((obj) => {
-                            return new Date(obj.deadLine).getTime() > new Date().getTime();
-                        })
-                        return removeList
+                        console.log(res);
+                        return res
                     })
                     .catch(err => {
                         console.log(err);
                     })
-                const count = Request.countDocuments({state:'요청 진행중'})
+                const count = Request.countDocuments({ state: '요청 진행중', deadLine: { $gt: new Date().getTime() } })
                     .then(res => {
+                        console.log(res);
                         if (res % 6 === 0) {
                             return res / 6;
                         }
@@ -59,22 +62,25 @@ const resolvers = {
                     })
                 return { requests, count };
             } else {
-                const requests = Request.find({ category: args.category,state:'요청 진행중' }).populate('author', '_id name').sort({ requestedAt: -1 }).skip(6 * (args.page - 1)).limit(6)
+                const requests = Request.find({ category: args.category, state: '요청 진행중', deadLine: { $gt: new Date().getTime() } })
+                    .populate('author', '_id name')
+                    .sort({ requestedAt: -1 })
+                    .skip(6 * (args.page - 1))
+                    .limit(6)
                     .then(res => {
-                        const removeList = res.filter((obj) => {
-                            return new Date(obj.deadLine).getTime() > new Date().getTime();
-                        })
-                        return removeList
+                        console.log(res);
+                        return res;
                     })
                     .catch(err => {
                         console.log(err);
                     })
-                const count = Request.countDocuments({ category: args.category,state:'요청 진행중' })
+                const count = Request.countDocuments({ category: args.category, state: '요청 진행중', deadLine: { $gt: new Date().getTime() } })
                     .then(res => {
+                        console.log(res);
                         if (res % 6 === 0) {
                             return res / 6;
                         }
-                        return  Math.ceil(res / 6);
+                        return Math.ceil(res / 6);
                     })
                     .catch(err => {
                         console.log(err);

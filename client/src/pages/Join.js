@@ -79,7 +79,7 @@ const JoinForm = ({ handleLogin }) => {
   const {name,email,pwd} = userInfo;
 
   const checkName = () => {
-    const reg = /^[가-힣]{2,4}$/.test(name);
+    const reg = /^[가-힣]{2,}$/.test(name);
     if(reg){
       setNameChecked(true);
     } else {
@@ -148,7 +148,7 @@ const JoinForm = ({ handleLogin }) => {
               onChange={onChangeInfo}
               onBlur={checkName}
             />
-            {!nameChecked && <small className={classes.smallText}>2~4 글자인 한글로 작성해 주세요.</small>}
+            {!nameChecked && <small className={classes.smallText}>2글자 이상의 한글로 작성해 주세요.</small>}
           </Grid>
           <Grid item xs={12}>
             <TextField
