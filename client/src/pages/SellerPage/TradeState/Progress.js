@@ -1,4 +1,4 @@
-import React, { useEffect ,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { Button, Container, Grid, Typography, Avatar, List, ListItem, ListItemText } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
@@ -60,10 +60,21 @@ const Progress = ({ data }) => {
 
     useEffect(() => {
         if (cancel) {
-            alert(cancel.tradeCancel);
-            history.replace('/seller/mypage');
+            if (cancel.tradeCancel) {
+                alert('취소되었습니다.');
+                history.replace('/seller/mypage');
+            } else {
+                alert('error : 취소 실패')
+            }
         }
     }, [cancel, history])
+
+    const onClickCancel = () => {
+        const AreYouSure = window.confirm('취소하시겠습니까?');
+        if (AreYouSure) {
+            tradeCancel();
+        }
+    }
 
 
 
@@ -89,7 +100,7 @@ const Progress = ({ data }) => {
                     <Button onClick={handleChatOpen} style={{ width: '100%' }} variant="outlined">
                         1:1 채팅
                     </Button>
-                    <Button onClick={tradeCancel} style={{ width: '100%' }} variant="outlined">
+                    <Button onClick={onClickCancel} style={{ width: '100%' }} variant="outlined">
                         거래 취소
                     </Button>
                 </Grid>

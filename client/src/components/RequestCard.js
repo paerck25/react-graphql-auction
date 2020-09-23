@@ -27,7 +27,7 @@ const RequestCard = ({ obj,onClickChecked }) => {
         <Card onClick={onClickChecked} className={classes.rootStyle} elevation={3}>
             {obj.author.name !== null
                 &&
-                <CardHeader style={{ textAlign: 'center' }} title={`${obj.author.name}님의 요청서`} subheader={obj.requestedAt} />
+                <CardHeader style={{ textAlign: 'center' }} title={`${obj.author.name}님의 요청서`} subheader={new Date(obj.requestedAt).toISOString().slice(0, 10)} />
             }
             <Divider/>
             <CardContent>

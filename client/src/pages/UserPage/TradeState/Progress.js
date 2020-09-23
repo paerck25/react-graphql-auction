@@ -52,14 +52,36 @@ const Progress = ({ data, requestData }) => {
 
     useEffect(() => {
         if (complete) {
-            alert(complete.tradeComplete);
-            history.replace('/user/mypage');
+            if (cancel.tradeComplete) {
+                alert('완료되었습니다.');
+                history.replace('/user/mypage');
+            } else {
+                alert('error : 완료 실패')
+            }
         }
         if (cancel) {
-            alert(cancel.tradeCancel);
-            history.replace('/user/mypage');
+            if (cancel.tradeCancel) {
+                alert('취소되었습니다.');
+                history.replace('/user/mypage');
+            } else {
+                alert('error : 취소 실패')
+            }
         }
     }, [complete, cancel, history])
+
+    const onClickComplete = () => {
+        const AreYouSure = window.confirm('거래가 완료되었습니까?');
+            if (AreYouSure) {
+                tradeComplete();
+            }
+    }
+
+    const onClickCancel = () => {
+        const AreYouSure = window.confirm('취소하시겠습니까?');
+            if (AreYouSure) {
+                tradeCancel();
+            }
+    }
 
 
 
@@ -99,15 +121,15 @@ const Progress = ({ data, requestData }) => {
                         </ListItem>
                     </List>
                     <UserCommuButton avatarSrc={data.author.profile.profileImage} request_id={requestData._id} seller_id={data.author._id} phone={data.author.profile.phone} />
-                    <Button onClick={tradeComplete} style={{ width: '100%' }} variant="outlined">
+                    <Button onClick={onClickComplete} style={{ width: '100%' }} variant="outlined">
                         거래 완료
                     </Button>
-                    <Button onClick={tradeCancel} style={{ width: '100%' }} variant="outlined">
+                    <Button onClick={onClickCancel} style={{ width: '100%' }} variant="outlined">
                         거래 취소
                     </Button>
                 </Grid>
             </Grid>
-            <Notice/>
+            <Notice />
         </Container>
     )
 }

@@ -50,10 +50,21 @@ const ReceiveList = ({ requestData, bidData, onClickChoice, }) => {
 
     useEffect(() => {
         if (cancel) {
-            alert(cancel.tradeCancel);
-            history.replace('/user/mypage');
+            if (cancel.tradeCancel) {
+                alert('취소되었습니다.');
+                history.replace('/user/mypage');
+            } else {
+                alert('error : 취소 실패')
+            }
         }
     }, [cancel,history])
+
+    const onClickCancel = () => {
+        const AreYouSure = window.confirm('취소하시겠습니까?');
+            if (AreYouSure) {
+                tradeCancel();
+            }
+    }
 
     return (
         <Container className={classes.root}>
@@ -61,7 +72,7 @@ const ReceiveList = ({ requestData, bidData, onClickChoice, }) => {
                 <Grid item xs={12} sm={6}>
                     <RequestCard obj={requestData} />
                     <Typography variant="h6" className={classes.counterStyle}><Counter data={requestData} /></Typography>
-                    <Button onClick={tradeCancel} className={classes.buttonStyle} variant="outlined">
+                    <Button onClick={onClickCancel} className={classes.buttonStyle} variant="outlined">
                         거래 취소
                     </Button>
                 </Grid>

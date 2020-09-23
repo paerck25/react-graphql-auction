@@ -16,7 +16,7 @@ const BidHistory = ({ data }) => {
                     {obj.request.category}
                 </TableCell>
                 <TableCell align="center">{obj.request.author.name}</TableCell>
-                <TableCell align="center">{obj.request.requestedAt}</TableCell>
+                <TableCell align="center">{new Date(obj.request.requestedAt).toISOString().slice(0, 10)}</TableCell>
                 <TableCell align="center">{obj.state}</TableCell>
             </TableRow>
         )

@@ -24,7 +24,8 @@
     "server": "cd ../server && nodemon src",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "build": "react-scripts build && rm -r ../server/build && cp -r ./build ../server/build",
-    "docker" : "cd ../server && docker build -t paerck25/react-graphql-auction ."
+    "docker" : "cd ../server && docker build -t paerck25/react-graphql-auction .",
+    "docker:push" : "docker push paerck25/react-graphql-auction:latest"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -36,7 +36,7 @@ const ChoesnList = ({ data, handleChatOpen }) => {
             <Grid key={obj.request._id} style={{ margin: 'auto' }} item xs={12} sm={6} md={4}>
                 <Collapse in={checked.includes(obj.request._id)} collapsedHeight={88}>
                     <Card elevation={3}>
-                        <CardHeader onClick={() => { onClickChecked(obj.request._id) }} action={checked.includes(obj.request._id) ? <ExpandLessIcon /> : <ExpandMoreIcon />} style={{ textAlign: 'center', paddingBottom: 0, cursor: 'pointer' }} title={`${obj.request.author.name}님의 요청서`} subheader={obj.request.requestedAt} />
+                        <CardHeader onClick={() => { onClickChecked(obj.request._id) }} action={checked.includes(obj.request._id) ? <ExpandLessIcon /> : <ExpandMoreIcon />} style={{ textAlign: 'center', paddingBottom: 0, cursor: 'pointer' }} title={`${obj.request.author.name}님의 요청서`} subheader={new Date(obj.request.requestedAt).toISOString().slice(0, 10)} />
                         <CardContent>
                             <Typography align="center" variant="body1" paragraph>
                                 {obj.state === '거래 진행중'

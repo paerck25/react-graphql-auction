@@ -3,7 +3,7 @@ type Query {
     getAllUsers: [User]
     getUser(email: String!) : User
     getMyProfile(user: ID) : Profile
-    getAllRequests(category:String,page:Int,tags:[String]): AllRequest
+    getAllRequests(category:String,page:Int,tags:[String],sort:Sort): AllRequest
     getMyRequests(author: ID!) : [Request]
     getMyBids(author: ID!) : [Bid]
     getBidsInRequest(request: ID) : [Bid]
@@ -23,6 +23,11 @@ type Mutation {
     bidCancel(request: ID, author:ID):Boolean
     requestTimeOver(request:ID):Boolean
     expertRegister(user:UserInput,profile:ProfileInput) : Boolean
+}
+
+input Sort {
+    deadLine : Int
+    requestedAt : Int
 }
 
 type Subscription {

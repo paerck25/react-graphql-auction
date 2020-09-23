@@ -4,10 +4,17 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { Container, Toolbar } from '@material-ui/core';
+import mainLogo from '../img/SelectPert.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: '10px',
+    },
+    flex : {
+        display : 'flex',
+        alignItems : 'center',
+        justifyContent : 'space-between',
+        padding : '10px 0'
     },
     title: {
         flexGrow: 1,
@@ -83,14 +90,12 @@ function Navigation() {
     return (
         <div style={{ backgroundColor: '#f9f9f9' }}>
             <Container className={classes.root}>
-                <Toolbar>
-                    <Typography className={classes.title}>
-                        SELECPERT
-                    </Typography>
+                <div className={classes.flex}>
+                    <img src={mainLogo} alt="mainLogo" width="150px" height="30px" />
                     <div className={classes.navStyle}>
                         {loginMenu()}
                     </div>
-                </Toolbar>
+                </div>
             </Container>
         </div>
     )

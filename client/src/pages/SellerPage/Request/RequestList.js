@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Request from './Request';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -7,20 +7,13 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { GET_ALL_REQUESTS } from '../../../lib/queries';
 import { useQuery } from '@apollo/client';
 import SortButton from './SortButton';
-import { Typography, Chip } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 
 const useStyles = makeStyles((theme) => ({
-    cardGrid: {
-        paddingBottom: theme.spacing(4),
-        margin: 'auto',
-    },
     loadingStyle: {
         display: 'block',
         margin: '10% auto',
-    },
-    tagStyle: {
-        marginRight: '4px',
     },
     pagination: {
         marginTop: '30px',
@@ -29,20 +22,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const RequestList = ({ category, page, setPage }) => {
+const RequestList = ({ category, page, setPage, sort,tags,setTags }) => {
     const classes = useStyles();
 
     const handleChangePage = (event, value) => {
         setPage(value);
     };
 
-    const [tags, setTags] = useState([]);
 
     const { loading, data, error } = useQuery(GET_ALL_REQUESTS, {
         variables: {
-            category: category,
-            page: page,
-            tags: tags,
+            category,
+            page,
+            tags,
+            sort,
         },
         fetchPolicy: 'cache-and-network',
     });
@@ -50,17 +43,6 @@ const RequestList = ({ category, page, setPage }) => {
     useEffect(() => {
         setTags([]);
     }, [category])
-
-    const tagSort = tags.map((obj, index) => {
-        return <Chip className={classes.tagStyle} key={index} label={obj} variant="default" size="small" onDelete={() => { onClickRemove(index) }} />
-    })
-
-    const onClickRemove = (index) => {
-        const list = tags.filter((obj, x) => {
-            return x !== index;
-        })
-        setTags(list)
-    }
 
 
     if (loading) {
@@ -93,12 +75,7 @@ const RequestList = ({ category, page, setPage }) => {
 
 
     return (
-        <Container className={classes.cardGrid} maxWidth="md">
-            <Typography variant="h5" style={{ display: 'inline-block', margin: '0px' }} gutterBottom>{category}</Typography>
-            <br />
-            <br />
-            {tagSort}
-            <SortButton category={category} />
+        <>
             {data.getAllRequests.count !== 0
                 ?
                 <>
@@ -110,7 +87,7 @@ const RequestList = ({ category, page, setPage }) => {
                 :
                 <Typography variant="h5" style={{ marginTop: '40px' }}>진행중인 요청이 없습니다.</Typography>
             }
-        </Container>
+        </>
     )
 
 

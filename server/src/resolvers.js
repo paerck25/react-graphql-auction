@@ -36,22 +36,28 @@ const resolvers = {
         },
 
         getAllRequests: (root, args) => {
-            
+
+            console.log("---------------------------------");
+            console.log(args);
+            console.log("---------------------------------");
+
             const queries = {
                 state: '요청 진행중',
                 deadLine: { $gt: new Date().getTime() },
                 ...args,
-                tags : { $in : args.tags }
+                tags : { $in : args.tags },
             }
 
             if(queries.category === '모든 요청'){
                 delete queries.page;
+                delete queries.sort;
                 delete queries.category;
                 if(args.tags.length === 0){
                     delete queries.tags;
                 }
             } else {
                 delete queries.page;
+                delete queries.sort;
                 if(args.tags.length === 0){
                     delete queries.tags;
                 }
@@ -61,11 +67,10 @@ const resolvers = {
                 ...queries
             })
                 .populate('author', '_id name')
-                .sort({ requestedAt: -1 })
+                .sort(args.sort)
                 .skip(6 * (args.page - 1))
                 .limit(6)
                 .then(res => {
-                    console.log(res);
                     return res
                 })
                 .catch(err => {
@@ -86,77 +91,6 @@ const resolvers = {
             return { requests, count };
 
         },
-
-        // getAllRequests: (root, args) => {
-        //     console.log("----------------------------------");
-        //     console.log(args);
-        //     console.log("----------------------------------");
-        //     if (args.category === '모든 요청') {
-        //         const requests = Request.find({
-        //             state: '요청 진행중',
-        //             deadLine: { $gt: new Date().getTime() },
-        //             tags: { $in: args.tags }
-        //         })
-        //             .populate('author', '_id name')
-        //             .sort({ requestedAt: -1 })
-        //             .skip(6 * (args.page - 1))
-        //             .limit(6)
-        //             .then(res => {
-        //                 console.log(res);
-        //                 return res
-        //             })
-        //             .catch(err => {
-        //                 console.log(err);
-        //             })
-        //         const count = Request.countDocuments({
-        //             state: '요청 진행중',
-        //             deadLine: { $gt: new Date().getTime() }
-        //         })
-        //             .then(res => {
-        //                 if (res % 6 === 0) {
-        //                     return res / 6;
-        //                 }
-        //                 return Math.ceil(res / 6);
-        //             })
-        //             .catch(err => {
-        //                 console.log(err);
-        //             })
-        //         return { requests, count };
-        //     } else {
-        //         const requests = Request.find({
-        //             category: args.category,
-        //             state: '요청 진행중',
-        //             deadLine: { $gt: new Date().getTime() },
-        //             tags: { $in: args.tags }
-        //         })
-        //             .populate('author', '_id name')
-        //             .sort({ requestedAt: -1 })
-        //             .skip(6 * (args.page - 1))
-        //             .limit(6)
-        //             .then(res => {
-        //                 console.log(res);
-        //                 return res;
-        //             })
-        //             .catch(err => {
-        //                 console.log(err);
-        //             })
-        //         const count = Request.countDocuments({
-        //             category: args.category,
-        //             state: '요청 진행중',
-        //             deadLine: { $gt: new Date().getTime() }
-        //         })
-        //             .then(res => {
-        //                 if (res % 6 === 0) {
-        //                     return res / 6;
-        //                 }
-        //                 return Math.ceil(res / 6);
-        //             })
-        //             .catch(err => {
-        //                 console.log(err);
-        //             })
-        //         return { requests, count };
-        //     }
-        // },
 
         getMyRequests: (root, args) => {
             if (ObjectId(args.author)) {
@@ -291,7 +225,7 @@ const resolvers = {
         sendRequest: (root, args) => {
             const req = {
                 ...args.input,
-                requestedAt: new Date().toISOString().slice(0, 10),
+                requestedAt: new Date(),
                 state: '요청 진행중',
             }
             const result = Request.create(req)

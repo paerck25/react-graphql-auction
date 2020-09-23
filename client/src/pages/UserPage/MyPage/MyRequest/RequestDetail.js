@@ -64,8 +64,9 @@ const RequestDetail = (props) => {
 
     useEffect(() => {
         if (data2) {
-            alert(data2.choiceOneBid);
-            history.replace('/user/mypage');
+            if(data2.choiceOneBid){
+                history.replace('/user/mypage');
+            }
         }
     }, [data2,history])
 
@@ -81,12 +82,15 @@ const RequestDetail = (props) => {
 
 
     const onClickChoice = (bid_id) => {
-        choiceOneBid({
-            variables: { 
-                bid: bid_id,
-                request: requestData._id,
-            }
-        })
+        const AreYouSure = window.confirm('본 판매자를 선택하시겠습니까?');
+        if (AreYouSure) {
+            choiceOneBid({
+                variables: { 
+                    bid: bid_id,
+                    request: requestData._id,
+                }
+            })
+        }
     }
 
 
