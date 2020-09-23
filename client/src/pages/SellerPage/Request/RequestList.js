@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Request from './Request';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
     tagStyle: {
         marginRight: '4px',
     },
-    pagination:{
-        marginTop : '30px',
+    pagination: {
+        marginTop: '30px',
     }
 
 }));
@@ -34,17 +34,22 @@ const RequestList = ({ category, page, setPage }) => {
 
     const handleChangePage = (event, value) => {
         setPage(value);
-      };
+    };
+
+    const [tags, setTags] = useState([]);
 
     const { loading, data, error } = useQuery(GET_ALL_REQUESTS, {
         variables: {
             category: category,
             page: page,
+            tags: tags,
         },
         fetchPolicy: 'cache-and-network',
     });
 
-    const [tags, setTags] = useState([]);
+    useEffect(() => {
+        setTags([]);
+    }, [category])
 
     const tagSort = tags.map((obj, index) => {
         return <Chip className={classes.tagStyle} key={index} label={obj} variant="default" size="small" onDelete={() => { onClickRemove(index) }} />
@@ -91,18 +96,19 @@ const RequestList = ({ category, page, setPage }) => {
         <Container className={classes.cardGrid} maxWidth="md">
             <Typography variant="h5" style={{ display: 'inline-block', margin: '0px' }} gutterBottom>{category}</Typography>
             <br />
+            <br />
             {tagSort}
             <SortButton category={category} />
             {data.getAllRequests.count !== 0
-            ?
-            <>
-            <Grid container spacing={3}>
-                {requestList}
-            </Grid>
-            <Pagination className={classes.pagination} count={data.getAllRequests.count} page={page} onChange={handleChangePage} defaultPage={1} />
-            </>
-            :
-            <Typography variant="h5" style={{marginTop:'40px'}}>진행중인 요청이 없습니다.</Typography>
+                ?
+                <>
+                    <Grid container spacing={3}>
+                        {requestList}
+                    </Grid>
+                    <Pagination className={classes.pagination} count={data.getAllRequests.count} page={page} onChange={handleChangePage} defaultPage={1} />
+                </>
+                :
+                <Typography variant="h5" style={{ marginTop: '40px' }}>진행중인 요청이 없습니다.</Typography>
             }
         </Container>
     )

@@ -25,11 +25,13 @@ const useStyles = makeStyles((theme) => ({
         height: '100px',
     },
     icon: {
-        display: 'block',
         fontSize: 50,
-        marginTop: '50px',
-        margin: 'auto',
         color: "#4caf50",
+    },
+    completeText: {
+        display : 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 }));
 
@@ -43,12 +45,9 @@ const Complete = ({ data, requestData }) => {
                     <RequestCard obj={requestData} />
                 </Grid>
                 <Grid item xs={12} md={6}>
-                    <CheckCircleIcon className={classes.icon} />
-                    <br />
-                    <Typography align="center" variant="h4" paragraph>
-                        거래 완료!
+                    <Typography className={classes.completeText} variant="h4" paragraph>
+                        <CheckCircleIcon className={classes.icon} />거래 완료!
                     </Typography>
-                    <br />
                     <Typography variant="h5" paragraph>
                         전문가
                     </Typography>

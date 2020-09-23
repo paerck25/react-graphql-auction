@@ -35,7 +35,7 @@ export default function Footer() {
   return (
     <footer className={classes.footer}>
       <Typography variant="h5" align="center">
-        HELL
+      SELECPERT
       </Typography>
       <br/>
       <Copyright />

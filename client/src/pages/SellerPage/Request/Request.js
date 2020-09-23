@@ -62,8 +62,14 @@ function Request({ data, checked, tags, setTags }) {
 
     const classes = useStyles();
 
+    const addTagList = (obj) => {
+        if(tags.includes(obj)) return;
+        setTags([...tags, obj])
+
+    }
+
     const showTagList = data.tags.map((obj, index) => {
-        return <small onClick={() => { setTags([...tags, obj]) }} className={classes.tagStyle} key={index}>{obj}</small>
+        return <small onClick={() => { addTagList(obj) }} className={classes.tagStyle} key={index}>{obj}</small>
     })
 
     return (

@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector, useDispatch } from 'react-redux';
-import {  Container, Toolbar } from '@material-ui/core';
+import { Container, Toolbar } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,20 +14,20 @@ const useStyles = makeStyles((theme) => ({
         display: 'inline-block',
         fontSize: '30px',
         paddingLeft: '10px',
-        color : 'rgb(104,104,106)',
+        color: 'rgb(104,104,106)',
     },
     navStyle: {
-        paddingTop : '5px',
+        paddingTop: '5px',
         display: 'inline-block',
         float: 'right',
     },
     menuStyle: {
         textDecoration: 'none',
-        color : 'rgb(104,104,106)',
-        padding : '10px',
-        transition : 'all 0.1s',
-        '&:hover':{
-            backgroundColor : '#F2F3F4',
+        color: 'rgb(104,104,106)',
+        padding: '10px',
+        transition: 'all 0.1s',
+        '&:hover': {
+            backgroundColor: '#F2F3F4',
         }
     },
 }));
@@ -67,7 +67,7 @@ function Navigation() {
                         <Link className={classes.menuStyle} to='/user/enroll'>ENROLL</Link>
                         <Link className={classes.menuStyle} to='/user/mypage'>MYPAGE</Link>
                         <Link className={classes.menuStyle} to='#' onClick={logout}>LOGOUT</Link>
-                    </Typography> 
+                    </Typography>
                 )
             }
         } else {
@@ -85,7 +85,7 @@ function Navigation() {
             <Container className={classes.root}>
                 <Toolbar>
                     <Typography className={classes.title}>
-                        HELL
+                        SELECPERT
                     </Typography>
                     <div className={classes.navStyle}>
                         {loginMenu()}

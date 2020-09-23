@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-    return ['휴대전화 인증', '프로필 사진 등록', '프로젝트 사진 등록', '소개 및 설명'];
+    return ['휴대전화 등록', '프로필 사진 등록', '프로젝트 사진 등록', '소개 및 설명'];
 }
 
 
@@ -444,7 +444,6 @@ const ExpertRegister = ({ onClose, open, user_id }) => {
                     </DialogContent>
                     {activeStep === steps.length && (
                         <Paper square elevation={0} className={classes.resetContainer}>
-                            <Typography>이러쿵 저러쿵</Typography>
                             <Button variant="outlined" onClick={handleReset} className={classes.button}>
                                 처음으로
                             </Button>

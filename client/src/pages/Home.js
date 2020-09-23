@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
     heroButtons: {
         marginTop: theme.spacing(4),
-      },    
+    },
     navBar: {
         display: 'flex',
         alignItems: 'center',
@@ -84,16 +84,16 @@ const Home = () => {
             <Container>
                 <div className={classes.navBar}>
                     <Typography className={classes.title} onClick={handleHome} component={Button} variant="h4">
-                        HELL
+                        SELECPERT
                     </Typography>
                 </div>
             </Container>
             <Container className={classes.heroContent} maxWidth="sm">
                 <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                    HELL
+                    SELECPERT
                 </Typography>
                 <Typography variant="h5" align="center" color="textSecondary" paragraph>
-                    웹사이트, 간단한 등록으로 전문가를 찾아보세요.<br/>
+                    웹사이트, 간단한 등록으로 전문가를 찾아보세요.<br />
                     고객과 it 전문가를 연결해주는 중개 플랫폼
                 </Typography>
                 <div className={classes.heroButtons}>

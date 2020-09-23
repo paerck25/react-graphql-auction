@@ -6,7 +6,7 @@ const SortButton = () => {
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const [sortValue,setSortValue] = useState('정렬기준');
+    const [sortValue,setSortValue] = useState('');
 
     const open = Boolean(anchorEl);
 
@@ -26,7 +26,7 @@ const SortButton = () => {
     return (
         <>
         <Button style={{ float: 'right' }} onClick={handleClick}>
-            {sortValue}<ArrowDropDownIcon />
+        {sortValue ? sortValue : '정렬 기준'}<ArrowDropDownIcon />
         </Button>
         <Popover
             open={open}

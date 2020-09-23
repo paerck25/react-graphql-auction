@@ -23,8 +23,8 @@ query GetOneUser($email:String!) {
 `
 
 export const GET_ALL_REQUESTS = gql`
-query GetAllRequests($category:String,$page:Int){
-  getAllRequests(category:$category,page:$page){
+query GetAllRequests($category:String,$page:Int,$tags:[String]){
+  getAllRequests(category:$category,page:$page,tags:$tags){
     requests{
       _id
       author {
