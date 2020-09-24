@@ -41,7 +41,11 @@ const useStyles = makeStyles((theme) => ({
     },
     buttonStyle: {
         width: '100%'
-    }
+    },
+    review : {
+        display: 'flex',
+        alignItems: 'center',
+    },
 }));
 
 const Profile = ({ profile, onClose, open, user_id }) => {
@@ -75,8 +79,10 @@ const Profile = ({ profile, onClose, open, user_id }) => {
                     </Avatar>
                 </ListItemAvatar>
                 <ListItemText>
-                    {obj.name}님의 평가
-                    <Rating name="half-rating-read" value={obj.rating} precision={0.5} readOnly /><br />
+                    <div className={classes.review} >
+                        {obj.name}님 &nbsp;
+                        <Rating name="half-rating-read" value={obj.rating} precision={0.5} readOnly /><br />
+                    </div>
                     {obj.text}
                 </ListItemText>
             </ListItem>
@@ -139,18 +145,19 @@ const Profile = ({ profile, onClose, open, user_id }) => {
                     />
                 }
                 <br /><br />
-                <Typography variant="h6" color="textPrimary" gutterBottom style={{ display: 'inline-block' }}>이용자 리뷰</Typography>
-                {reviewList.length !== 0
-                    ?
-                    <>
-                        <Rating name="half-rating-read" value={1} precision={0.5} readOnly />
-                        <List>
-                            {reviewList}
-                        </List>
-                    </>
-                    :
-                    <Typography variant="h6" color="textPrimary" gutterBottom style={{ textAlign: 'center' }}>등록된 리뷰가 없습니다.</Typography>
-                }
+                    <Typography variant="h6" color="textPrimary" gutterBottom>
+                        이용후기 {profile.avgRating && `- ${profile.avgRating}/ 5.0`}
+                    </Typography>
+                    {reviewList.length !== 0
+                        ?
+                        <>
+                            <List>
+                                {reviewList}
+                            </List>
+                        </>
+                        :
+                        <Typography variant="h6" color="textPrimary" gutterBottom style={{ textAlign: 'center' }}>등록된 리뷰가 없습니다.</Typography>
+                    }
                 <ProfileCarousel open={imageOpen} setOpen={setImageOpen} src={image} />
                 <ProfileEdit profile={profile} onClose={onEditClose} open={editOpen} user_id={user_id} profileClose={handleClose} />
             </DialogContent>

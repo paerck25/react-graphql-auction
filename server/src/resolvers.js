@@ -22,43 +22,47 @@ const resolvers = {
         },
 
         getMyProfile: (root, args) => {
-            console.log('getProfile');
             if (ObjectId(args.user)) {
-                const result = Profile.findOne({ user: args.user }).populate('user', 'name email')
+                const result = Profile.findOne({ user: args.user }).populate('user', 'name')
                     .then(profile => {
+                        if(profile.reviews.length === 0) return profile;
+                        let sumRating = 0;
+                        profile.reviews.map((review)=>{
+                            sumRating += review.rating;
+                        })
+                        const avgRating = (sumRating / profile.reviews.length).toFixed(1);
+                        profile.avgRating = avgRating;
+                        console.log(profile);
                         return profile
                     })
                     .catch(err => {
                         console.log(err);
                     })
+
                 return result;
             }
         },
 
         getAllRequests: (root, args) => {
 
-            console.log("---------------------------------");
-            console.log(args);
-            console.log("---------------------------------");
-
             const queries = {
                 state: '요청 진행중',
                 deadLine: { $gt: new Date().getTime() },
                 ...args,
-                tags : { $in : args.tags },
+                tags: { $in: args.tags },
             }
 
-            if(queries.category === '모든 요청'){
+            if (queries.category === '모든 요청') {
                 delete queries.page;
                 delete queries.sort;
                 delete queries.category;
-                if(args.tags.length === 0){
+                if (args.tags.length === 0) {
                     delete queries.tags;
                 }
             } else {
                 delete queries.page;
                 delete queries.sort;
-                if(args.tags.length === 0){
+                if (args.tags.length === 0) {
                     delete queries.tags;
                 }
             }
@@ -123,14 +127,29 @@ const resolvers = {
         },
 
         getBidsInRequest: (root, args) => {
-            if (ObjectId(args.request)) {
-                const result = Bid.find({ request: args.request }).populate({
-                    path: 'author',
-                    select: '_id name profile',
-                    populate: { path: 'profile', select: 'phone profileImage' }
-                });
-                return result;
-            }
+            const result = Bid.find({ request: args.request }).populate({
+                path: 'author',
+                select: '_id name profile',
+                populate: { path: 'profile', select: 'phone profileImage reviews' }
+            })
+                .then(res => {
+                    console.log("=========",res,"=========");
+                    const rst = res.map((obj)=>{
+                        let sumRating = 0;
+                        obj.author.profile.reviews.map((review)=>{
+                            sumRating += review.rating;
+                        })
+                        const avgRating = (sumRating / obj.author.profile.reviews.length).toFixed(1);
+                        obj.author.profile.avgRating = avgRating;
+                        return obj;
+                    })
+                    console.log("=========",rst,"=========");
+                    return rst;
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+            return result;
         },
 
         getMyRoom: (root, args) => {
@@ -453,6 +472,25 @@ const resolvers = {
                 })
 
             return (result && result2);
+        },
+        postReview: (root, args) => {
+
+            const review = {
+                ...args.input
+            }
+            delete review.seller;
+
+            const result = Profile.updateOne({ user: args.input.seller }, { $push: { reviews: review } })
+                .then(() => {
+                    console.log('review Register!');
+                    return true;
+                })
+                .catch((err) => {
+                    console.log(err);
+                    return false;
+                })
+
+            return result;
         }
     },
 

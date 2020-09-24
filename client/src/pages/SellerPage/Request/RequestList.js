@@ -85,7 +85,7 @@ const RequestList = ({ category, page, setPage, sort,tags,setTags }) => {
                     <Pagination className={classes.pagination} count={data.getAllRequests.count} page={page} onChange={handleChangePage} defaultPage={1} />
                 </>
                 :
-                <Typography variant="h5" style={{ marginTop: '40px' }}>진행중인 요청이 없습니다.</Typography>
+                <Typography variant="h5">진행중인 요청이 없습니다.</Typography>
             }
         </>
     )

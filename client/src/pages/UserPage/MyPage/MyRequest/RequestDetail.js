@@ -105,7 +105,7 @@ const RequestDetail = (props) => {
             const data2 = data.getBidsInRequest.filter((obj) => {
                 return obj.state === '거래 완료';
             })[0]
-            return <Complete data={data2} requestData={requestData}/>
+            return <Complete seller_id={data2.author._id} requestData={requestData}/>
 
         case '취소된 거래':
             return <Canceled requestData={requestData}/>

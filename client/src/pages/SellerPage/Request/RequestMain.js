@@ -21,7 +21,7 @@ const useStyle = makeStyles((theme) => ({
         display : 'flex',
         alignItems : 'center',
         justifyContent : 'space-between',
-        margin : '20px 0'
+        marginBottom : '10px'
     }
 }))
 
@@ -50,7 +50,7 @@ function RequestMain() {
     return (
         <Container className={classes.heroContent}>
             <Grid container spacing={3}>
-                <Grid item xs={12} sm={3}>
+                <Grid item xs={12} sm={2}>
                     <CategoryMenu setCategory={setCategory} setPage={setPage} />
                 </Grid>
                 <Grid item xs={12} sm={9}>

@@ -23,6 +23,7 @@ type Mutation {
     bidCancel(request: ID, author:ID):Boolean
     requestTimeOver(request:ID):Boolean
     expertRegister(user:UserInput,profile:ProfileInput) : Boolean
+    postReview(input : ReviewInput) : Boolean
 }
 
 input Sort {
@@ -67,6 +68,7 @@ type Profile {
     exampleImages: [String]
     text: String
     reviews: [Review]
+    avgRating: Float
 }
 
 input ProfileInput {
@@ -85,6 +87,9 @@ type Review {
 }
 
 input ReviewInput {
+    seller : ID
+    request_id : ID
+    category: String
     name: String
     text: String
     rating: Float

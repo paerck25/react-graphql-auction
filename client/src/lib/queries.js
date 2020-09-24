@@ -95,6 +95,7 @@ query GetBidsInRequest($request:ID){
       profile{
         phone
         profileImage
+        avgRating
       }
     }
     price
@@ -121,7 +122,6 @@ query GetMyProfile($user:ID){
   getMyProfile(user:$user){
     user{
       name
-      email
     }
     phone
     profileImage
@@ -132,6 +132,7 @@ query GetMyProfile($user:ID){
       text
       rating
     }
+    avgRating
   }
 }
 `
@@ -228,6 +229,12 @@ mutation EditMyProfile($input:ProfileInput){
 export const EXPERT_REGISTER = gql`
 mutation ExpertRegister($user:UserInput,$profile:ProfileInput){
   expertRegister(user:$user,profile:$profile)
+}
+`
+
+export const POST_REVIEW = gql`
+mutation PostReview($input:ReviewInput){
+  postReview(input:$input)
 }
 `
 

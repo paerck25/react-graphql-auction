@@ -52,7 +52,7 @@ const Progress = ({ data, requestData }) => {
 
     useEffect(() => {
         if (complete) {
-            if (cancel.tradeComplete) {
+            if (complete.tradeComplete) {
                 alert('완료되었습니다.');
                 history.replace('/user/mypage');
             } else {

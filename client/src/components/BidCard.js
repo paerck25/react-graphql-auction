@@ -80,7 +80,7 @@ const BidCard = ({ data, requestData, onClickChoice }) => {
                         <Typography component="legend" >
                             {data.author.name}
                         </Typography>
-                        <Rating name="half-rating-read" value={1} precision={0.5} readOnly />
+                        <Rating name="half-rating-read" value={data.author.profile.avgRating} precision={0.5} readOnly />
                         <br />
                         {data.price}원
                     </Grid>
